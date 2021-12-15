@@ -16,7 +16,7 @@ export class UserService {
     }
 
     public getUserById(userId: number): Observable<any>{
-        return this.http.get<any>(`${this.apiServerUrl}${userId}`);
+        return this.http.get<User>(`${this.apiServerUrl}${userId}`);
     }
     
     public updateUser(user: User): Observable<any>{        

@@ -14,7 +14,7 @@ export class ClassroomService {
     public getClassrooms(): Observable<any>{
         return this.http.get<any>(`${this.apiServerUrl}`);
     }
-
+    
     public getUserById(classroomId: number): Observable<any>{
         return this.http.get<any>(`${this.apiServerUrl}${classroomId}`);
     }
