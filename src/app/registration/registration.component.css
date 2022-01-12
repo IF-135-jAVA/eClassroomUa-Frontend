@@ -1,0 +1,60 @@
+@import 'http://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css';
+@import 'http://maxcdn.bootstrapcdn.com/font-awesome/4.3.0/css/font-awesome.min.css';
+
+body{margin-top:20px;}
+.avatar{
+  width:200px;
+  height:200px;
+}
+.confirmButton{
+  background: #38E186;
+  backdrop-filter: blur(15.5378px);
+  border-radius: 30px;
+}
+
+.body-class{
+  background-color: lightskyblue;
+}
+
+.toggle-btn:hover {
+  background-color: #4CAF50;
+  color: white;    
+}
+
+.background{
+  background-image: url("src/assets/images/background-image.jpg");
+}  
+
+.toggle-btn{
+  color:rgb(8, 8, 8);
+  background-color: white;
+  border: 2px solid #38E186;
+  margin-right: 10px;
+  margin-left: 15px;;
+  margin-top: 15px;
+  transition-duration: 0.4s;
+}
+
+.toggle-btn-1{
+  color:rgb(8, 8, 8);
+  background-color: rgb(90, 148, 235);
+  border: 2px solid #38E186;
+  color: #38E186;    
+  margin-right: 10px;
+  margin-left: 15px;
+  margin-top: 15px;
+  transition-duration: 0.4s;
+}
+
+.roleText{
+  color: black;
+  text-overflow: clip;
+  margin-right: 10px;
+  margin-left: 15px;;
+  margin-top: 15px;
+  transition-duration: 0.4s;
+}
+
+.login-text{
+  background-color: #75c0fd;
+}

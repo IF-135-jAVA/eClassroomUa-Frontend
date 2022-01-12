@@ -8,5 +8,5 @@ import { AuthService } from './service/auth.service';
   providers: [ AuthService ]
 })
 export class AppComponent {
-  title = 'BeLeRo.Ua';
+
 }

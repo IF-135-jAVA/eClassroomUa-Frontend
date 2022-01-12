@@ -3,13 +3,26 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { HttpClient } from '@angular/common/http';
 import { HttpClientModule } from '@angular/common/http';
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { ProfileComponent } from './profile/profile.component';
 import { HeaderComponent } from './components/header/header.component';
 import { ButtonComponent } from './components/button/button.component';
-import { UsersComponent } from './components/users/users.component';
+import { RegistrationComponent } from './registration/registration.component';
+import { LoginComponent } from './login/login.component';
+import { NavigationComponent } from './navigation/navigation.component';
+import { HomeComponent } from './home/home.component';
+import { FormsModule, ReactiveFormsModule } from "@angular/forms";
+import { LogoutComponent } from './logout/logout.component';
+import { ClassroomsComponent } from './classrooms/classrooms.component';
+import { WelcomeComponent } from './welcome/welcome.component';
+import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
+import { MatButtonToggleModule } from '@angular/material/button-toggle';
+import { MatCardModule } from '@angular/material/card';
+import { MatNativeDateModule } from '@angular/material/core';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
+import { MatTabsModule } from '@angular/material/tabs';
 
 @NgModule({
   declarations: [
@@ -18,12 +31,29 @@ import { UsersComponent } from './components/users/users.component';
     ProfileComponent,
     HeaderComponent,
     ButtonComponent,
-    UsersComponent
+    RegistrationComponent,
+    LoginComponent,
+    NavigationComponent,
+    HomeComponent,
+    LogoutComponent,
+    ClassroomsComponent,
+    WelcomeComponent,
+    ToggleButtonComponent,
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    FormsModule,
+    ReactiveFormsModule,
+    HttpClientModule,
+    MatButtonToggleModule,
+    MatNativeDateModule,
+    MatCardModule,
+    BrowserAnimationsModule,
+    NgbModule,
+    MatTabsModule
   ],
+  exports: [FormsModule, ReactiveFormsModule],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

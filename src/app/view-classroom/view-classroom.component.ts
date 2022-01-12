@@ -12,4 +12,8 @@ export class ViewClassroomComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  readLocalStorageValue(key: string) {
+    return localStorage.getItem(key);
+  }
+
 }

@@ -1,33 +1,81 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Classroom } from '../model/classroom';
+import { environment } from 'src/environments/environment';
+import { FormGroup, FormBuilder } from '@angular/forms';
 
 @Injectable({
     providedIn: 'root'
 })
 export class ClassroomService {
-    private apiServerUrl = 'localhost:8080/api/classroms/';
+    private apiServerUrl = environment.api + 'classrooms/';
 
-    constructor(private http: HttpClient){}
+    jwtString: string | undefined;
 
-    public getClassrooms(): Observable<any>{
-        return this.http.get<any>(`${this.apiServerUrl}`);
+    constructor(private http: HttpClient,
+        private formBuilder: FormBuilder)
+    {
+
+    }
+
+    public getClassroomsByTeacher(userId: number): Observable<Classroom[]>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        console.log(`${this.apiServerUrl}byTeacher/${userId}`);
+        return this.http.get<Classroom[]>(`${this.apiServerUrl}byTeacher/${userId}`, options);
+    }
+
+    public getClassroomsByStudent(userId: number): Observable<Classroom[]>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        console.log(`${this.apiServerUrl}byStudent/${userId}`);
+        return this.http.get<Classroom[]>(`${this.apiServerUrl}byStudent/${userId}`, options);
     }
     
-    public getUserById(classroomId: number): Observable<any>{
-        return this.http.get<any>(`${this.apiServerUrl}${classroomId}`);
+    public getClassroomById(classroomId: number): Observable<Classroom>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        return this.http.get<Classroom>(`${this.apiServerUrl}${classroomId}`, options);
     }
     
-    public updateUser(classroom: Classroom): Observable<any>{        
-        return this.http.put<any>(`${this.apiServerUrl}`, classroom);
+    public updateClassroom(classroom: Classroom): Observable<Classroom>{ 
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };       
+        return this.http.put<Classroom>(`${this.apiServerUrl}`, classroom, options);
     }
 
-    public addUser(classroom: Classroom): Observable<any>{        
-        return this.http.post<any>(`${this.apiServerUrl}`, classroom);
+    public addClassroom(classroom: Classroom): Observable<Classroom>{ 
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        return this.http.post<Classroom>(`${this.apiServerUrl}`, classroom, options);
     }
 
-    public deleteUser(classroomId: number): Observable<any>{        
-        return this.http.delete<void>(`${this.apiServerUrl}${classroomId}`);
+    public joinClassroomAsStudent(code: String, userId: number): Observable<Classroom>{ 
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        let joinString = '?code=' + code + '&userId=' + userId;
+        return this.http.get<Classroom>(`${this.apiServerUrl}asStudent${joinString}`, options);
+    }
+
+    public joinClassroomAsTeacher(code: String, userId: number): Observable<Classroom>{ 
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        let joinString = '?code=' + code + '&userId=' + userId;
+        return this.http.get<Classroom>(`${this.apiServerUrl}asTeacher/${joinString}`, options);
+    }
+
+    public deleteClassroom(classroomId: number): Observable<void>{   
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };     
+        return this.http.delete<void>(`${this.apiServerUrl}${classroomId}`, options);
     }
 }

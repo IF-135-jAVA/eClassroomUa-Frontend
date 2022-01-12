@@ -1,1 +1,18 @@
 <p>view-classroom works!</p>
+<mat-tab-group>
+    <mat-tab label="Classroom"> 
+        
+    </mat-tab>
+    <mat-tab label="Materials"> 
+        
+    </mat-tab>
+    <mat-tab label="Users"> 
+        <mat-card class="example-card">
+            <mat-card-header>
+              <div mat-card-avatar class="example-header-image"></div>
+              <mat-card-title>Shiba Inu</mat-card-title>
+              <button mat-button *ngIf="readLocalStorageValue('role') === 'teacher'">KICK</button>
+            </mat-card-header>
+          </mat-card>
+    </mat-tab>
+</mat-tab-group>

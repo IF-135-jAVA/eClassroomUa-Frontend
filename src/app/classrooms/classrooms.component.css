@@ -1,0 +1,35 @@
+.background{
+    background-image: url("src/assets/images/Background-Kelase-New.png");
+}
+
+button:hover {
+    background-color: #4CAF50;
+    color: white;    
+}
+
+.h1{
+    margin: 50px;
+}
+
+button{
+    color:rgb(8, 8, 8);
+    background-color: white;
+    border: 2px solid #38E186;
+    margin-right: 10px;
+    margin-left: 15px;
+    font-size: 33px;
+    margin-top: 15px;
+    transition-duration: 0.4s;
+    background: #38E186;
+    backdrop-filter: blur(15.5378px);
+    border-radius: 30px;
+    margin-left: 50px;
+}
+
+button{
+    background-color: #4CAF50;
+    background-color: #4CAF50;
+}
+mat-card{
+    background-color: lemonchiffon;
+}

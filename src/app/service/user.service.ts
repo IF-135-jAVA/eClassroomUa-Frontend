@@ -1,33 +1,45 @@
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpRequest } from '@angular/common/http';
 import { User } from '../model/user';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
     providedIn: 'root'
 })
 export class UserService {
-    private apiServerUrl = 'localhost:8080/api/users/';
+    private apiServerUrl = environment.api + 'users/';
 
-    constructor(private http: HttpClient){}
+    jwtString: string | undefined;
 
-    public getUsers(): Observable<any>{
-        return this.http.get<any>(`${this.apiServerUrl}`);
+    constructor(private http: HttpClient){
     }
 
-    public getUserById(userId: number): Observable<any>{
-        return this.http.get<User>(`${this.apiServerUrl}${userId}`);
+    public getUsers(): Observable<User[]>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        return this.http.get<User[]>(`${this.apiServerUrl}`, options);
+    }
+
+    public getUserById(userId: number): Observable<User>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };
+        return this.http.get<User>(`${this.apiServerUrl}${userId}`, options);
     }
     
-    public updateUser(user: User): Observable<any>{        
-        return this.http.put<any>(`${this.apiServerUrl}`, user);
+    public updateUser(user: User): Observable<User>{  
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };      
+        return this.http.put<User>(`${this.apiServerUrl}`, user, options);
     }
 
-    public addUser(user: User): Observable<any>{        
-        return this.http.post<any>(`${this.apiServerUrl}`, user);
-    }
-
-    public deleteUser(userId: number): Observable<any>{        
-        return this.http.delete<void>(`${this.apiServerUrl}${userId}`);
+    public addUser(user: User): Observable<User>{  
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };      
+        return this.http.post<User>(`${this.apiServerUrl}`, user, options);
     }
 }
