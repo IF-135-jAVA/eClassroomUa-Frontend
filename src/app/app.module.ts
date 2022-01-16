@@ -19,10 +19,12 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import { ToggleButtonComponent } from './components/toggle-button/toggle-button.component';
 import { MatButtonToggleModule } from '@angular/material/button-toggle';
 import { MatCardModule } from '@angular/material/card';
-import { MatNativeDateModule } from '@angular/material/core';
+import { MatNativeDateModule, MatRippleModule } from '@angular/material/core';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MatTabsModule } from '@angular/material/tabs';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import {MatExpansionModule} from '@angular/material/expansion';
 
 @NgModule({
   declarations: [
@@ -51,9 +53,16 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatCardModule,
     BrowserAnimationsModule,
     NgbModule,
-    MatTabsModule
+    MatTabsModule,
+    MatRippleModule,
+    MatFormFieldModule,
+    MatExpansionModule
   ],
-  exports: [FormsModule, ReactiveFormsModule],
+  exports: [
+    MatRippleModule,
+    FormsModule,
+    ReactiveFormsModule],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,1 +1,31 @@
-<p>profile works!</p>
+<p>User Profile</p>
+<mat-card>
+    <mat-card-header>
+        {{"First name: " + this.user.firstName}}<br>
+        {{"Last name: " + this.user.lastName}}<br>
+        {{"Email: " + this.user.email}}<br>
+    </mat-card-header>
+</mat-card>
+<button mat-button class="button" (click)="joinModal(content)">Update profile</button>
+<ng-template #content let-modal>
+    <div class="modal-header">
+      <h4 class="modal-title" id="modal-basic-title">Update user</h4>
+    </div>
+    <div class="modal-body">
+      <form [formGroup]="updateForm" role="form" class="form-horizontal">
+        <div class="form-group">
+          <label for="dateOfBirth">First name:</label>
+          <div class="input-group">
+            <input formControlName="firstName" type="text" class="form-control"/>
+          </div>
+          <label for="dateOfBirth">Last name:</label>
+          <div class="input-group">
+            <input formControlName="lastName" type="text" class="form-control"/>
+          </div>
+        </div>
+      </form>
+    </div>
+    <div class="modal-footer">
+      <button type="button" class="button" (click)="[modal.close(), update()]">Update</button>
+    </div>
+  </ng-template>

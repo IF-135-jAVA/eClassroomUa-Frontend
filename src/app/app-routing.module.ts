@@ -4,6 +4,7 @@ import { ClassroomsComponent } from './classrooms/classrooms.component';
 import {HomeComponent} from "./home/home.component";
 import {LoginComponent} from "./login/login.component";
 import { LogoutComponent } from './logout/logout.component';
+import { ProfileComponent } from './profile/profile.component';
 import {RegistrationComponent} from "./registration/registration.component";
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { WelcomeComponent } from './welcome/welcome.component';
@@ -15,7 +16,8 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'classrooms', component: ClassroomsComponent },
-  { path: 'classroom', component: ViewClassroomComponent }
+  { path: 'classroom', component: ViewClassroomComponent },
+  { path: 'profile', component: ProfileComponent }
 ];
 
 @NgModule({

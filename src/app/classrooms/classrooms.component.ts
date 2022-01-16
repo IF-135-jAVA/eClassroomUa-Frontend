@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { take } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Classroom } from '../model/classroom';
 import { User } from '../model/user';
@@ -13,10 +14,14 @@ import { ClassroomService } from '../service/classroom.service';
   styleUrls: ['./classrooms.component.css']
 })
 export class ClassroomsComponent implements OnInit {
-  form: FormGroup = this.formBuilder.group({
+  createForm: FormGroup = this.formBuilder.group({
     title: '',
     session: '',
     description: ''
+  });
+
+  joinForm: FormGroup = this.formBuilder.group({
+    code: ''
   });
 
   errorMessage = '';
@@ -34,7 +39,7 @@ export class ClassroomsComponent implements OnInit {
   ngOnInit(): void {
     this.getClassrooms();
     let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
-    this.form = this.formBuilder.group({
+    this.createForm = this.formBuilder.group({
       title: '',
       session: '',
       description: '',
@@ -53,7 +58,7 @@ export class ClassroomsComponent implements OnInit {
     }
     else if(localStorage.getItem(environment.role) === 'teacher')
     {
-      this.classroomService.getClassroomsByTeacher(user.id).subscribe(
+      this.classroomService.getClassroomsByTeacher(user.id).pipe(take(1)).subscribe(
         (response: Classroom[]) => {
           this.classrooms = response;
         }
@@ -72,17 +77,22 @@ export class ClassroomsComponent implements OnInit {
       this.closeResult = `Closed with: ${result}`;
     });
   }
+  
+  logg(text: string){
+    console.log(text);
+  }
 
-  join(code: String, userId: number) {
+  join() {
+    let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
     if(localStorage.getItem(environment.role) === 'student'){
-      this.classroomService.joinClassroomAsStudent(code, userId).subscribe(
+      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, user.id).subscribe(
         (response: Classroom) => {
           this.open(response);
         });
     }
     else if(localStorage.getItem(environment.role) === 'teacher')
     {
-      this.classroomService.joinClassroomAsTeacher(code, userId).subscribe(
+      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, user.id).subscribe(
         (response: Classroom) => {
           this.open(response);
         });
@@ -91,7 +101,7 @@ export class ClassroomsComponent implements OnInit {
 
   create() {
     let createdClassroom: Classroom = new Classroom();
-    this.classroomService.addClassroom(this.form.getRawValue()).subscribe(
+    this.classroomService.addClassroom(this.createForm.getRawValue()).subscribe(
       (response: Classroom) => {
         createdClassroom = response;
       });

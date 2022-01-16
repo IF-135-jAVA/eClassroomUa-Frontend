@@ -33,6 +33,13 @@ export class LoginComponent implements OnInit {
 
   }
 
+  loginWithGoogle(){
+    //this.authService.oauth2().subscribe(
+    //  data => console.log(data)
+    //);
+    window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fbelero-app.herokuapp.com%2F"
+  }
+
   setRoleTeacher() {
     this.role = "teacher";
   }

@@ -4,6 +4,7 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Classroom } from '../model/classroom';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder } from '@angular/forms';
+import { User } from '../model/user';
 
 @Injectable({
     providedIn: 'root'
@@ -23,7 +24,6 @@ export class ClassroomService {
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        console.log(`${this.apiServerUrl}byTeacher/${userId}`);
         return this.http.get<Classroom[]>(`${this.apiServerUrl}byTeacher/${userId}`, options);
     }
 
@@ -31,7 +31,6 @@ export class ClassroomService {
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        console.log(`${this.apiServerUrl}byStudent/${userId}`);
         return this.http.get<Classroom[]>(`${this.apiServerUrl}byStudent/${userId}`, options);
     }
     
@@ -77,5 +76,19 @@ export class ClassroomService {
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };     
         return this.http.delete<void>(`${this.apiServerUrl}${classroomId}`, options);
+    }
+
+    public getClassroomUsers(classroom: Classroom, userType: string): Observable<User[]>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };  
+        return this.http.get<User[]>(`${this.apiServerUrl}${classroom.classroomId}/${userType}`, options)
+    }
+
+    public getClassroomOwner(classroom: Classroom): Observable<User>{
+        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        let headers = new HttpHeaders().set('Authorization', this.jwtString);
+        let options = { headers: headers };  
+        return this.http.get<User>(`${this.apiServerUrl}${classroom.classroomId}/owner`, options)
     }
 }

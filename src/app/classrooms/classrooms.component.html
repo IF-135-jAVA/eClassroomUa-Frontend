@@ -7,11 +7,12 @@
     <h1 class="h1">Your classrooms:</h1>
   </div>
   <div *ngFor="let classroom of classrooms">
-    <mat-card>
-      <mat-card-title>{{"[" + classroom.classroomId + "] " + classroom.title}}</mat-card-title>
-      <mat-card-subtitle>{{"Description: " + classroom.description}}</mat-card-subtitle>
+    <mat-card class="card">
+      <mat-card-title class="max-opacity">{{"[" + classroom.classroomId + "] " + classroom.title}}</mat-card-title>
+      <mat-card-subtitle class="max-opacity">{{"Description: " + classroom.description}}</mat-card-subtitle>
+      {{logg(classroom.title)}}
       <mat-card-actions>
-        <button mat-button (click)="open(classroom)">Open</button>
+        <button class="max-opacity" mat-button (click)="open(classroom)">Open</button>
       </mat-card-actions>
     </mat-card>
   </div>
@@ -23,17 +24,17 @@
     <h4 class="modal-title" id="modal-basic-title">Join classroom{{errorMessage}}</h4>
   </div>
   <div class="modal-body">
-    <form>
+    <form [formGroup]="joinForm" role="form" class="form-horizontal">
       <div class="form-group">
         <label for="dateOfBirth">Enter classroom code:</label>
         <div class="input-group">
-          <input id="code" type="text" class="form-control"/>
+          <input formControlName="code" type="text" class="form-control"/>
         </div>
       </div>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="button" (click)="modal.close()">Join</button>
+    <button type="button" class="button" (click)="[modal.close(), join()]">Join</button>
   </div>
 </ng-template>
 <ng-template #content2 let-modal2>
@@ -41,7 +42,7 @@
     <h4 class="modal-title" id="modal-basic-title1">Create classroom{{errorMessage}}</h4>
   </div>
   <div class="modal-body">
-    <form [formGroup]="form" role="form" class="form-horizontal">
+    <form [formGroup]="createForm" role="form" class="form-horizontal">
       <div class="form-group">
         <label for="dateOfBirth">Classroom name:</label>
         <div class="input-group">

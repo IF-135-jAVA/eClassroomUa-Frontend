@@ -37,6 +37,10 @@ export class AuthService {
         return this.http.post(`${this.apiServerUrl}login?role=${role}`, loginModel, { observe: 'response' });
     }
 
+    public oauth2(){
+        //return this.http.get(`https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fbelero-app.herokuapp.com%2F`);
+    }
+
     public deleteUser(user: User){ 
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);

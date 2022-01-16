@@ -31,5 +31,7 @@ button{
     background-color: #4CAF50;
 }
 mat-card{
-    background-color: lemonchiffon;
+    background-color: transparent;
+    stroke-width: 2px;
+    stroke: aquamarine; 
 }

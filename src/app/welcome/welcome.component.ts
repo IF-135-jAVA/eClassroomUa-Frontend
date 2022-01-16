@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
+import { Emitters } from '../emitters/emitters';
 
 @Component({
   selector: 'app-welcome',
@@ -7,9 +11,24 @@ import { Component, OnInit } from '@angular/core';
 })
 export class WelcomeComponent implements OnInit {
 
-  constructor() { }
+  helper = new JwtHelperService();
+  router: any;
+  
+  constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
+    this.route.queryParams
+      .subscribe(params => {
+        localStorage.setItem(environment.tokenName, params['token']);
+      }
+    );
+    if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
+      Emitters.authEmitter.emit(false);
+      this.router.navigate(['/login']);
+    } else {
+      Emitters.authEmitter.emit(true);
+      //localStorage.setItem(environment.role, this.role);
+      this.router.navigate(['/home']);
+    }
   }
-
 }
