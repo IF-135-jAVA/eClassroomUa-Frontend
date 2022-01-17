@@ -24,7 +24,6 @@ export class AnnouncementService {
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        console.log(options);
         return this.http.post<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, announcement, options)
     }
 
