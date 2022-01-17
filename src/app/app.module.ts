@@ -25,6 +25,7 @@ import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatExpansionModule} from '@angular/material/expansion';
+import { PickRoleComponent } from './pick-role/pick-role.component';
 
 @NgModule({
   declarations: [
@@ -41,6 +42,7 @@ import {MatExpansionModule} from '@angular/material/expansion';
     ClassroomsComponent,
     WelcomeComponent,
     ToggleButtonComponent,
+    PickRoleComponent,
   ],
   imports: [
     BrowserModule,

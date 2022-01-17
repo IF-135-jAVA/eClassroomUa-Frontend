@@ -72,6 +72,8 @@ export class ViewClassroomComponent implements OnInit {
     let announcement = new Announcement();
     announcement.courseId = this.classroom?.classroomId || 0;
     announcement.text = this.announcementForm.get(['text'])?.value;
+    console.log(announcement);
+    console.log(this.classroom);
     this.announcementService.createAnnouncement(this.classroom || new Classroom, announcement);
   }
 

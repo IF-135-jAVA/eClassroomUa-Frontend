@@ -21,42 +21,42 @@ export class ClassroomService {
     }
 
     public getClassroomsByTeacher(userId: number): Observable<Classroom[]>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Classroom[]>(`${this.apiServerUrl}byTeacher/${userId}`, options);
     }
 
     public getClassroomsByStudent(userId: number): Observable<Classroom[]>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Classroom[]>(`${this.apiServerUrl}byStudent/${userId}`, options);
     }
     
     public getClassroomById(classroomId: number): Observable<Classroom>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Classroom>(`${this.apiServerUrl}${classroomId}`, options);
     }
     
     public updateClassroom(classroom: Classroom): Observable<Classroom>{ 
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };       
         return this.http.put<Classroom>(`${this.apiServerUrl}`, classroom, options);
     }
 
     public addClassroom(classroom: Classroom): Observable<Classroom>{ 
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.post<Classroom>(`${this.apiServerUrl}`, classroom, options);
     }
 
     public joinClassroomAsStudent(code: String, userId: number): Observable<Classroom>{ 
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         let joinString = '?code=' + code + '&userId=' + userId;
@@ -64,7 +64,7 @@ export class ClassroomService {
     }
 
     public joinClassroomAsTeacher(code: String, userId: number): Observable<Classroom>{ 
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         let joinString = '?code=' + code + '&userId=' + userId;
@@ -72,21 +72,21 @@ export class ClassroomService {
     }
 
     public deleteClassroom(classroomId: number): Observable<void>{   
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };     
         return this.http.delete<void>(`${this.apiServerUrl}${classroomId}`, options);
     }
 
     public getClassroomUsers(classroom: Classroom, userType: string): Observable<User[]>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
         return this.http.get<User[]>(`${this.apiServerUrl}${classroom.classroomId}/${userType}`, options)
     }
 
     public getClassroomOwner(classroom: Classroom): Observable<User>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
         return this.http.get<User>(`${this.apiServerUrl}${classroom.classroomId}/owner`, options)

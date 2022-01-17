@@ -4,6 +4,7 @@ import {Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {environment} from 'src/environments/environment';
 import {Emitters} from '../emitters/emitters';
+import { AuthResponse } from '../model/auth-response';
 import {AuthService} from '../service/auth.service';
 
 @Component({
@@ -18,7 +19,6 @@ export class LoginComponent implements OnInit {
   });
 
   errorMessage = "";
-  role: string = "student";
   helper = new JwtHelperService();
 
   constructor(
@@ -30,37 +30,26 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
+    Emitters.oauthEmitter.emit(false);
   }
 
   loginWithGoogle(){
-    //this.authService.oauth2().subscribe(
-    //  data => console.log(data)
-    //);
     window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fbelero-app.herokuapp.com%2F"
-  }
-
-  setRoleTeacher() {
-    this.role = "teacher";
-  }
-
-  setRoleStudent() {
-    this.role = "student";
+    Emitters.oauthEmitter.emit(true);
   }
 
   login(): void {
-    this.authService.login(this.form.getRawValue(), this.role).subscribe(
-      (data) => {
-        localStorage.setItem(environment.user,JSON.stringify(data.body));
-        localStorage.setItem(environment.tokenName, data.headers.get("Authorization") || '');
+    this.authService.login(this.form.getRawValue()).subscribe(
+      (data: AuthResponse) => {
+        localStorage.setItem(environment.tokenName, data.token);
+        console.log("login " + data.token);
       });
     if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
       Emitters.authEmitter.emit(false);
       this.errorMessage = ": Invalid email or password"
     } else {
       Emitters.authEmitter.emit(true);
-      localStorage.setItem(environment.role, this.role);
-      this.router.navigate(['/home']);
+      this.router.navigate(['/pick-role']);
     }
   }
 }

@@ -4,9 +4,10 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { User } from '../model/user';
 import { LoginModel } from '../model/loginmodel';
 import { environment } from 'src/environments/environment';
+import { AuthResponse } from '../model/auth-response';
 
 const httpOptions = {
-    headers: new HttpHeaders({ 
+    headers: new HttpHeaders({
         'Content-Type': 'application/json',
         observe: "response" })
   };
@@ -21,30 +22,33 @@ export class AuthService {
 
     constructor(private http: HttpClient){}
 
-    public updateUser(user: User): Observable<User>{  
+    public updateUser(user: User): Observable<User>{
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
-        let options = { headers: headers };     
-        user.enabled=false;      
+        let options = { headers: headers };
+        user.enabled=false;
         return this.http.put<User>(`${this.apiServerUrl}users/${user.id}`, user, options);
     }
 
-    public registration(user: User): Observable<User>{        
+    public registration(user: User): Observable<User>{
         return this.http.post<User>(`${this.apiServerUrl}registration`, user);
     }
 
-    public login(loginModel: LoginModel, role: string){   
-        return this.http.post(`${this.apiServerUrl}login?role=${role}`, loginModel, { observe: 'response' });
+    public login(loginModel: LoginModel): Observable<AuthResponse>{
+        return this.http.post<AuthResponse>(`${this.apiServerUrl}login`, loginModel);
     }
 
-    public oauth2(){
-        //return this.http.get(`https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fbelero-app.herokuapp.com%2F`);
+    public getRole(role: string): Observable<AuthResponse>{
+      this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+      let headers = new HttpHeaders().set('Authorization', this.jwtString);
+      let options = { headers: headers };
+      return this.http.get<AuthResponse>(`${this.apiServerUrl}login/${role}`, options);
     }
 
-    public deleteUser(user: User){ 
+    public deleteUser(user: User){
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
-        let options = { headers: headers };     
+        let options = { headers: headers };
         user.enabled=false;
         return this.http.put(`${this.apiServerUrl}users/${user.id}`, user, options);
     }

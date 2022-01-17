@@ -23,26 +23,27 @@ export class AnnouncementService {
     public createAnnouncement(classroom: Classroom, announcement: Announcement): Observable<Announcement>{
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
-        let options = { headers: headers };  
+        let options = { headers: headers };
+        console.log(options);
         return this.http.post<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, announcement, options)
     }
 
     public getAnnouncementsByClassroom(classroom: Classroom): Observable<Announcement[]>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
         return this.http.get<Announcement[]>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, options)
     }
 
     public getAnnouncementById(classroom: Classroom, announcementId: number): Observable<Announcement>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
         return this.http.get<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/announcements/${announcementId}`, options)
     }
 
     public deleteAnnouncement(classroom: Classroom, announcementId: number){
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
         return this.http.delete(`${this.apiServerUrl}${classroom.classroomId}/announcements/${announcementId}`, options)

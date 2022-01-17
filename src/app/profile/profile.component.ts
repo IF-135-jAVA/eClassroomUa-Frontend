@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { environment } from 'src/environments/environment';
 import { User } from '../model/user';
@@ -15,6 +16,8 @@ export class ProfileComponent implements OnInit {
 
   user: User;
 
+  helper = new JwtHelperService();
+  
   updateForm: FormGroup = this.formBuilder.group({
     firstName: '',
     lastName: '',
