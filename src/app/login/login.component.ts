@@ -34,7 +34,7 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle(){
-    window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2F52.15.98.74:4200/pick-role%2F"
+    window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fllocalhost/pick-role%2F"
     Emitters.oauthEmitter.emit(true);
   }
 
