@@ -29,7 +29,8 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
-              private authService: AuthService) { 
+              private authService: AuthService) {
+    console.log(localStorage.getItem(environment.user));
     this.user = JSON.parse(localStorage.getItem(environment.user)||'');
     this.updateForm = this.formBuilder.group({
       firstName: this.user.firstName,

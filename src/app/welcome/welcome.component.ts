@@ -22,13 +22,18 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem(environment.tokenName, params['token']);
       }
     );
-    if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-      Emitters.authEmitter.emit(false);
-      this.router.navigate(['/login']);
-    } else {
-      Emitters.authEmitter.emit(true);
-      //localStorage.setItem(environment.role, this.role);
-      this.router.navigate(['/home']);
+    console.log();
+    if(localStorage.getItem(environment.tokenName)?.toString.length != 0){ //!
+      console.log(!localStorage.getItem(environment.tokenName));
+      if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
+        Emitters.authEmitter.emit(false);
+        this.router.navigate(['/login']);
+      } else {
+        Emitters.authEmitter.emit(true);
+        //localStorage.setItem(environment.role, this.role);
+        this.router.navigate(['/home']);
+      }
     }
+    
   }
 }

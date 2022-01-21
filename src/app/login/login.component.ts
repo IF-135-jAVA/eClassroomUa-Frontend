@@ -34,22 +34,22 @@ export class LoginComponent implements OnInit {
   }
 
   loginWithGoogle(){
-    window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fllocalhost/pick-role%2F"
+    window.location.href = environment.googleOAuth;
     Emitters.oauthEmitter.emit(true);
   }
 
   login(): void {
-    this.authService.login(this.form.getRawValue()).subscribe(
+    let token = this.authService.login(this.form.getRawValue()).subscribe(
       (data: AuthResponse) => {
-        localStorage.setItem(environment.tokenName, data.token);
         console.log("login " + data.token);
+        localStorage.setItem(environment.tokenName, data.token);
+        if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
+          Emitters.authEmitter.emit(false);
+          this.errorMessage = ": Invalid email or password"
+        } else {
+          Emitters.authEmitter.emit(true);
+          this.router.navigate(['/pick-role']);
+        }
       });
-    if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-      Emitters.authEmitter.emit(false);
-      this.errorMessage = ": Invalid email or password"
-    } else {
-      Emitters.authEmitter.emit(true);
-      this.router.navigate(['/pick-role']);
-    }
   }
 }

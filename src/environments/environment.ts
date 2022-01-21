@@ -6,6 +6,7 @@ export const environment = {
   production: false,
   authApi: 'http://localhost:8080/api/auth/',
   api: 'http://localhost:8080/api/',
+  googleOAuth: 'https://belero-app.herokuapp.com/oauth2/authorize/google',
   tokenName: 'jwt-token',
   title: 'BeLeRo.Ua',
   user: 'user',
