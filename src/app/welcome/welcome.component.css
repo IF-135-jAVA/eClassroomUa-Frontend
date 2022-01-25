@@ -4,8 +4,14 @@ height:calc(100vh - 65px) ;
 
 }
 .title{
-  padding-top: 140px;
+  padding-top: 155px;
   padding-left: 30px;
   color: brown;
+  font-size: 50px ;
+}
+.hope{
+
+  padding-left: 30px;
+  color: rgba(18, 61, 255, 0.78);
   font-size: 50px ;
 }
