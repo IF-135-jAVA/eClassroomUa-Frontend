@@ -1,7 +1,7 @@
 export const environment = {
   production: true,
-  authApi: 'http://52.15.98.74:8080/api/auth/',
-  api: 'http://52.15.98.74:8080/api/',
+  authApi: 'http://dtapi.if.ua:8081/api/auth/',
+  api: 'http://dtapi.if.ua:8081/api/',
   tokenName: 'jwt-token',
   title: 'BeLeRo.Ua',
   user: 'user',

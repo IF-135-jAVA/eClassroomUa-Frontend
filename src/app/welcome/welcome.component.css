@@ -1,3 +1,11 @@
 .background{
     background-image: url("src/assets/images/Background-Kelase-New.png");
-}  
+height:calc(100vh - 65px) ;
+
+}
+.title{
+  padding-top: 140px;
+  padding-left: 30px;
+  color: brown;
+  font-size: 50px ;
+}

@@ -17,7 +17,7 @@ import { take } from 'rxjs';
   styleUrls: ['./view-classroom.component.css']
 })
 export class ViewClassroomComponent implements OnInit {
-  
+
   students: User[] | undefined;
   teachers: User[] | undefined;
   owner: User | undefined;
@@ -33,8 +33,12 @@ export class ViewClassroomComponent implements OnInit {
   constructor(private classroomService: ClassroomService,
               private commentService: CommentService,
               private announcementService: AnnouncementService,
-              private formBuilder: FormBuilder) 
+              private formBuilder: FormBuilder)
   {
+
+  }
+
+  ngOnInit(): void {
     this.classroomService.getClassroomUsers(JSON.parse(localStorage.getItem(environment.classroom) || ''), 'teachers').subscribe(
       (response: User[]) => this.teachers = response);
     this.classroomService.getClassroomUsers(JSON.parse(localStorage.getItem(environment.classroom) || ''), 'students').subscribe(
@@ -45,14 +49,10 @@ export class ViewClassroomComponent implements OnInit {
     this.announcementService.getAnnouncementsByClassroom(JSON.parse(localStorage.getItem(environment.classroom) || '')).pipe(take(1)).subscribe(
       (response: Announcement[]) => {
         this.announcements = response;
-        response.forEach(ann => 
+        response.forEach(ann =>
           this.commentService.getCommentsByAnnouncement(ann.id).pipe(take(1)).subscribe(
             (response2: Comments[]) => ann.comments = response2))
       });
-  }
-
-  ngOnInit(): void {
-
   }
 
   logg(text: string){
