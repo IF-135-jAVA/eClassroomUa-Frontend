@@ -22,13 +22,16 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem(environment.tokenName, params['token']);
       }
     );
-    if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-      Emitters.authEmitter.emit(false);
-      this.router.navigate(['/login']);
-    } else {
-      Emitters.authEmitter.emit(true);
-      //localStorage.setItem(environment.role, this.role);
-      this.router.navigate(['/home']);
+    if(localStorage.getItem(environment.tokenName)?.toString.length != 0){
+      if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
+        Emitters.authEmitter.emit(false);
+        this.router.navigate(['/login']);
+      } else {
+        Emitters.authEmitter.emit(true);
+        //localStorage.setItem(environment.role, this.role);
+        this.router.navigate(['/home']);
+      }
     }
+    
   }
 }

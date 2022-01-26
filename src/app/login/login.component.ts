@@ -43,13 +43,13 @@ export class LoginComponent implements OnInit {
       (data: AuthResponse) => {
         localStorage.setItem(environment.tokenName, data.token);
         console.log("login " + data.token);
+        if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
+          Emitters.authEmitter.emit(false);
+          this.errorMessage = ": Invalid email or password"
+        } else {
+          Emitters.authEmitter.emit(true);
+          this.router.navigate(['/pick-role']);
+        }
       });
-    if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-      Emitters.authEmitter.emit(false);
-      this.errorMessage = ": Invalid email or password"
-    } else {
-      Emitters.authEmitter.emit(true);
-      this.router.navigate(['/pick-role']);
-    }
   }
 }
