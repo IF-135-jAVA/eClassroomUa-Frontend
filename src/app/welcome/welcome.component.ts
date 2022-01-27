@@ -22,9 +22,7 @@ export class WelcomeComponent implements OnInit {
         localStorage.setItem(environment.tokenName, params['token']);
       }
     );
-    console.log();
-    if(localStorage.getItem(environment.tokenName)?.toString.length != 0){ //!
-      console.log(!localStorage.getItem(environment.tokenName));
+    if(localStorage.getItem(environment.tokenName)?.toString.length != 0){
       if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
         Emitters.authEmitter.emit(false);
         this.router.navigate(['/login']);

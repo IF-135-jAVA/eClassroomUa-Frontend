@@ -42,7 +42,7 @@ import { PickRoleComponent } from './pick-role/pick-role.component';
     ClassroomsComponent,
     WelcomeComponent,
     ToggleButtonComponent,
-    PickRoleComponent,
+    PickRoleComponent
   ],
   imports: [
     BrowserModule,

@@ -42,10 +42,11 @@ export class PickRoleComponent implements OnInit {
       this.authService.getRole(role).subscribe(
         (data: AuthResponse) =>{         
           localStorage.setItem(environment.tokenName, data.token);
-          console.log("Role " + localStorage.getItem(environment.tokenName));
-      });
-      let tokenInfo = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '');
+          console.log(localStorage.getItem(environment.tokenName));
+          console.log(this.helper.decodeToken(localStorage.getItem(environment.tokenName) || ''));
+          Emitters.authEmitter.emit(true);
+          this.router.navigate(['/profile']);
+      });     
       
-      this.router.navigate(['/profile']);
   }
 }
