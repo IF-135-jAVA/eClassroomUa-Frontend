@@ -2,7 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { Emitters } from '../emitters/emitters';
 import { User } from '../model/user';
 import { AuthService } from '../service/auth.service';
 import { UserService } from '../service/user.service';
@@ -14,7 +16,9 @@ import { UserService } from '../service/user.service';
 })
 export class ProfileComponent implements OnInit {
 
-  user: User;
+  user!: User;
+
+  user$!: Observable<User>;
 
   helper = new JwtHelperService();
   
@@ -30,18 +34,10 @@ export class ProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private authService: AuthService) { 
-    this.user = JSON.parse(localStorage.getItem(environment.user)||'');
-    this.updateForm = this.formBuilder.group({
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      id: this.user.id,
-      email: this.user.email,
-      enabled: true
-    })
   }
 
   ngOnInit(): void {
-
+    this.user$ = this.userService.getUserById(this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id);
   }
 
   updateData(){

@@ -26,7 +26,6 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { PickRoleComponent } from './pick-role/pick-role.component';
-import { CriterionComponent } from './criterion/criterion.component';
 
 @NgModule({
   declarations: [
@@ -43,8 +42,7 @@ import { CriterionComponent } from './criterion/criterion.component';
     ClassroomsComponent,
     WelcomeComponent,
     ToggleButtonComponent,
-    PickRoleComponent,
-    CriterionComponent,
+    PickRoleComponent
   ],
   imports: [
     BrowserModule,
