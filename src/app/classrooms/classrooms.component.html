@@ -10,9 +10,8 @@
     <mat-card class="card">
       <mat-card-title class="max-opacity">{{"[" + classroom.classroomId + "] " + classroom.title}}</mat-card-title>
       <mat-card-subtitle class="max-opacity">{{"Description: " + classroom.description}}</mat-card-subtitle>
-      {{logg(classroom.title)}}
       <mat-card-actions>
-        <button class="max-opacity" mat-button (click)="open(classroom)">Open</button>
+        <button class="max-opacity" mat-button (click)="open(classroom.classroomId)">Open</button>
       </mat-card-actions>
     </mat-card>
   </div>

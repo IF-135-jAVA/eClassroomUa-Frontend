@@ -17,7 +17,7 @@ const routes: Routes = [
   { path: 'register', component: RegistrationComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'classrooms', component: ClassroomsComponent },
-  { path: 'classroom', component: ViewClassroomComponent },
+  { path: 'classrooms/:id', component: ViewClassroomComponent },
   { path: 'profile', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent }
 ];

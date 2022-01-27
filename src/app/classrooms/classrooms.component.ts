@@ -58,7 +58,6 @@ export class ClassroomsComponent implements OnInit {
     if(this.userRole === 'STUDENT'){
       this.classroomService.getClassroomsByStudent(this.userId).subscribe(
         (response: Classroom[]) => {
-          console.log("Response student is " + response);
           this.classrooms = response;
         }
       )
@@ -67,7 +66,6 @@ export class ClassroomsComponent implements OnInit {
     {
       this.classroomService.getClassroomsByTeacher(this.userId).pipe(take(1)).subscribe(
         (response: Classroom[]) => {
-          console.log("Response techer is " + response);
           this.classrooms = response;
         }
       )
@@ -95,35 +93,27 @@ export class ClassroomsComponent implements OnInit {
     if(localStorage.getItem(environment.role) === 'student'){
       this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, user.id).subscribe(
         (response: Classroom) => {
-          this.open(response);
+          this.open(response.classroomId);
         });
     }
     else if(localStorage.getItem(environment.role) === 'teacher')
     {
       this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, user.id).subscribe(
         (response: Classroom) => {
-          this.open(response);
+          this.open(response.classroomId);
         });
     } 
  }
 
   create() {
-    let createdClassroom: Classroom = new Classroom();
     this.classroomService.addClassroom(this.createForm.getRawValue()).subscribe(
       (response: Classroom) => {
-        createdClassroom = response;
+        this.open(response.classroomId);
       });
-    this.open(createdClassroom);
   }
 
-  
-
-  open(classroom: Classroom) {
-    this.classroomService.getClassroomById(classroom.classroomId).subscribe(
-      (response: Classroom) => {
-        localStorage.setItem(environment.classroom, JSON.stringify(classroom));
-        this.router.navigate(['/classroom']);
-      });
+  open(classroomId: number) {
+    this.router.navigate(['/classrooms', classroomId]);
   }
 }
 
