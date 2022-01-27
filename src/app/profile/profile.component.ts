@@ -40,17 +40,6 @@ export class ProfileComponent implements OnInit {
     this.user$ = this.userService.getUserById(this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id);
   }
 
-  updateData(){
-    this.user = JSON.parse(localStorage.getItem(environment.user)||'');
-    this.updateForm = this.formBuilder.group({
-      firstName: this.user.firstName,
-      lastName: this.user.lastName,
-      id: this.user.id,
-      email: this.user.email,
-      enabled: true
-    })
-  }
-
   joinModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
   }
@@ -59,7 +48,6 @@ export class ProfileComponent implements OnInit {
     let newUser: User = this.updateForm.getRawValue();
     localStorage.setItem(environment.user, JSON.stringify(newUser));
     this.authService.updateUser(newUser);
-    this.updateData();
   }
 
 }

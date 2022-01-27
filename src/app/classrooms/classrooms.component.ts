@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
 import { Router } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { ModalDismissReasons, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { take } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -26,6 +27,9 @@ export class ClassroomsComponent implements OnInit {
 
   errorMessage = '';
   closeResult = '';
+  helper = new JwtHelperService();
+  userId! : number;
+  userRole! : String;
 
   classrooms: Classroom[] | undefined;
 
@@ -34,32 +38,36 @@ export class ClassroomsComponent implements OnInit {
     private modalService: NgbModal,
     private formBuilder: FormBuilder,
     private router: Router
-  ) {  }
+  ) {
+    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+  }
 
   ngOnInit(): void {
     this.getClassrooms();
-    let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
+    
     this.createForm = this.formBuilder.group({
       title: '',
       session: '',
       description: '',
-      userId: user.id
+      userId: this.userId
     });
   }
 
   getClassrooms(){
-    let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
-    if(localStorage.getItem(environment.role) === 'student'){
-      this.classroomService.getClassroomsByStudent(user.id).subscribe(
+    if(this.userRole === 'STUDENT'){
+      this.classroomService.getClassroomsByStudent(this.userId).subscribe(
         (response: Classroom[]) => {
+          console.log("Response student is " + response);
           this.classrooms = response;
         }
       )
     }
-    else if(localStorage.getItem(environment.role) === 'teacher')
+    else if(this.userRole === 'TEACHER')
     {
-      this.classroomService.getClassroomsByTeacher(user.id).pipe(take(1)).subscribe(
+      this.classroomService.getClassroomsByTeacher(this.userId).pipe(take(1)).subscribe(
         (response: Classroom[]) => {
+          console.log("Response techer is " + response);
           this.classrooms = response;
         }
       )
