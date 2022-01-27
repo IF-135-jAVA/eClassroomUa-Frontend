@@ -9,6 +9,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {RegistrationComponent} from "./registration/registration.component";
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {CriterionComponent} from "./criterion/criterion.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -19,7 +20,8 @@ const routes: Routes = [
   { path: 'classrooms', component: ClassroomsComponent },
   { path: 'classroom', component: ViewClassroomComponent },
   { path: 'profile', component: ProfileComponent },
-  { path: 'pick-role', component: PickRoleComponent }
+  { path: 'pick-role', component: PickRoleComponent },
+  {path: 'criterion', component:CriterionComponent}
 ];
 
 @NgModule({
