@@ -29,7 +29,7 @@ export class ClassroomsComponent implements OnInit {
   closeResult = '';
   helper = new JwtHelperService();
   userId! : number;
-  userRole! : String;
+  userRole! : string;
 
   classrooms: Classroom[] | undefined;
 
@@ -82,10 +82,6 @@ export class ClassroomsComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title1'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     });
-  }
-  
-  logg(text: string){
-    console.log(text);
   }
 
   join() {

@@ -42,13 +42,13 @@ export class ViewClassroomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = parseInt(this.route.snapshot.paramMap.get('id') || '');
+    let id = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
     this.classroom$ = this.classroomService.getClassroomById(id);
     this. teachers$ = this.classroomService.getClassroomUsers(id, 'teachers');
     this.students$ = this.classroomService.getClassroomUsers(id, 'students');
     this.owner$ = this.classroomService.getClassroomOwner(id);
     this.classroom = JSON.parse(localStorage.getItem(environment.classroom) || '');
-    this.announcementService.getAnnouncementsByClassroom(JSON.parse(localStorage.getItem(environment.classroom) || '')).pipe(take(1)).subscribe(
+    this.announcementService.getAnnouncementsByClassroom(id).pipe(take(1)).subscribe(
       (response: Announcement[]) => {
         this.announcements = response;
         response.forEach(ann =>
@@ -57,22 +57,8 @@ export class ViewClassroomComponent implements OnInit {
       });
   }
 
-  logg(text: string){
-    console.log(text);
-  }
-
   readLocalStorageValue(key: string) {
     return localStorage.getItem(key);
-  }
-
-  sendAnnouncement(){
-    this.classroom = JSON.parse(localStorage.getItem(environment.classroom) || '');
-    let announcement = new Announcement();
-    announcement.courseId = this.classroom?.classroomId || 0;
-    announcement.text = this.announcementForm.get(['text'])?.value;
-    console.log(announcement);
-    console.log(this.classroom);
-    this.announcementService.createAnnouncement(this.classroom || new Classroom, announcement);
   }
 
   sendComment(announcement: Announcement){
@@ -89,8 +75,6 @@ export class ViewClassroomComponent implements OnInit {
     this.commentService.deleteComment(comment.id);
   }
 
-  deleteAnnouncement(announcement: Announcement){
-    this.announcementService.deleteAnnouncement(this.classroom || new Classroom, announcement.id);
-  }
+  
 
 }

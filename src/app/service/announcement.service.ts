@@ -20,31 +20,31 @@ export class AnnouncementService {
 
     }
 
-    public createAnnouncement(classroom: Classroom, announcement: Announcement): Observable<Announcement>{
+    public createAnnouncement(classroomId: number, announcement: Announcement): Observable<Announcement>{
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, announcement, options)
+        return this.http.post<Announcement>(`${this.apiServerUrl}${classroomId}/announcements`, announcement, options)
     }
 
-    public getAnnouncementsByClassroom(classroom: Classroom): Observable<Announcement[]>{
+    public getAnnouncementsByClassroom(classroomId: number): Observable<Announcement[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<Announcement[]>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, options)
+        return this.http.get<Announcement[]>(`${this.apiServerUrl}${classroomId}/announcements`, options)
     }
 
-    public getAnnouncementById(classroom: Classroom, announcementId: number): Observable<Announcement>{
+    public getAnnouncementById(classroomId: number, announcementId: number): Observable<Announcement>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/announcements/${announcementId}`, options)
+        return this.http.get<Announcement>(`${this.apiServerUrl}${classroomId}/announcements/${announcementId}`, options)
     }
 
-    public deleteAnnouncement(classroom: Classroom, announcementId: number){
+    public deleteAnnouncement(classroomId: number, announcementId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.delete(`${this.apiServerUrl}${classroom.classroomId}/announcements/${announcementId}`, options)
+        return this.http.delete(`${this.apiServerUrl}${classroomId}/announcements/${announcementId}`, options)
     }
 }

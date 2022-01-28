@@ -33,22 +33,21 @@ export class CommentService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        console.log(this.http.get<Comments[]>(`${this.apiServerUrl}announcements/${announcementId}/announcementComments`, options));
         return this.http.get<Comments[]>(`${this.apiServerUrl}announcements/${announcementId}/announcementComments`, options);
     }
 
-    public getCommentsByMaterial(material: Material): Observable<Comments[]>{
+    public getCommentsByMaterial(materialId: number): Observable<Comments[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<Comments[]>(`${this.apiServerUrl}materials/${material.id}/materialComments`, options)
+        return this.http.get<Comments[]>(`${this.apiServerUrl}materials/${materialId}/materialComments`, options)
     }
 
-    public getCommentsByUserAssignment(assignment: UserAssignment): Observable<Comments[]>{
+    public getCommentsByUserAssignment(assignmentId: number): Observable<Comments[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<Comments[]>(`${this.apiServerUrl}user-assignments/${assignment.id}/userAssignmentComments`, options)
+        return this.http.get<Comments[]>(`${this.apiServerUrl}user-assignments/${assignmentId}/userAssignmentComments`, options)
     }
 
     public getCommentById(commentId: number): Observable<Comments>{

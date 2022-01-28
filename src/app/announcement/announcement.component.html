@@ -1,0 +1,6 @@
+<h2>Announcements:</h2><br>
+<div *ngIf="announcements$ | async as announcements">
+    <div *ngFor="let announcement of announcements">
+       <p (click)="open(announcement.id)" >{{announcement.text}}</p>
+    </div>
+ </div>
