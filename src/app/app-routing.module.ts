@@ -21,7 +21,7 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId', component: ViewClassroomComponent},
   { path: 'profile', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent },
-  {path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent}
+  { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent}
 ];
 
 @NgModule({

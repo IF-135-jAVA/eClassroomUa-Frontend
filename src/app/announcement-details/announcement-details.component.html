@@ -7,3 +7,9 @@
          </div>
     </div>
  </div>
+ <form [formGroup]="commentForm"  class="form-horizontal" role="form">
+    <div appearance="fill">
+        <textarea formControlName="text" class="form-control" matInput placeholder="Comment"></textarea>
+        <button mat-button (click)="sendComment()">Publish</button>
+    </div>
+</form>

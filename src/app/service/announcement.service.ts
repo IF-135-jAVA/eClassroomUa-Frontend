@@ -21,7 +21,7 @@ export class AnnouncementService {
     }
 
     public createAnnouncement(classroomId: number, announcement: Announcement): Observable<Announcement>{
-        this.jwtString = '' + localStorage.getItem(environment.tokenName);
+        this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.post<Announcement>(`${this.apiServerUrl}${classroomId}/announcements`, announcement, options)

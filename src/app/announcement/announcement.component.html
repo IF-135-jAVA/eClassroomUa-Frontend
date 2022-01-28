@@ -4,3 +4,12 @@
        <p (click)="open(announcement.id)" >{{announcement.text}}</p>
     </div>
  </div>
+ <div *ngIf="this.userRole === 'TEACHER'">
+   <form [formGroup]="announcementForm"  class="form-horizontal" role="form">
+       <div appearance="fill">
+         <mat-label>Message</mat-label>
+         <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
+         <button mat-button (click)="sendAnnouncement()">Publish</button>
+       </div>
+   </form>
+</div>
