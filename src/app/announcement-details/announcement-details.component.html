@@ -1,0 +1,9 @@
+<div *ngIf="announcement$ | async as announcement">
+    <h1>{{announcement.text}}</h1>
+    <div *ngIf="comments$ | async as comments">
+        <h2>Comments:</h2><br>
+        <div *ngFor="let comment of comments">
+            <p>{{comment.text}}</p>
+         </div>
+    </div>
+ </div>

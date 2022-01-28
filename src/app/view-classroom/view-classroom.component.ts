@@ -8,7 +8,8 @@ import { Comments } from '../model/comment';
 import { ClassroomService } from '../service/classroom.service';
 import { CommentService } from '../service/comment.service';
 import { AnnouncementService } from '../service/announcement.service';
-import { take } from 'rxjs';
+import { Observable, take } from 'rxjs';
+import { ActivatedRoute } from '@angular/router';
 
 
 @Component({
@@ -18,10 +19,11 @@ import { take } from 'rxjs';
 })
 export class ViewClassroomComponent implements OnInit {
 
-  students: User[] | undefined;
-  teachers: User[] | undefined;
-  owner: User | undefined;
+  students$!: Observable<User[]>;
+  teachers$!: Observable<User[]>;
+  owner$!: Observable<User>;
   classroom: Classroom | undefined;
+  classroom$!: Observable<Classroom>;
   announcements: Announcement[] | undefined;
   announcementForm: FormGroup = this.formBuilder.group({
     text: ''
@@ -33,20 +35,20 @@ export class ViewClassroomComponent implements OnInit {
   constructor(private classroomService: ClassroomService,
               private commentService: CommentService,
               private announcementService: AnnouncementService,
-              private formBuilder: FormBuilder)
+              private formBuilder: FormBuilder,
+              private route: ActivatedRoute)
   {
 
   }
 
   ngOnInit(): void {
-    this.classroomService.getClassroomUsers(JSON.parse(localStorage.getItem(environment.classroom) || ''), 'teachers').subscribe(
-      (response: User[]) => this.teachers = response);
-    this.classroomService.getClassroomUsers(JSON.parse(localStorage.getItem(environment.classroom) || ''), 'students').subscribe(
-      (response: User[]) => this.students = response);
-    this.classroomService.getClassroomOwner(JSON.parse(localStorage.getItem(environment.classroom) || '')).subscribe(
-      (response: User) => this.owner = response);
+    let id = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroom$ = this.classroomService.getClassroomById(id);
+    this. teachers$ = this.classroomService.getClassroomUsers(id, 'teachers');
+    this.students$ = this.classroomService.getClassroomUsers(id, 'students');
+    this.owner$ = this.classroomService.getClassroomOwner(id);
     this.classroom = JSON.parse(localStorage.getItem(environment.classroom) || '');
-    this.announcementService.getAnnouncementsByClassroom(JSON.parse(localStorage.getItem(environment.classroom) || '')).pipe(take(1)).subscribe(
+    this.announcementService.getAnnouncementsByClassroom(id).pipe(take(1)).subscribe(
       (response: Announcement[]) => {
         this.announcements = response;
         response.forEach(ann =>
@@ -55,26 +57,8 @@ export class ViewClassroomComponent implements OnInit {
       });
   }
 
-  logg(text: string){
-    console.log(text);
-  }
-
   readLocalStorageValue(key: string) {
     return localStorage.getItem(key);
-  }
-
-  getOwner(){
-    return this.owner;
-  }
-
-  sendAnnouncement(){
-    this.classroom = JSON.parse(localStorage.getItem(environment.classroom) || '');
-    let announcement = new Announcement();
-    announcement.courseId = this.classroom?.classroomId || 0;
-    announcement.text = this.announcementForm.get(['text'])?.value;
-    console.log(announcement);
-    console.log(this.classroom);
-    this.announcementService.createAnnouncement(this.classroom || new Classroom, announcement);
   }
 
   sendComment(announcement: Announcement){
@@ -91,8 +75,6 @@ export class ViewClassroomComponent implements OnInit {
     this.commentService.deleteComment(comment.id);
   }
 
-  deleteAnnouncement(announcement: Announcement){
-    this.announcementService.deleteAnnouncement(this.classroom || new Classroom, announcement.id);
-  }
+  
 
 }

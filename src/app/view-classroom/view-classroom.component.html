@@ -1,6 +1,6 @@
 <mat-tab-group mat-align-tabs="center">
     <mat-tab label="Classroom"> 
-        <div *ngIf="classroom">
+        <div *ngIf="classroom$ | async as classroom">
             <mat-card class="example-card">
                 <mat-card-header>
                     <mat-card-title>{{"Title: " + classroom.title}}</mat-card-title>
@@ -12,79 +12,41 @@
                 </mat-card-content>
             </mat-card>
         </div>
-        <div *ngIf="readLocalStorageValue('role') === 'teacher'">
-            <form [formGroup]="announcementForm" (submit)="sendAnnouncement()" class="form-horizontal" role="form">
-                <div appearance="fill">
-                  <mat-label>Message</mat-label>
-                  <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
-                  <button mat-button (click)="sendAnnouncement()">Publish</button>
-                </div>
-            </form>
-        </div>  
-        <div *ngFor="let announcement of announcements">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-subtitle>{{"Announcement: " + announcement.text}}</mat-card-subtitle>
-                    {{logg(announcement.text)}}
-                </mat-card-header>
-                <mat-card-content>
-                    <button mat-button *ngIf="readLocalStorageValue('role') === 'teacher'" (click)="deleteAnnouncement(announcement)">Delete</button>
-                </mat-card-content>
-                <mat-card-footer>
-                    <mat-expansion-panel>
-                            <mat-expansion-panel-header>
-                                <mat-panel-title>
-                                    Comments
-                                </mat-panel-title>
-                            </mat-expansion-panel-header>
-                        <form [formGroup]="commentForm" (submit)="sendComment(announcement)" class="form-horizontal" role="form">
-                            <div appearance="fill">
-                                <textarea formControlName="text" class="form-control" matInput placeholder="Comment"></textarea>
-                                <button mat-button (click)="sendComment(announcement)">Publish</button>
-                            </div>
-                        </form>
-                        <div *ngFor="let comment of announcement.comments">
-                            <mat-card class="example-card comment">
-                                <mat-card-header>
-                                    <mat-card-subtitle>{{"Comment: " + comment.text}}</mat-card-subtitle>
-                                    <button mat-button *ngIf="readLocalStorageValue('role') === 'teacher'" (click)="deleteComment(comment)">Delete</button>
-                                </mat-card-header>
-                            </mat-card>
-                        </div>
-                    </mat-expansion-panel>
-                </mat-card-footer>
-            </mat-card>
-        </div>
+       <app-announcement></app-announcement>
     </mat-tab>
     <mat-tab label="Materials"> 
 
     </mat-tab>
     <mat-tab label="Users">    
         <mat-card-title>Owner:</mat-card-title>     
-        <div *ngIf="owner">
+        <div *ngIf="owner$ | async as classroomOwner">
             <mat-card class="example-card">
                 <mat-card-header>
-                    <mat-card-title>{{owner.firstName + " " + owner.lastName}}</mat-card-title>
+                    <mat-card-title>{{classroomOwner.firstName + " " + classroomOwner.lastName}}</mat-card-title>
                 </mat-card-header>
             </mat-card>
         </div>
         <mat-card-title>Teachers:</mat-card-title>  
-        <div *ngFor="let user of teachers">
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <mat-card-title>{{user.firstName + " " + user.lastName}}</mat-card-title>
-                  <button mat-button *ngIf="readLocalStorageValue('role') === 'teacher'">Kick</button>
-                </mat-card-header>
-            </mat-card>
-        </div>          
+        <div *ngIf="teachers$ | async as teachers">
+            <div *ngFor="let teacher of teachers">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{teacher.firstName + " " + teacher.lastName}}</mat-card-title>
+                      <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
+                    </mat-card-header>
+                </mat-card>
+            </div> 
+        </div>         
         <mat-card-title>Students:</mat-card-title>  
-        <div *ngFor="let user of students">
-            <mat-card class="example-card">
-                <mat-card-header>
-                  <mat-card-title>{{user.firstName + " " + user.lastName}}</mat-card-title>
-                  <button mat-button *ngIf="readLocalStorageValue('role') === 'teacher'">Kick</button>
-                </mat-card-header>
-            </mat-card>
-          </div>
+        <div *ngIf="students$ | async as students">
+            <div *ngFor="let student of students">
+                <mat-card class="example-card">
+                    <mat-card-header>
+                      <mat-card-title>{{student.firstName + " " + student.lastName}}</mat-card-title>
+                      <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
+                    </mat-card-header>
+                </mat-card>
+              </div>
+        </div>
     </mat-tab>
 </mat-tab-group>

@@ -14,16 +14,16 @@
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Update user</h4>
     </div>
-    <div class="modal-body">
+    <div class="modal-body" *ngIf="user$ | async as user">
       <form [formGroup]="updateForm" role="form" class="form-horizontal">
         <div class="form-group">
-          <label for="dateOfBirth">First name:</label>
+          <label for="firstName">First name:</label>
           <div class="input-group">
-            <input formControlName="firstName" type="text" class="form-control"/>
+            <input  value="{{user.firstName}}" type="text" class="form-control"/>
           </div>
-          <label for="dateOfBirth">Last name:</label>
+          <label for="lastName">Last name:</label>
           <div class="input-group">
-            <input formControlName="lastName" type="text" class="form-control"/>
+            <input value="{{user.lastName}}" type="text" class="form-control"/>
           </div>
         </div>
       </form>

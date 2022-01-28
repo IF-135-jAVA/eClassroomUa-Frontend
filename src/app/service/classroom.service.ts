@@ -78,17 +78,17 @@ export class ClassroomService {
         return this.http.delete<void>(`${this.apiServerUrl}${classroomId}`, options);
     }
 
-    public getClassroomUsers(classroom: Classroom, userType: string): Observable<User[]>{
+    public getClassroomUsers(classroomId: number, userType: string): Observable<User[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<User[]>(`${this.apiServerUrl}${classroom.classroomId}/${userType}`, options)
+        return this.http.get<User[]>(`${this.apiServerUrl}${classroomId}/${userType}`, options)
     }
 
-    public getClassroomOwner(classroom: Classroom): Observable<User>{
+    public getClassroomOwner(classroomId: number): Observable<User>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.get<User>(`${this.apiServerUrl}${classroom.classroomId}/owner`, options)
+        return this.http.get<User>(`${this.apiServerUrl}${classroomId}/owner`, options)
     }
 }
