@@ -4,16 +4,13 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Classroom } from '../model/classroom';
 import { environment } from 'src/environments/environment';
 import { FormGroup, FormBuilder } from '@angular/forms';
-import { Announcement } from '../model/announcement';
 import {Criterion} from "../model/criterion";
-import {Topic} from "../model/topic";
-import {Material} from "../model/material";
 
 @Injectable({
     providedIn: 'root'
 })
 export class CriterionService {
-    private apiServerUrl = environment.api + 'classrooms/';
+    private apiServerUrl = environment.api + 'classrooms/{classroomId}/topics/{topicId}/materials/{materialId}/criterions/';
 
     jwtString: string | undefined;
 
@@ -23,32 +20,33 @@ export class CriterionService {
 
     }
 
-    public createCriterion(classroom: Classroom, criterion: Criterion, topic: Topic, material: Material): Observable<Criterion>{
+    public createCriterion(criterion: Criterion, classroomId: number,  topicId: number, materialId: number): Observable<Criterion>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Criterion>(`${this.apiServerUrl}${classroom.classroomId}/topics${topic.id}/materials/{materialId}/criterion${criterion.id}`, options)
+        return this.http.post<Criterion>(`${this.apiServerUrl}`, options)
 
     }
 
-    public getCriterionsByMaterial(classroom: Classroom): Observable<Criterion[]>{
+    public getAllCriterions(): Observable<Criterion[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Criterion[]>(`${this.apiServerUrl}${classroom.classroomId}/announcements`, options)
+        return this.http.get<Criterion[]>(`${this.apiServerUrl}`, options)
     }
 
-    public getCriterionById(classroom: Classroom, criterionId: number): Observable<Announcement>{
+    public getCriterionById(classroomId: number, topicId: number, materialId: number, criterionId: number): Observable<Criterion>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Announcement>(`${this.apiServerUrl}${classroom.classroomId}/topics${topicId}/materials${materialId}/criterions${criterionId}`, options)
+        return this.http.get<Criterion>(`${this.apiServerUrl}/${criterionId}`, options)
+
     }
 
-    public deleteAnnouncement(classroom: Classroom, announcementId: number){
+    public deleteAnnouncement( criterionId: number, classroomId: number, topicId: number, materialId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.delete(`${this.apiServerUrl}${classroom.classroomId}/announcements/${announcementId}`, options)
+        return this.http.delete(`${this.apiServerUrl}/${criterionId}`, options)
     }
 }

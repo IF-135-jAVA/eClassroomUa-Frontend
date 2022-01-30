@@ -10,6 +10,7 @@ import { ProfileComponent } from './profile/profile.component';
 import {RegistrationComponent} from "./registration/registration.component";
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {CriterionsComponent} from "./criterions/criterions.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -21,7 +22,8 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId', component: ViewClassroomComponent},
   { path: 'profile', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent },
-  { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent}
+  { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
+  { path: 'classrooms/:classroomId/topic/:topicId/material/:materialId/criterions/:criterionId', component: CriterionsComponent}
 ];
 
 @NgModule({
