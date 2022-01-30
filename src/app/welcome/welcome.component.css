@@ -1,8 +1,9 @@
 .background{
     background-image: url("src/assets/images/Background-Kelase-New.png");
-height:calc(100vh - 65px) ;
-
+height:calc(100vh - 68px) ;
 }
+
+
 .title{
   padding-top: 155px;
   padding-left: 30px;
