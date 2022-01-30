@@ -29,6 +29,7 @@ import { PickRoleComponent } from './pick-role/pick-role.component';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AnnouncementDetailsComponent } from './announcement-details/announcement-details.component';
 
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -46,7 +47,7 @@ import { AnnouncementDetailsComponent } from './announcement-details/announcemen
     ToggleButtonComponent,
     PickRoleComponent,
     AnnouncementComponent,
-    AnnouncementDetailsComponent
+    AnnouncementDetailsComponent,
   ],
   imports: [
     BrowserModule,
