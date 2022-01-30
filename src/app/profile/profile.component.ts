@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
+import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -33,11 +34,12 @@ export class ProfileComponent implements OnInit {
   constructor(private userService: UserService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
-              private authService: AuthService) { 
+              private authService: AuthService,
+              private route: ActivatedRoute) { 
   }
 
   ngOnInit(): void {
-    this.user$ = this.userService.getUserById(this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id);
+    this.user$ = this.userService.getUserById(parseInt(this.route.snapshot.paramMap.get("userId") || ''));
   }
 
   joinModal(content: any) {
