@@ -8,6 +8,7 @@ import { Announcement } from '../model/announcement';
 import { Comments } from '../model/comment';
 import { AnnouncementService } from '../service/announcement.service';
 import { CommentService } from '../service/comment.service';
+import { UserService } from '../service/user.service';
 
 @Component({
   selector: 'app-announcement-details',
@@ -35,6 +36,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   });
 
   constructor(private announcementService: AnnouncementService,
+    private userService: UserService,
               private formBuilder: FormBuilder,
               private commentService: CommentService,
               private route: ActivatedRoute) {
@@ -63,6 +65,10 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   deleteComment(comment: Comments){
     this.commentService.deleteComment(comment.id);
+  }
+
+  getUserById(id: number){
+    return this.userService.getUserById(id);
   }
 
 }

@@ -1,52 +1,55 @@
-<mat-tab-group mat-align-tabs="center">
-    <mat-tab label="Classroom"> 
-        <div *ngIf="classroom$ | async as classroom">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>{{"Title: " + classroom.title}}</mat-card-title>
-                    <mat-card-subtitle>{{"Code: " + classroom.code}}</mat-card-subtitle>
-                    <mat-card-subtitle>{{"Session: " + classroom.session}}</mat-card-subtitle>
-                </mat-card-header>
-                <mat-card-content>
-                    <p>{{"Description: " + classroom.description}}</p>
-                </mat-card-content>
-            </mat-card>
+<div class="container-classroom" *ngIf="classroom$ | async as classroom">
+    <div class="row">
+        <div class="image-top"><span  class="class-name">{{classroom.title}}</span></div>
+    </div>
+    <h1>{{classroom.description}}</h1>
+    <div class="row">
+        <div class="col-3">
+            <div class="box box-small">
+                <h5>Classroom code:</h5>
+                <p class="code">{{classroom.code}}</p>
+            </div>
+            <div class="box box-small">
+                <h5>Asignments:</h5>
+                <p>No asignments found!</p>
+            </div>
         </div>
-       <app-announcement></app-announcement>
-    </mat-tab>
-    <mat-tab label="Materials"> 
-
-    </mat-tab>
-    <mat-tab label="Users">    
-        <mat-card-title>Owner:</mat-card-title>     
-        <div *ngIf="owner$ | async as classroomOwner">
-            <mat-card class="example-card">
-                <mat-card-header>
-                    <mat-card-title>{{classroomOwner.firstName + " " + classroomOwner.lastName}}</mat-card-title>
-                </mat-card-header>
-            </mat-card>
+        <div class="col-4">
+            <div class="box box-large">
+                <h2>User list:</h2>
+                <div *ngIf="owner$ | async as classroomOwner">
+                    <mat-card class="example-card">
+                        <mat-card-header>
+                            <mat-card-title>{{classroomOwner.firstName + " " + classroomOwner.lastName}}</mat-card-title>
+                        </mat-card-header>
+                    </mat-card>
+                </div>
+                <mat-card-title>Teachers:</mat-card-title>  
+                <div *ngIf="teachers$ | async as teachers">
+                    <div *ngFor="let teacher of teachers">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                              <mat-card-title>{{teacher.firstName + " " + teacher.lastName}}</mat-card-title>
+                              <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
+                            </mat-card-header>
+                        </mat-card>
+                    </div> 
+                </div>         
+                <mat-card-title>Students:</mat-card-title>  
+                <div *ngIf="students$ | async as students">
+                    <div *ngFor="let student of students">
+                        <mat-card class="example-card">
+                            <mat-card-header>
+                              <mat-card-title>{{student.firstName + " " + student.lastName}}</mat-card-title>
+                              <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
+                            </mat-card-header>
+                        </mat-card>
+                      </div>
+                </div>
+            </div>
+            <div class="box box-large">
+                <app-announcement></app-announcement>
+            </div>
         </div>
-        <mat-card-title>Teachers:</mat-card-title>  
-        <div *ngIf="teachers$ | async as teachers">
-            <div *ngFor="let teacher of teachers">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                      <mat-card-title>{{teacher.firstName + " " + teacher.lastName}}</mat-card-title>
-                      <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
-                    </mat-card-header>
-                </mat-card>
-            </div> 
-        </div>         
-        <mat-card-title>Students:</mat-card-title>  
-        <div *ngIf="students$ | async as students">
-            <div *ngFor="let student of students">
-                <mat-card class="example-card">
-                    <mat-card-header>
-                      <mat-card-title>{{student.firstName + " " + student.lastName}}</mat-card-title>
-                      <button mat-button *ngIf="readLocalStorageValue('role') === 'TEACHER'">Kick</button>
-                    </mat-card-header>
-                </mat-card>
-              </div>
-        </div>
-    </mat-tab>
-</mat-tab-group>
+    </div>
+</div>
