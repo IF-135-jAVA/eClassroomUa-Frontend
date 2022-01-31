@@ -1,5 +1,5 @@
 export class Criterion{
-    criterionId: number = 0;
+    id: number = 0;
     title: string = "";
     description: string = "";
 

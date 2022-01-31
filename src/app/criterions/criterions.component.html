@@ -1,7 +1,7 @@
 <h2>Criterions:</h2><br>
 <div *ngIf="criterions$ | async as criterions">
   <div *ngFor="let criterion of criterions">
-    <p (click)="open(criterion.criterionId)" >{{criterion.title}}</p>
+    <p (click)="open(criterion.id)" >{{criterion.description}}</p>
   </div>
 </div>
 <div *ngIf="this.userRole === 'TEACHER'">

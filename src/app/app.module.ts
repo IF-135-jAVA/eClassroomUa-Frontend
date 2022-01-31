@@ -31,6 +31,7 @@ import { AnnouncementDetailsComponent } from './announcement-details/announcemen
 import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
 import { TopicsComponent } from './topics/topics.component';
+import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
 
 
 @NgModule({
@@ -53,6 +54,7 @@ import { TopicsComponent } from './topics/topics.component';
     AnnouncementDetailsComponent,
     CriterionsComponent,
     TopicsComponent,
+    CriterionDetailsComponent,
   ],
 
   imports: [

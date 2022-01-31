@@ -51,7 +51,6 @@ export class CriterionsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('criterionId') || '');
     this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
@@ -61,7 +60,6 @@ export class CriterionsComponent implements OnInit {
 
   ngOnInit(): void {
     this.criterions$ = this.criterionService.getAllCriterions();
-    //this.criterion = this.criterionService.getCriterionById(this.criterionId, this.classroomId, this.topicId, this.materialId)
 
     this.createForm = this.formBuilder.group({
       criterionId: '',
@@ -74,10 +72,11 @@ export class CriterionsComponent implements OnInit {
   create() {
   this.criterionService.createCriterion(this.criterion, this.classroomId, this.topicId,  this.materialId).subscribe(
     (response: Criterion) =>{
-      this.open(response.criterionId);
+      this.open(response.id);
     }
   )
   }
+
   getAllCriterions(){
     this.criterions$ = this.criterionService.getAllCriterions()
   }
@@ -86,13 +85,7 @@ export class CriterionsComponent implements OnInit {
     return  this.criterionService.getCriterionById(this.classroomId, this.topicId, this.materialId, criterionId );
   }
 
-  // open(criterionId: number) {
-  //   this.criterionService.getCriterionById(this.classroomId, this.topicId, this.materialId, this.criterionId).subscribe(
-  //     (response: Criterion) => {
-  //       localStorage.setItem(environment.classroom, JSON.stringify(this.criterionId));
-  //       this.router.navigate(['classrooms/:classroomId/topic/:topicId/material/:materialId/criterions/']);
-  //     });
-  // }
+
   createModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title1'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
@@ -100,6 +93,7 @@ export class CriterionsComponent implements OnInit {
   }
 
   open(criterionId: number) {
+  console.log(criterionId)
     this.router.navigate(['/classrooms/' + this.classroomId + '/topic/' + this.topicId + '/material/' + this.materialId + '/criterions/', criterionId]);
   }
   criterionForm: FormGroup = this.formBuilder.group({

@@ -11,6 +11,7 @@ import {RegistrationComponent} from "./registration/registration.component";
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { WelcomeComponent } from './welcome/welcome.component';
 import {CriterionsComponent} from "./criterions/criterions.component";
+import {CriterionDetailsComponent} from "./criterion-details/criterion-details.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -23,7 +24,8 @@ const routes: Routes = [
   { path: 'profile/:userId', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent },
   { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
-  { path: 'classrooms/:classroomId/topic/:topicId/material/:materialId/criterions/:criterionId', component: CriterionsComponent}
+  { path: 'classrooms/:classroomId/topic/:topicId/material/:materialId/criterions', component: CriterionsComponent},
+  { path: 'classrooms/:classroomId/topic/:topicId/material/:materialId/criterions/:criterionId', component: CriterionDetailsComponent}
 ];
 
 @NgModule({
