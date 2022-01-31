@@ -30,6 +30,7 @@ import { AnnouncementComponent } from './announcement/announcement.component';
 import { AnnouncementDetailsComponent } from './announcement-details/announcement-details.component';
 import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
+import { TopicsComponent } from './topics/topics.component';
 
 
 @NgModule({
@@ -51,6 +52,7 @@ import {CommonModule} from "@angular/common";
     AnnouncementComponent,
     AnnouncementDetailsComponent,
     CriterionsComponent,
+    TopicsComponent,
   ],
 
   imports: [

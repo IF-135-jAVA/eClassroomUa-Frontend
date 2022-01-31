@@ -28,7 +28,9 @@ export class CriterionService {
 
     }
 
+
     public getAllCriterions(): Observable<Criterion[]>{
+
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
