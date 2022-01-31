@@ -1,8 +1,54 @@
-.example-card {
-    max-width: 400px;
-  }
-  
-  .example-header-image {
-    background-image: url('https://material.angular.io/assets/img/examples/shiba1.jpg');
-    background-size: cover;
-  }
+form button{
+    margin-top: 15px;
+}
+.image-top { 
+	width:625px; 
+	height:260px;
+	border-top-left-radius:15px;
+	border-top-right-radius:15px;
+	border-bottom-left-radius:15px;
+	border-bottom-right-radius:15px;
+	background-image:url(/assets/images/rectangle_1.png);
+	background-repeat:no-repeat;
+	background-size:cover;
+}
+.class-name { 
+	color:rgba(0, 0, 0, 1);
+	width:178px;
+	height:45px;
+  margin-left: 10px;
+	font-family:Poppins;
+	text-align:left;
+	font-size:30px;
+  font-weight: bold;
+	letter-spacing:0;
+}
+
+.box{
+  background-color:rgba(255, 255, 255, 1);
+  height:auto;
+	border-top-left-radius:15px;
+	border-top-right-radius:15px;
+	border-bottom-left-radius:15px;
+	border-bottom-right-radius:15px;
+  border:2px solid rgba(0, 0, 0, 1);
+  margin-top: 10px;
+}
+
+.box-small { 
+	width:165px;
+  margin-left: -15px;
+}
+
+.box-large {
+  padding: 5px;
+	width:445px;
+}
+.container-classroom{
+  width:625px;
+  height: auto;
+  margin: 0 auto;
+}
+.code{
+  font-size: small;
+}

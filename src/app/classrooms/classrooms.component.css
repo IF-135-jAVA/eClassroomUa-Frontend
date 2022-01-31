@@ -1,5 +1,6 @@
 .background{
     background-image: url("src/assets/images/Background-Kelase-New.png");
+    background-repeat: repeat-x;
 }
 
 button:hover {
@@ -26,12 +27,15 @@ button{
     margin-left: 50px;
 }
 
-button{
-    background-color: #4CAF50;
-    background-color: #4CAF50;
-}
 mat-card{
-    background-color: transparent;
+    background-color: white;
     stroke-width: 2px;
-    stroke: aquamarine; 
+    stroke: aquamarine;
+    margin-top: 20px;
+    margin-left: 40px;
+    max-width: 600px;
+}
+
+.title{
+    cursor: pointer;
 }

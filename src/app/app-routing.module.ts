@@ -20,7 +20,7 @@ const routes: Routes = [
   { path: 'logout', component: LogoutComponent },
   { path: 'classrooms', component: ClassroomsComponent },
   { path: 'classrooms/:classroomId', component: ViewClassroomComponent},
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:userId', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent },
   { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
   { path: 'classrooms/:classroomId/topic/:topicId/material/:materialId/criterions/:criterionId', component: CriterionsComponent}

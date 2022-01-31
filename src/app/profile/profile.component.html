@@ -1,15 +1,24 @@
-<div class="profile" *ngIf="user$ | async as user">
-  <h1>User Profile</h1>
-  <mat-card>
-      <mat-card-header>
-          {{"First name: " + user.firstName}}<br>
-          {{"Last name: " + user.lastName}}<br>
-          {{"Email: " + user.email}}<br>
-      </mat-card-header>
-  </mat-card>
+<div class="container-user" *ngIf="user$ | async as user">
+  <div class="row">
+    <div class="image-top"><span  class="name">User profile</span></div>
 </div>
+  <div class="row">
+          <div class="box">
+            <mat-card>
+              <mat-card-header>
+                  {{"First name: " + user.firstName}}<br>
+                  {{"Last name: " + user.lastName}}<br>
+                  {{"Email: " + user.email}}<br>
+              </mat-card-header>
+              <button mat-button class="button, profile-button" (click)="joinModal(content)">Update profile</button>
+            </mat-card>
+          </div>
+      </div>
+  </div>
+
+
   
-<button mat-button class="button" (click)="joinModal(content)">Update profile</button>
+
 <ng-template #content let-modal>
     <div class="modal-header">
       <h4 class="modal-title" id="modal-basic-title">Update user</h4>
