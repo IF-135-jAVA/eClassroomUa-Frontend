@@ -10,7 +10,7 @@ import {Criterion} from "../model/criterion";
     providedIn: 'root'
 })
 export class CriterionService {
-    private apiServerUrl = environment.api + 'classrooms/{classroomId}/topics/{topicId}/materials/{materialId}/criterions/';
+    private apiServerUrl = environment.api +'classrooms/';
 
     jwtString: string | undefined;
 
@@ -24,28 +24,28 @@ export class CriterionService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Criterion>(`${this.apiServerUrl}`, options)
+        return this.http.post<Criterion>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/`, options)
 
     }
 
 
-    public getAllCriterions(): Observable<Criterion[]>{
+    public getAllCriterions(classroomId: number, topicId: number, materialId: number): Observable<Criterion[]>{
 
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Criterion[]>(`${this.apiServerUrl}`, options)
+        return this.http.get<Criterion[]>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/`, options)
     }
 
     public getCriterionById(classroomId: number, topicId: number, materialId: number, criterionId: number): Observable<Criterion>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Criterion>(`${this.apiServerUrl}/${criterionId}`, options)
+        return this.http.get<Criterion>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}`, options)
 
     }
 
-    public deleteAnnouncement( criterionId: number, classroomId: number, topicId: number, materialId: number){
+    public deleteCriterion( criterionId: number, classroomId: number, topicId: number, materialId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };

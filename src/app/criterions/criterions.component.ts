@@ -59,7 +59,7 @@ export class CriterionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.criterions$ = this.criterionService.getAllCriterions();
+    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId,  this.materialId);
 
     this.createForm = this.formBuilder.group({
       criterionId: '',
@@ -78,7 +78,7 @@ export class CriterionsComponent implements OnInit {
   }
 
   getAllCriterions(){
-    this.criterions$ = this.criterionService.getAllCriterions()
+    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId,  this.materialId)
   }
 
   getById(classroomId: number, topicId: number, materialId: number, criterionId: number){
