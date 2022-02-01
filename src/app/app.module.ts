@@ -28,6 +28,10 @@ import {MatExpansionModule} from '@angular/material/expansion';
 import { PickRoleComponent } from './pick-role/pick-role.component';
 import { AnnouncementComponent } from './announcement/announcement.component';
 import { AnnouncementDetailsComponent } from './announcement-details/announcement-details.component';
+import {CriterionsComponent} from './criterions/criterions.component';
+import {CommonModule} from "@angular/common";
+import { TopicsComponent } from './topics/topics.component';
+import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
 
 
 @NgModule({
@@ -48,8 +52,13 @@ import { AnnouncementDetailsComponent } from './announcement-details/announcemen
     PickRoleComponent,
     AnnouncementComponent,
     AnnouncementDetailsComponent,
+    CriterionsComponent,
+    TopicsComponent,
+    CriterionDetailsComponent,
   ],
+
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
@@ -61,8 +70,8 @@ import { AnnouncementDetailsComponent } from './announcement-details/announcemen
     BrowserAnimationsModule,
     NgbModule,
     MatTabsModule,
-    MatRippleModule,
     MatFormFieldModule,
+    MatRippleModule,
     MatExpansionModule
   ],
   exports: [

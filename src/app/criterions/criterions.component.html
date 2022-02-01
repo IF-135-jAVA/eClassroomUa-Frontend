@@ -1,0 +1,17 @@
+<h2>Criterions:</h2><br>
+<div *ngIf="criterions$ | async as criterions">
+  <div *ngFor="let criterion of criterions">
+    <p (click)="open(criterion.id)" >{{criterion.title}}</p>
+  </div>
+</div>
+<div *ngIf="this.userRole === 'TEACHER'">
+  <form [formGroup]="criterionForm"  class="form-horizontal" role="form">
+    <div appearance="fill">
+      <mat-label>Add criterion</mat-label>
+      <textarea formControlName="title" class="form-control" matInput placeholder="Title"></textarea>
+      <textarea formControlName="description" class="form-control" matInput placeholder="Description"></textarea>
+
+      <button mat-button (click)="sendCriterion()">Save</button>
+    </div>
+  </form>
+</div>

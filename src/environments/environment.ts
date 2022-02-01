@@ -4,6 +4,7 @@
 
 export const environment = {
   production: false,
+  //'http://dtapi.if.ua:8081/api/auth/'
   authApi: 'http://dtapi.if.ua:8081/api/auth/',
   api: 'http://dtapi.if.ua:8081/api/',
   tokenName: 'jwt-token',

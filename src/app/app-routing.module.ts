@@ -10,18 +10,26 @@ import { ProfileComponent } from './profile/profile.component';
 import {RegistrationComponent} from "./registration/registration.component";
 import { ViewClassroomComponent } from './view-classroom/view-classroom.component';
 import { WelcomeComponent } from './welcome/welcome.component';
+import {CriterionsComponent} from "./criterions/criterions.component";
+import {CriterionDetailsComponent} from "./criterion-details/criterion-details.component";
+import {TopicsComponent} from "./topics/topics.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: '', component: WelcomeComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'register', component: RegistrationComponent },
+  { path: 'signup', component: RegistrationComponent },
   { path: 'logout', component: LogoutComponent },
   { path: 'classrooms', component: ClassroomsComponent },
   { path: 'classrooms/:classroomId', component: ViewClassroomComponent},
-  { path: 'profile', component: ProfileComponent },
+  { path: 'profile/:userId', component: ProfileComponent },
   { path: 'pick-role', component: PickRoleComponent },
-  { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent}
+  { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
+  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions', component: CriterionsComponent},
+  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId', component: CriterionDetailsComponent},
+  { path: 'classrooms/:classroomId/topics', component: TopicsComponent}
+
+
 ];
 
 @NgModule({
