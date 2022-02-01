@@ -32,6 +32,8 @@ import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
 import { TopicsComponent } from './topics/topics.component';
 import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
+import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
+import { UserAssignmentDetailsComponent } from './user-assignment-details/user-assignment-details.component';
 
 
 @NgModule({
@@ -55,6 +57,8 @@ import { CriterionDetailsComponent } from './criterion-details/criterion-details
     CriterionsComponent,
     TopicsComponent,
     CriterionDetailsComponent,
+    UserAssignmentsComponent,
+    UserAssignmentDetailsComponent,
   ],
 
   imports: [
