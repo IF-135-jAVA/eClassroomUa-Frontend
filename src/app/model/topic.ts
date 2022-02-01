@@ -1,5 +1,5 @@
 export class Topic{
-    topicId: number = 0;
+    id: number = 0;
     title: string = "";
     text: string = "";
     classroomId: number = 0;

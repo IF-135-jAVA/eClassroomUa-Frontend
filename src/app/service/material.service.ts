@@ -24,27 +24,27 @@ export class MaterialService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.topicId}/materials`, material, options)
+        return this.http.post<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials`, material, options)
     }
 
     public getMaterialsByTopic(topic: Topic): Observable<Material[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Material[]>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.topicId}/materials`, options)
+        return this.http.get<Material[]>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials`, options)
     }
 
     public getMaterialById(topic: Topic, materialId: number): Observable<Material>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.topicId}/materials/${materialId}`, options)
+        return this.http.get<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials/${materialId}`, options)
     }
 
     public deleteMaterial(topic: Topic, materialId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.delete(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.topicId}/materials/${materialId}`, options)
+        return this.http.delete(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials/${materialId}`, options)
     }
 }

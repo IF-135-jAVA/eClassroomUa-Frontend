@@ -12,12 +12,7 @@
           <mat-card-subtitle  class="max-opacity">{{"Description: " + criterion.description}}</mat-card-subtitle>
         </mat-card>
       </div>
-      <form [formGroup]="criterionForm"  class="form-horizontal" role="form">
-        <div appearance="fill">
-          <textarea formControlName="title" class="form-control" matInput placeholder="Criterion"></textarea>
-          <button mat-button (click)="sendCriterion()">Publish</button>
-        </div>
-      </form>
+
 
   </div>
 </div>

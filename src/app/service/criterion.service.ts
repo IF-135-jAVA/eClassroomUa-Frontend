@@ -24,7 +24,8 @@ export class CriterionService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Criterion>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/`, options)
+        console.log(criterion.materialId+criterion.title+criterion.description)
+          return this.http.post<Criterion>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/`,criterion, options)
 
     }
 

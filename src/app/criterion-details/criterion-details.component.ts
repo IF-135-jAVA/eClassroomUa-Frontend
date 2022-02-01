@@ -61,7 +61,7 @@ export class CriterionDetailsComponent implements OnInit {
     let criterion = new Criterion();
     criterion.title = this.criterionForm.get(['title'])?.value;
     criterion.description = this.criterionForm.get(['description'])?.value;
-    criterion.id = this.criterionId;
+    this.materialId = 0  ;
     this.criterionService.createCriterion(criterion, this.classroomId, this.topicId, this.materialId).subscribe(() => this.getAllCriterions());
   }
 

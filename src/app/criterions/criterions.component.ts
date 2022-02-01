@@ -40,7 +40,6 @@ export class CriterionsComponent implements OnInit {
   classroomId! : number;
   topicId! : number;
   materialId!: number
-
   criterions$!: Observable<Criterion[]>;
 
 
@@ -94,16 +93,19 @@ export class CriterionsComponent implements OnInit {
 
   open(criterionId: number) {
   console.log(criterionId)
-    this.router.navigate(['/classrooms/' + this.classroomId + '/topic/' + this.topicId + '/material/' + this.materialId + '/criterions/', criterionId]);
+    this.router.navigate(['/classrooms/' + this.classroomId + '/topics/' + this.topicId + '/materials/' + this.materialId + '/criterions/', criterionId]);
   }
   criterionForm: FormGroup = this.formBuilder.group({
+
     title: '',
     description: ''
   });
   sendCriterion(){
     let criterion = new Criterion();
+    criterion.materialId = this.materialId;
     criterion.title = this.criterionForm.get(['title'])?.value;
-    criterion.description = this.criterionForm.get(['description'])?.value;;
+    criterion.description = this.criterionForm.get(['description'])?.value;
+
     this.criterionService.createCriterion(criterion, this.classroomId, this.topicId, this.materialId).subscribe(() => this.getAllCriterions());
   }
 }

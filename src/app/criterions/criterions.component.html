@@ -7,11 +7,11 @@
 <div *ngIf="this.userRole === 'TEACHER'">
   <form [formGroup]="criterionForm"  class="form-horizontal" role="form">
     <div appearance="fill">
-      <mat-label>Message</mat-label>
-      <textarea formControlName="title" class="form-control" matInput placeholder="Criterion"></textarea>
-      <textarea formControlName="description" class="form-control" matInput placeholder="Criterion"></textarea>
+      <mat-label>Add criterion</mat-label>
+      <textarea formControlName="title" class="form-control" matInput placeholder="Title"></textarea>
+      <textarea formControlName="description" class="form-control" matInput placeholder="Description"></textarea>
 
-      <button mat-button (click)="sendCriterion()">Publish</button>
+      <button mat-button (click)="sendCriterion()">Save</button>
     </div>
   </form>
 </div>
