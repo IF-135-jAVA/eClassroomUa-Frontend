@@ -64,6 +64,7 @@ export class LevelsDetailsComponent implements OnInit {
     let level = new Level();
     level.title = this.levelForm.get(['title'])?.value;
     level.description = this.levelForm.get(['description'])?.value;
+    level.criterionId = this.criterionId;
     level.mark = this.levelForm.get(['mark'])?.value;  ;
     this.levelService.createLevel(level, this.classroomId, this.topicId, this.materialId, this.criterionId).subscribe(() => this.getAllLevels());
   }
