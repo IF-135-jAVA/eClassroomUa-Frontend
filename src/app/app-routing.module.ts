@@ -13,6 +13,9 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {CriterionsComponent} from "./criterions/criterions.component";
 import {CriterionDetailsComponent} from "./criterion-details/criterion-details.component";
 import {TopicsComponent} from "./topics/topics.component";
+import {LevelsComponent} from "./levels/levels.component";
+import {LevelsDetailsComponent} from "./levels-details/levels-details.component";
+import {TopicDetailsComponent} from "./topic-details/topic-details.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,7 +30,12 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions', component: CriterionsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId', component: CriterionDetailsComponent},
-  { path: 'classrooms/:classroomId/topics', component: TopicsComponent}
+  { path: 'classrooms/:classroomId/topics/:topicId', component: TopicDetailsComponent},
+  { path: 'classrooms/:classroomId/topics', component: TopicsComponent},
+  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId/level', component: LevelsComponent},
+  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId/level/:levelId', component: LevelsDetailsComponent},
+
+
 
 
 ];

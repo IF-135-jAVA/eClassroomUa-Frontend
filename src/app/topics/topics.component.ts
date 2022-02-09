@@ -16,7 +16,7 @@ import {environment} from "../../environments/environment";
 export class TopicsComponent implements OnInit {
 
   createForm: FormGroup = this.formBuilder.group({
-    topicId: '',
+    id: '',
     title: '',
     text: '',
     classroomId:'',
@@ -43,21 +43,20 @@ export class TopicsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+   // this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
 
   ngOnInit(): void {
-    this.topics$ = this.topicService.getAllTopics(this.topicId);
+    this.topics$ = this.topicService.getAllTopics(this.classroomId);
 
     this.createForm = this.formBuilder.group({
       topicId: '',
       title: '',
-      text: '',
-      classroomId: '',
+
     });
   }
 
@@ -69,7 +68,7 @@ export class TopicsComponent implements OnInit {
     )
   }
   getAllTopics(){
-    this.topics$ = this.topicService.getAllTopics(this.topicId)
+    this.topics$ = this.topicService.getAllTopics(this.classroomId)
   }
 
   getById(classroomId: number, topicId: number){
@@ -82,18 +81,17 @@ export class TopicsComponent implements OnInit {
   }
 
   open(topicId: number) {
+    console.log(topicId)
     this.router.navigate(['classrooms/'+ this.classroomId + '/topics/', topicId ]);
   }
   topicForm: FormGroup = this.formBuilder.group({
 
     title: '',
-    text: '',
     classroomId: '',
   });
    sendTopic(){
     let topic = new Topic();
     topic.title = this.topicForm.get(['title'])?.value;
-    topic.text = this.topicForm.get(['text'])?.value;;
     this.topicService.createTopic(topic, this.classroomId ).subscribe(() => this.getAllTopics());
   }
 }
