@@ -24,14 +24,14 @@ export class ClassroomService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Classroom[]>(`${this.apiServerUrl}byTeacher/${userId}`, options);
+        return this.http.get<Classroom[]>(`${this.apiServerUrl}teacher/${userId}`, options);
     }
 
     public getClassroomsByStudent(userId: number): Observable<Classroom[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Classroom[]>(`${this.apiServerUrl}byStudent/${userId}`, options);
+        return this.http.get<Classroom[]>(`${this.apiServerUrl}student/${userId}`, options);
     }
     
     public getClassroomById(classroomId: number): Observable<Classroom>{

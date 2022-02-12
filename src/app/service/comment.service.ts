@@ -12,7 +12,7 @@ import { Comments } from '../model/comment';
     providedIn: 'root'
 })
 export class CommentService {
-    private apiServerUrl = environment.api;
+    private apiServerUrl = environment.api + 'comments/';
 
     jwtString: string | undefined;
 
@@ -26,14 +26,14 @@ export class CommentService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };  
-        return this.http.post<Comments>(`${this.apiServerUrl}users/${userId}/comments`, comment, options);
+        return this.http.post<Comments>(`${this.apiServerUrl}users/${userId}`, comment, options);
     }
 
     public getCommentsByAnnouncement(announcementId: number): Observable<Comments[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Comments[]>(`${this.apiServerUrl}announcements/${announcementId}/announcementComments`, options);
+        return this.http.get<Comments[]>(`${this.apiServerUrl}announcements/${announcementId}`, options);
     }
 
     public getCommentsByMaterial(materialId: number): Observable<Comments[]>{

@@ -51,7 +51,7 @@ export class TopicsComponent implements OnInit {
 
 
   ngOnInit(): void {
-    this.topics$ = this.topicService.getAllTopics(this.topicId);
+    this.topics$ = this.topicService.getAllTopics(this.classroomId);
 
     this.createForm = this.formBuilder.group({
       topicId: '',
@@ -69,12 +69,9 @@ export class TopicsComponent implements OnInit {
     )
   }
   getAllTopics(){
-    this.topics$ = this.topicService.getAllTopics(this.topicId)
+    this.topics$ = this.topicService.getAllTopics(this.classroomId)
   }
 
-  getById(classroomId: number, topicId: number){
-    return  this.topicService.getTopicById(this.classroomId, topicId );
-  }
   createModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title1'}).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
