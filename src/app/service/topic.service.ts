@@ -31,7 +31,7 @@ export class TopicService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Topic[]>(`${this.apiServerUrl}/${classroomId}/topics/`, options)
+        return this.http.get<Topic[]>(`${this.apiServerUrl}${classroomId}/topics/`, options)
     }
 
     public getTopicById(classroomId: number, topicId: number): Observable<Topic>{
