@@ -65,5 +65,10 @@ export class CriterionDetailsComponent implements OnInit {
     this.materialId = 0  ;
     this.criterionService.createCriterion(criterion, this.classroomId, this.topicId, this.materialId).subscribe(() => this.getAllCriterions());
   }
+  goToLevels(){
+    //console.log("yyep");
+    this.router.navigate(['/classrooms/' + this.classroomId + '/topics/' + this.topicId + '/materials/' + this.materialId + '/criterions/' + this.criterionId ]);
+
+  }
 
 }
