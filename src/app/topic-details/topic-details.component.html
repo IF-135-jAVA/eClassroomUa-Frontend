@@ -1,0 +1,16 @@
+<div class="container-topic" *ngIf="topic$ | async as topic">
+  <div class="row">
+    <div class="image-top"><span  class="name"></span></div>
+  </div>
+  <h1>{{topic.title}}</h1>
+  <div class="row">
+    <div>
+      <mat-card class="card">
+        <p>{{topic.id}}</p>
+        <mat-card-subtitle class="max-opacity">{{"Title: " + topic.title}}</mat-card-subtitle>
+      </mat-card>
+    </div>
+
+
+  </div>
+</div>

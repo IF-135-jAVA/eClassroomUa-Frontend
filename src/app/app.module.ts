@@ -32,6 +32,9 @@ import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
 import { TopicsComponent } from './topics/topics.component';
 import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
+import { TopicDetailsComponent } from './topic-details/topic-details.component';
+import { LevelsComponent } from './levels/levels.component';
+import { LevelsDetailsComponent } from './levels-details/levels-details.component';
 
 
 @NgModule({
@@ -55,6 +58,9 @@ import { CriterionDetailsComponent } from './criterion-details/criterion-details
     CriterionsComponent,
     TopicsComponent,
     CriterionDetailsComponent,
+    TopicDetailsComponent,
+    LevelsComponent,
+    LevelsDetailsComponent,
   ],
 
   imports: [

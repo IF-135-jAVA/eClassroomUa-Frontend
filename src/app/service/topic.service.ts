@@ -38,7 +38,7 @@ export class TopicService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Topic>(`${this.apiServerUrl}/${classroomId}/topics/${topicId}`, options)
+        return this.http.get<Topic>(`${this.apiServerUrl}${classroomId}/topics/${topicId}`, options)
     }
 
     public deleteTopic( classroomId: Classroom, topicId: number){
