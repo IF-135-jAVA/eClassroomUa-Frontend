@@ -19,7 +19,7 @@ export class AnnouncementComponent implements OnInit {
   classroomId! : number;
 
   userId! : number;
-  
+
   userRole! : string;
 
   helper = new JwtHelperService();
@@ -52,12 +52,19 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.createAnnouncement(this.classroomId, announcement).subscribe(() => this.getAllAnnouncements());
   }
 
+  // updateAnnouncement(){
+  //   let announcement = new Announcement();
+  //   announcement.courseId = this.classroomId;
+  //   announcement.text = this.announcementForm.get(['text'])?.value;
+  //   this.announcementService.updateAnnouncement(this.classroomId, announcement).subscribe(() => this.getAllAnnouncements());
+  // }
+
   deleteAnnouncement(announcementId: number){
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId);
   }
 
   open(announcementId: number){
-    this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]); 
+    this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 
 }
