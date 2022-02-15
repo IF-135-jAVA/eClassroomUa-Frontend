@@ -4,3 +4,74 @@ p {
 form button{
     margin-top: 5px;
 }
+
+
+
+
+
+
+/*.all-announcements {*/
+/*  text-align: center;*/
+/*}*/
+
+.all-announcements h2 {
+  margin-top: 1em;
+}
+
+.all-announcements mat-card {
+  width: 80%;
+  margin: 1em auto;
+  text-align: left;
+}
+
+.announcement-icon {
+  vertical-align: middle;
+  padding-bottom: 3px;
+  font-weight: 600;
+}
+
+.detail-label {
+  font-weight: 500;
+}
+
+.detail-options {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+}
+
+.detail-options mat-icon {
+  padding-right: 5px;
+}
+
+button:hover, .detail-options {
+  cursor: pointer;
+}
+
+
+
+
+
+mat-card-content {
+  margin-bottom: 0;
+}
+
+form {
+  padding-top: 1em;
+}
+
+mat-form-field {
+  width: 90%;
+}
+
+button {
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 1em;
+}
+
+button:hover, .detail-options {
+  cursor: pointer;
+}
+
+

@@ -34,6 +34,9 @@ import {TopicsComponent} from './topics/topics.component';
 import {CriterionDetailsComponent} from './criterion-details/criterion-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -76,6 +79,9 @@ import {MatToolbarModule} from '@angular/material/toolbar';
     MatExpansionModule,
     MatIconModule,
     MatToolbarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
   ],
   exports: [
     MatRippleModule,
