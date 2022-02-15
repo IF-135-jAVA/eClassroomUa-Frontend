@@ -85,16 +85,15 @@ export class ClassroomsComponent implements OnInit {
   }
 
   join() {
-    let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
-    if(localStorage.getItem(environment.role) === 'student'){
-      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, user.id).subscribe(
+    if(localStorage.getItem(this.userRole) === 'STUDENT'){
+      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });
     }
-    else if(localStorage.getItem(environment.role) === 'teacher')
+    else if(localStorage.getItem(this.userRole) === 'TEACHER')
     {
-      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, user.id).subscribe(
+      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });

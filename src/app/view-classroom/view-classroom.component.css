@@ -2,6 +2,8 @@
 .image-top { 
 	width:625px; 
 	height:260px;
+	position: relative;
+	left: 18%;
 	border-top-left-radius:15px;
 	border-top-right-radius:15px;
 	border-bottom-left-radius:15px;
@@ -29,23 +31,15 @@
 	border-radius:5px;
   border:2px solid rgba(0, 0, 0, 1);
   margin-top: 10px;
-}
-
-.box-small { 
-	width:165px;
-	margin-left: 5px;
-}
-
-.box-large {
-	margin-left: 10px;
   padding: 5px;
-	width:445px;
 }
+
 .container-classroom{
   background-color: rgba(235, 235, 235, 0.8);;
-  width:625px;
+  width:960px;
   height: auto;
   margin: 0 auto;
+  padding: 5px;
 }
 .code{
   font-size: small;
