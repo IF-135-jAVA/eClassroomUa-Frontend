@@ -8,11 +8,11 @@
             <h2>Comments:</h2><br>
             <div *ngFor="let comment of comments">
                 <mat-card class="card">
-                    <p>{{comment.text}}</p>
-                    <mat-card-subtitle class="max-opacity">{{"Date: " + comment.date}}</mat-card-subtitle>
-                    
-                    <mat-card-subtitle  class="max-opacity">{{"Author: " + comment.authorId}}</mat-card-subtitle>
-                  </mat-card>
+                    <mat-card-content>{{comment.text}}</mat-card-content>
+                    <mat-card-footer class="max-opacity"><p>{{"Date: " + comment.date}}</p></mat-card-footer>
+                    <mat-card-footer class="max-opacity"><a href="{{'http://localhost:4200/profile/' + comment.authorId}}">Author</a></mat-card-footer>
+                    <mat-card-actions *ngIf="userId == comment.authorId"><p (click)="delete(comment.id)">&#10006;</p></mat-card-actions>
+                </mat-card>
              </div>
             <form [formGroup]="commentForm"  class="form-horizontal" role="form">
                <div appearance="fill">

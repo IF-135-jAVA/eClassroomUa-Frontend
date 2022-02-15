@@ -1,0 +1,9 @@
+<div class="row">
+    <div class="image-top"><span  class="name"></span></div>
+</div>
+<div class="container-announcement" *ngIf="materials$ | async as materials">
+   <div class="row" *ngFor="let material of materials">
+       <h1>{{material.title}}</h1>
+       <p>{{material.text}}</p>
+   </div>
+</div>
