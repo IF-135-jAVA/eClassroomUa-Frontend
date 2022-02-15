@@ -7,3 +7,24 @@
        <p>{{material.text}}</p>
    </div>
 </div>
+<form [formGroup]="materialForm"  class="form-horizontal" role="form">
+    <p><strong>Material title:</strong></p>
+    <textarea formControlName="title" class="form-control" matInput placeholder="Title"></textarea>
+    <p><strong>Material content:</strong></p>
+    <textarea formControlName="text" class="form-control" matInput placeholder="Content"></textarea>
+    <p><strong>Describe task:</strong></p>
+    <textarea formControlName="task" class="form-control" matInput placeholder="Task"></textarea>
+    <p><strong>Select material type:</strong></p>
+    <select formControlName="type" class="form-select" aria-label="Material type">
+        <option value="1" selected>Task</option>
+        <option value="2">Test</option>
+        <option value="3">Question</option>
+        <option value="4">Learning material</option>
+    </select>
+    <p><strong>Select maximum score for the task:</strong></p>
+    <input formControlName="start" class="form-control" matInput placeholder="Max score" type="number">
+    <p><strong>Select start day:</strong></p>
+    <input formControlName="start" class="form-control" matInput placeholder="From" type="date">
+    <p><strong>Select final submission day:</strong></p>
+    <input formControlName="end" class="form-control" matInput placeholder="Until" type="date">
+</form>

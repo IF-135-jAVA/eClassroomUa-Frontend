@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
@@ -25,8 +26,20 @@ export class MaterialsComponent implements OnInit {
 
   helper = new JwtHelperService();
 
+  materialForm: FormGroup = this.formBuilder.group({
+    title: '',
+    text: '',
+    task: '',
+    type: '',
+    maxScore: 0,
+    start: new Date(),
+    end: new Date()
+
+  });
+
   constructor(
     private route: ActivatedRoute,
+    private formBuilder: FormBuilder,
     private materialService: MaterialService
   ) {
     this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
