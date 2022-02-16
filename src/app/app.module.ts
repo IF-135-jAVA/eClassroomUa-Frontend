@@ -30,13 +30,19 @@ import {AnnouncementComponent} from './announcement/announcement.component';
 import {AnnouncementDetailsComponent} from './announcement-details/announcement-details.component';
 import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
-import {TopicsComponent} from './topics/topics.component';
+
 import {CriterionDetailsComponent} from './criterion-details/criterion-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import { TopicsComponent } from './topics/topics.component';
+
+import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
+import { UserAssignmentDetailsComponent } from './user-assignment-details/user-assignment-details.component';
+
+
 
 @NgModule({
   declarations: [
@@ -59,6 +65,8 @@ import { MatSelectModule } from '@angular/material/select';
     CriterionsComponent,
     TopicsComponent,
     CriterionDetailsComponent,
+    UserAssignmentsComponent,
+    UserAssignmentDetailsComponent,
   ],
 
   imports: [

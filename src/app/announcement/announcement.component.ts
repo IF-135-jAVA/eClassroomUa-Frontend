@@ -63,6 +63,7 @@ export class AnnouncementComponent implements OnInit {
 
   deleteAnnouncement(announcementId: number) {
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId);
+    this.getAllAnnouncements();
   }
 
   open(announcementId: number) {

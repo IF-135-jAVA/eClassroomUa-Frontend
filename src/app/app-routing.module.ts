@@ -13,6 +13,8 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {CriterionsComponent} from "./criterions/criterions.component";
 import {CriterionDetailsComponent} from "./criterion-details/criterion-details.component";
 import {TopicsComponent} from "./topics/topics.component";
+import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
+import {UserAssignmentDetailsComponent} from "./user-assignment-details/user-assignment-details.component";
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -27,7 +29,9 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId/announcements/:announcementId', component: AnnouncementDetailsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions', component: CriterionsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId', component: CriterionDetailsComponent},
-  { path: 'classrooms/:classroomId/topics', component: TopicsComponent}
+  { path: 'classrooms/:classroomId/topics', component: TopicsComponent},
+  { path: 'materials/:materialId/assignments', component: UserAssignmentsComponent},
+  { path: 'materials/:materialId/assignments/:assignmentId', component: UserAssignmentDetailsComponent}
 
 
 ];
