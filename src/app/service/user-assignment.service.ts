@@ -16,11 +16,25 @@ export class UserAssignmentService {
     private http: HttpClient
   ) { }
 
+  public createUserAssignment(materialId: number, userAssignment: UserAssignment): Observable<UserAssignment>{
+    this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+    let headers = new HttpHeaders().set('Authorization', this.jwtString);
+    let options = { headers: headers };
+    return this.http.post<UserAssignment>(`${this.apiServerUrl}${materialId}/assignments`, userAssignment, options);
+  }
+
   public getUserAssignmentById(materialId: number, userAssignmentId: number): Observable<UserAssignment> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };
     return this.http.get<UserAssignment>(`${this.apiServerUrl}${materialId}/assignments/${userAssignmentId}`, options);
+  }
+
+  public deleteUserAssignment(materialId: number, userAssignmentId: number): Observable<void> {
+    this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+    let headers = new HttpHeaders().set('Authorization', this.jwtString);
+    let options = { headers: headers };
+    return this.http.delete<void>(`${this.apiServerUrl}${materialId}/assignments/${userAssignmentId}`, options);
   }
 
   public getUserAssignmentsByAssignment(materialId: number): Observable<UserAssignment[]> {

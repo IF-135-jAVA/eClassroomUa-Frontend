@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {UserAssignment} from "../model/user-assignment";
 import {UserAssignmentService} from "../service/user-assignment.service";
-import {ActivatedRoute, RouterLink} from "@angular/router";
+import {ActivatedRoute, Router, RouterLink} from "@angular/router";
 import {UserService} from "../service/user.service";
 import {User} from "../model/user";
 import {formatDate} from "@angular/common";
@@ -9,6 +9,8 @@ import {MaterialService} from "../service/material.service";
 import {Material} from "../model/material";
 import {Topic} from "../model/topic";
 import {AssignmentStatus} from "../model/assignment-status";
+import {JwtHelperService} from "@auth0/angular-jwt";
+import {environment} from "../../environments/environment";
 
 @Component({
   selector: 'app-user-assignments',
@@ -22,13 +24,20 @@ export class UserAssignmentsComponent implements OnInit {
   materialId!: number;
   materialTitle!: String;
 
+  userId!: number;
+  userRole!: string;
+  helper = new JwtHelperService();
+
   constructor(
     private userAssignmentService: UserAssignmentService,
     private userService: UserService,
     private materialService: MaterialService,
-    private route: ActivatedRoute
+    private activatedRoute: ActivatedRoute,
+    private router: Router
   ) {
-    this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
+    this.materialId = parseInt(this.activatedRoute.snapshot.paramMap.get('materialId') || '');
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {
@@ -77,4 +86,11 @@ export class UserAssignmentsComponent implements OnInit {
     return AssignmentStatus[value];
   }
 
+  createUserAssignment() {
+    let userAssignment = new UserAssignment();
+    userAssignment.userId = this.userId;
+    this.userAssignmentService.createUserAssignment(this.materialId, userAssignment).subscribe(
+      (response: UserAssignment) => this.router.navigateByUrl('/materials/' + this.materialId + '/assignments/' + response.id)
+    );
+  }
 }
