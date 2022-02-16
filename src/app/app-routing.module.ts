@@ -18,6 +18,9 @@ import {LevelsDetailsComponent} from "./levels-details/levels-details.component"
 import {TopicDetailsComponent} from "./topic-details/topic-details.component";
 import { MaterialsComponent } from './materials/materials.component';
 import { MaterialDetailsComponent } from './material-details/material-details.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EmailRequestComponent } from './email-request/email-request.component';
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -37,7 +40,10 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId/level', component: LevelsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId/criterions/:criterionId/level/:levelId', component: LevelsDetailsComponent},
   { path: 'classrooms/:classroomId/topics/:topicId/materials', component: MaterialsComponent},
-  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId', component: MaterialDetailsComponent}
+  { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId', component: MaterialDetailsComponent},
+  { path: 'confirm', component: ConfirmEmailComponent},
+  { path: 'change-password', component: ChangePasswordComponent},
+  { path: 'request', component: EmailRequestComponent}
 
 
 ];

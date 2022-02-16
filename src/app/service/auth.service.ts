@@ -45,6 +45,22 @@ export class AuthService {
       return this.http.get<AuthResponse>(`${this.apiServerUrl}login/${role}`, options);
     }
 
+    public changePassword(password: string, token: string): Observable<User>{
+        return this.http.post<User>(`${this.apiServerUrl}change_password?=${token}`, password);
+    }
+
+    public changePasswordRequest(email: string): Observable<any>{
+        return this.http.post<any>(`${this.apiServerUrl}reset_password`, email);
+    }
+
+    public confirm(token: string): Observable<User>{
+        return this.http.get<User>(`${this.apiServerUrl}confirm?=${token}`);
+    }
+
+    public confirmRequest(email: string): Observable<any>{
+        return this.http.post<any>(`${this.apiServerUrl}confirm-request`, email);
+    }
+
     public deleteUser(user: User){
         this.jwtString = '' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
