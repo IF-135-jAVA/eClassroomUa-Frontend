@@ -45,7 +45,7 @@ export class ClassroomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClassrooms();
-    
+
     this.createForm = this.formBuilder.group({
       title: '',
       session: '',
@@ -69,7 +69,7 @@ export class ClassroomsComponent implements OnInit {
           this.classrooms = response;
         }
       )
-    } 
+    }
   }
 
   joinModal(content: any) {
@@ -97,7 +97,7 @@ export class ClassroomsComponent implements OnInit {
         (response: Classroom) => {
           this.open(response.classroomId);
         });
-    } 
+    }
  }
 
   create() {
@@ -107,7 +107,7 @@ export class ClassroomsComponent implements OnInit {
       });
   }
 
-  open(classroomId: number) {
+  open(classroomId: string) {
     this.router.navigate(['/classrooms', classroomId]);
   }
 }

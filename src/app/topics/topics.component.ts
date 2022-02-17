@@ -31,7 +31,7 @@ export class TopicsComponent implements OnInit {
   userId! : number;
   userRole! : string;
   topic! : Topic;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
   topics$!: Observable<Topic[]>;
 
@@ -43,7 +43,7 @@ export class TopicsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
    // this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;

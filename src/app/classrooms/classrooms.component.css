@@ -1,6 +1,7 @@
 .background{
     background-image: url("src/assets/images/Background-Kelase-New.png");
     background-repeat: repeat-x;
+    height:calc(100vh - 68px) ;
 }
 
 button:hover {
