@@ -23,12 +23,12 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    if(localStorage.length === 0){
+    if(localStorage.getItem(environment.tokenName) == undefined){
       this.authenticated = false;
       return;
     }
     this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName)?.toString()).id;
-    this.authenticated = !this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString()); 
+    this.authenticated = !this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString());
   }
   
   public logout(){

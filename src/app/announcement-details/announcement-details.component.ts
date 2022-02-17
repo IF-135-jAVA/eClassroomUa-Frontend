@@ -53,6 +53,7 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   getAllComments(){
     this.comments$ = this.commentService.getCommentsByAnnouncement(this.announcementId);
+    this.commentService.getCommentsByAnnouncement(this.announcementId).subscribe(comment =>{console.log(typeof comment[0].date)});
   }
 
   sendComment(){
@@ -63,8 +64,9 @@ export class AnnouncementDetailsComponent implements OnInit {
     this.commentService.createComment(comment, comment.authorId).subscribe(() => this.getAllComments());
   }
 
-  deleteComment(comment: Comments){
-    this.commentService.deleteComment(comment.id);
+  delete(commentId: number){
+    this.commentService.deleteComment(commentId);
+    this.getAllComments();
   }
 
   getUserById(id: number){

@@ -35,6 +35,11 @@ import { CriterionDetailsComponent } from './criterion-details/criterion-details
 import { TopicDetailsComponent } from './topic-details/topic-details.component';
 import { LevelsComponent } from './levels/levels.component';
 import { LevelsDetailsComponent } from './levels-details/levels-details.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { MaterialDetailsComponent } from './material-details/material-details.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EmailRequestComponent } from './email-request/email-request.component';
 
 
 @NgModule({
@@ -61,6 +66,11 @@ import { LevelsDetailsComponent } from './levels-details/levels-details.componen
     TopicDetailsComponent,
     LevelsComponent,
     LevelsDetailsComponent,
+    MaterialsComponent,
+    MaterialDetailsComponent,
+    ConfirmEmailComponent,
+    ChangePasswordComponent,
+    EmailRequestComponent,
   ],
 
   imports: [

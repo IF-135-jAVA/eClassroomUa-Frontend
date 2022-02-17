@@ -48,7 +48,6 @@ export class ProfileComponent implements OnInit {
 
   update(){
     let newUser: User = this.updateForm.getRawValue();
-    localStorage.setItem(environment.user, JSON.stringify(newUser));
     this.authService.updateUser(newUser);
   }
 

@@ -5,6 +5,7 @@ import { User } from '../model/user';
 import { LoginModel } from '../model/loginmodel';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../model/auth-response';
+import { ChangePassword } from '../model/change-password';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -31,7 +32,7 @@ export class AuthService {
     }
 
     public registration(user: User): Observable<User>{
-        return this.http.post<User>(`${this.apiServerUrl}registration`, user);
+        return this.http.post<User>(`${this.apiServerUrl}signup`, user);
     }
 
     public login(loginModel: LoginModel): Observable<AuthResponse>{
@@ -43,6 +44,25 @@ export class AuthService {
       let headers = new HttpHeaders().set('Authorization', this.jwtString);
       let options = { headers: headers };
       return this.http.get<AuthResponse>(`${this.apiServerUrl}login/${role}`, options);
+    }
+
+    public changePassword(password: string, token: string): Observable<User>{
+        let request = new ChangePassword();
+        request.password = password;
+        request.token = token;
+        return this.http.post<User>(`${this.apiServerUrl}password`, request);
+    }
+
+    public changePasswordRequest(email: string): Observable<any>{
+        return this.http.post<any>(`${this.apiServerUrl}request/password`, email);
+    }
+
+    public confirm(token: string): Observable<User>{
+        return this.http.get<User>(`${this.apiServerUrl}confirm?=${token}`);
+    }
+
+    public confirmRequest(email: string): Observable<any>{
+        return this.http.post<any>(`${this.apiServerUrl}request/confirm`, email);
     }
 
     public deleteUser(user: User){
