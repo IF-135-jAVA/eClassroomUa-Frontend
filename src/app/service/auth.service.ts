@@ -5,6 +5,7 @@ import { User } from '../model/user';
 import { LoginModel } from '../model/loginmodel';
 import { environment } from 'src/environments/environment';
 import { AuthResponse } from '../model/auth-response';
+import { ChangePassword } from '../model/change-password';
 
 const httpOptions = {
     headers: new HttpHeaders({
@@ -31,7 +32,7 @@ export class AuthService {
     }
 
     public registration(user: User): Observable<User>{
-        return this.http.post<User>(`${this.apiServerUrl}registration`, user);
+        return this.http.post<User>(`${this.apiServerUrl}signup`, user);
     }
 
     public login(loginModel: LoginModel): Observable<AuthResponse>{
@@ -46,11 +47,14 @@ export class AuthService {
     }
 
     public changePassword(password: string, token: string): Observable<User>{
-        return this.http.post<User>(`${this.apiServerUrl}change_password?=${token}`, password);
+        let request = new ChangePassword();
+        request.password = password;
+        request.token = token;
+        return this.http.post<User>(`${this.apiServerUrl}password`, request);
     }
 
     public changePasswordRequest(email: string): Observable<any>{
-        return this.http.post<any>(`${this.apiServerUrl}reset_password`, email);
+        return this.http.post<any>(`${this.apiServerUrl}request/password`, email);
     }
 
     public confirm(token: string): Observable<User>{
@@ -58,7 +62,7 @@ export class AuthService {
     }
 
     public confirmRequest(email: string): Observable<any>{
-        return this.http.post<any>(`${this.apiServerUrl}confirm-request`, email);
+        return this.http.post<any>(`${this.apiServerUrl}request/confirm`, email);
     }
 
     public deleteUser(user: User){

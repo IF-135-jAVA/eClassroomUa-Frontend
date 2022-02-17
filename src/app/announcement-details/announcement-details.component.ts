@@ -53,6 +53,7 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   getAllComments(){
     this.comments$ = this.commentService.getCommentsByAnnouncement(this.announcementId);
+    this.commentService.getCommentsByAnnouncement(this.announcementId).subscribe(comment =>{console.log(typeof comment[0].date)});
   }
 
   sendComment(){

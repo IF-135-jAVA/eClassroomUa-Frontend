@@ -13,6 +13,9 @@ import {AuthService} from '../service/auth.service';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
+
+  apiServerUrl = environment.siteUrl;
+
   form: FormGroup = this.formBuilder.group({
     login: '',
     password: ''

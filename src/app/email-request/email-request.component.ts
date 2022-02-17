@@ -10,6 +10,8 @@ import { AuthService } from '../service/auth.service';
 })
 export class EmailRequestComponent implements OnInit {
 
+  type!: string;
+
   form: FormGroup = this.formBuilder.group({
     email: ''
   });
@@ -22,6 +24,9 @@ export class EmailRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.route.queryParams.subscribe((params) => {
+      this.type = params['type'];
+      })
   }
 
   sendPasswordRequest():void{

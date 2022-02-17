@@ -3,19 +3,17 @@
       <app-header></app-header>
       <hr>
       <div>
-        <div class="col-md-6 personal-info container">
-          <div class="alert alert-info alert-dismissable">
-            <i class="fa fa-book"></i>
-            Login {{errorMessage}}
-          </div>
-          <form [formGroup]="form" (submit)="sendRequest()" class="form-horizontal" role="form">
+        <div class="col-md-6 personal-info container action-form">
+          
+          <form [formGroup]="form"  class="form-horizontal" role="form">
             <div class="form-group">
-                <label class="col-lg-3 control-label login-text">Enter your email:</label>
-                <div class="col-lg-8">
-                  <input formControlName="email" class="form-control" type="password" value="">
+              <label class=" control-label email-text">Enter your email:</label>
+                <div>
+                  <input formControlName="email" class="form-control" type="email" value="">
                 </div>
               </div>
-            <app-button></app-button>
+            <button *ngIf="type == 'password'" class="btn btn-success" (click)="sendPasswordRequest()">Send</button>
+            <button *ngIf="type == 'confirm'" class="btn btn-success" (click)="confirmUserRequest()">Send</button>
           </form>
         </div>
       </div>

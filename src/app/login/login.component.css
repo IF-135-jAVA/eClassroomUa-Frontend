@@ -1,4 +1,6 @@
-
+a{
+    display: block;
+}
 .toggle-btn:hover {
     background-color: #4CAF50;
     color: white;    
@@ -6,6 +8,7 @@
 
 .background{
     background-image: url("src/assets/images/background-image.jpg");
+    height:calc(100vh - 68px) ;
 }  
 
 .toggle-btn{
@@ -39,9 +42,15 @@
 }
 
 .login-text{
-    background-color: #75c0fd;
+    font-size: large;
+    font-weight: bold;
 }
 
 .btn-google{
     margin-left: 50px;
+}
+
+.login-form{
+    background-color: rgba(245, 245, 245, 0.8);
+    max-width: 350px;
 }

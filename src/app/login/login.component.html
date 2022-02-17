@@ -3,11 +3,8 @@
   <app-header></app-header>
   <hr>
   <div>
-    <div class="col-md-6 personal-info container">
-      <div class="alert alert-info alert-dismissable">
-        <i class="fa fa-book"></i>
-        Login {{errorMessage}}
-      </div>
+    <div class="col-md-6 personal-info container login-form">
+      <h1>Login</h1>
       <form [formGroup]="form" (submit)="login()" class="form-horizontal" role="form">
         <div class="form-group">
           <label class="col-lg-3 control-label login-text">Email:</label>
@@ -21,6 +18,7 @@
             <input formControlName="password" class="form-control" type="password" value="">
           </div>
         </div>
+        <a href="{{apiServerUrl + 'request?type=password'}}">Forgot password?</a>
         <app-button></app-button>
         <button type="button" (click)="loginWithGoogle()" class="btn-google btn btn-success">SignIn Google</button>
       </form>
