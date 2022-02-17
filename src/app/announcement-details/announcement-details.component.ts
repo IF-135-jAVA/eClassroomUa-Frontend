@@ -17,7 +17,7 @@ import { UserService } from '../service/user.service';
 })
 export class AnnouncementDetailsComponent implements OnInit {
 
-  classroomId! : number;
+  classroomId! : string;
 
   announcementId! : number;
 
@@ -40,7 +40,7 @@ export class AnnouncementDetailsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private commentService: CommentService,
               private route: ActivatedRoute) {
-                this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+                this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
                 this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
                 this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
                 this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
@@ -49,7 +49,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.announcement$ = this.announcementService.getAnnouncementById(this.classroomId, this.announcementId);
     this.getAllComments();
-  } 
+  }
 
   getAllComments(){
     this.comments$ = this.commentService.getCommentsByAnnouncement(this.announcementId);

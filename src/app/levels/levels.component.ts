@@ -34,7 +34,7 @@ export class LevelsComponent implements OnInit {
   userRole! : string;
   criterionId! : number;
   level! : Level;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
   materialId!: number;
   levelId! : number;
@@ -46,7 +46,7 @@ export class LevelsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
     this.criterionId = parseInt(this.route.snapshot.paramMap.get('criterionId') || '');
