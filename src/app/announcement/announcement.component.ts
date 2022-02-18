@@ -16,10 +16,10 @@ export class AnnouncementComponent implements OnInit {
 
   announcements$! : Observable<Announcement[]>;
 
-  classroomId! : number;
+  classroomId! : string;
 
   userId! : number;
-  
+
   userRole! : string;
 
   helper = new JwtHelperService();
@@ -32,7 +32,7 @@ export class AnnouncementComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router) {
-                this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+                this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
                 this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
                 this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
               }
@@ -57,7 +57,7 @@ export class AnnouncementComponent implements OnInit {
   }
 
   open(announcementId: number){
-    this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]); 
+    this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 
 }

@@ -40,6 +40,8 @@ import { MaterialDetailsComponent } from './material-details/material-details.co
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EmailRequestComponent } from './email-request/email-request.component';
+import {MatSelectModule} from '@angular/material/select';
+import { MatInputModule } from '@angular/material/input';
 
 
 @NgModule({
@@ -74,6 +76,8 @@ import { EmailRequestComponent } from './email-request/email-request.component';
   ],
 
   imports: [
+    MatInputModule,
+    MatSelectModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,

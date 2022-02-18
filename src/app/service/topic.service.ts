@@ -20,28 +20,28 @@ export class TopicService {
 
     }
 
-    public createTopic(topic: Topic, classroomId: number): Observable<Topic>{
+    public createTopic(topic: Topic, classroomId: string): Observable<Topic>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.post<Topic>(`${this.apiServerUrl}${classroomId}/topics/`, topic, options)
     }
 
-    public getAllTopics(classroomId: number): Observable<Topic[]>{
+    public getAllTopics(classroomId: string): Observable<Topic[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Topic[]>(`${this.apiServerUrl}${classroomId}/topics/`, options)
     }
 
-    public getTopicById(classroomId: number, topicId: number): Observable<Topic>{
+    public getTopicById(classroomId: string, topicId: number): Observable<Topic>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Topic>(`${this.apiServerUrl}${classroomId}/topics/${topicId}`, options)
     }
 
-    public deleteTopic( classroomId: Classroom, topicId: number){
+    public deleteTopic( classroomId: string, topicId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };

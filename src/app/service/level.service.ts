@@ -20,7 +20,7 @@ export class LevelService {
 
   }
 
-  public createLevel(level: Level, classroomId: number,  topicId: number, materialId: number, criterionId: number): Observable<Level>{
+  public createLevel(level: Level, classroomId: string,  topicId: number, materialId: number, criterionId: number): Observable<Level>{
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };
@@ -30,7 +30,7 @@ export class LevelService {
   }
 
 
-  public getAllLevels(classroomId: number, topicId: number, materialId: number, criterionId: number): Observable<Level[]>{
+  public getAllLevels(classroomId: string, topicId: number, materialId: number, criterionId: number): Observable<Level[]>{
 
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
@@ -38,7 +38,7 @@ export class LevelService {
     return this.http.get<Level[]>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level`, options)
   }
 
-  public getLevelById(classroomId: number, topicId: number, materialId: number, criterionId: number, levelId: number): Observable<Level>{
+  public getLevelById(classroomId: string, topicId: number, materialId: number, criterionId: number, levelId: number): Observable<Level>{
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };
@@ -46,7 +46,7 @@ export class LevelService {
 
   }
 
-  public deleteLevel( criterionId: number, classroomId: number, topicId: number, materialId: number, levelId: number){
+  public deleteLevel( criterionId: number, classroomId: string, topicId: number, materialId: number, levelId: number){
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };

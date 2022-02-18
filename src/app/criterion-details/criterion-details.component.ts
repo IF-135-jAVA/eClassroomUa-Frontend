@@ -23,7 +23,7 @@ export class CriterionDetailsComponent implements OnInit {
   userRole! : string;
   criterionId! : number;
   criterion! : Criterion;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
   materialId!: number;
   criterion$! : Observable<Criterion>;
@@ -41,7 +41,7 @@ export class CriterionDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.criterionId = parseInt(this.route.snapshot.paramMap.get('criterionId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
