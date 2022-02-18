@@ -1,4 +1,4 @@
-<h2>Submission of students for assignment {{ materialTitle }}</h2>
+<h2>Submission of students for assignment {{ getMaterialTitle() }}</h2>
 <table class="table table-hover">
   <thead>
   <tr>
@@ -10,8 +10,8 @@
   </thead>
   <tbody>
   <tr [routerLink]="[userAssignment.id]" *ngFor="let userAssignment of userAssignments">
-    <td>{{ getUser(userAssignment.userId) }}</td>
-    <td>{{ getAssignmentStatus(userAssignment.assignmentStatusId) }}</td>
+    <td>{{ userAssignment.userFirstName + " " + userAssignment.userLastName }}</td>
+    <td>{{ userAssignment.assignmentStatusTitle }}</td>
     <td>{{ getSubmissionDate(userAssignment) }}</td>
     <td>{{ userAssignment.grade }}</td>
   </tr>
