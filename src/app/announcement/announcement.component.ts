@@ -19,9 +19,13 @@ export class AnnouncementComponent implements OnInit {
 
   classroomId!: number;
 
-  userId!: number;
 
-  userRole!: string;
+  classroomId! : string;
+
+  userId! : number;
+
+  userRole! : string;
+
 
   helper = new JwtHelperService();
 
@@ -33,10 +37,12 @@ export class AnnouncementComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
-    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
-  }
+
+                this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
+                this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+                this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+              }
+
 
   ngOnInit(): void {
     this.getAllAnnouncements();
@@ -61,10 +67,12 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.updateAnnouncement();
   }
 
+
   deleteAnnouncement(announcementId: number) {
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId).subscribe(() => {
       this.getAllAnnouncements();
     });
+
   }
 
   open(announcementId: number) {

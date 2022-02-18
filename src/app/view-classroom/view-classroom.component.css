@@ -1,15 +1,16 @@
-form button{
-    margin-top: 15px;
-}
+
 .image-top { 
 	width:625px; 
 	height:260px;
+	position: relative;
+	left: 18%;
 	border-top-left-radius:15px;
 	border-top-right-radius:15px;
 	border-bottom-left-radius:15px;
 	border-bottom-right-radius:15px;
 	background-image:url(/assets/images/rectangle_1.png);
 	background-repeat:no-repeat;
+	margin-left: 15px;
 	background-size:cover;
 }
 .class-name { 
@@ -27,27 +28,18 @@ form button{
 .box{
   background-color:rgba(255, 255, 255, 1);
   height:auto;
-	border-top-left-radius:15px;
-	border-top-right-radius:15px;
-	border-bottom-left-radius:15px;
-	border-bottom-right-radius:15px;
+	border-radius:5px;
   border:2px solid rgba(0, 0, 0, 1);
   margin-top: 10px;
-}
-
-.box-small { 
-	width:165px;
-  margin-left: -15px;
-}
-
-.box-large {
   padding: 5px;
-	width:445px;
 }
+
 .container-classroom{
-  width:625px;
+  background-color: rgba(235, 235, 235, 0.8);;
+  width:960px;
   height: auto;
   margin: 0 auto;
+  padding: 5px;
 }
 .code{
   font-size: small;

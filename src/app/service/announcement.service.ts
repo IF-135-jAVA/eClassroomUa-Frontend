@@ -9,6 +9,7 @@ import {Announcement} from '../model/announcement';
   providedIn: 'root'
 })
 export class AnnouncementService {
+
   private apiServerUrl = environment.api + 'classrooms/';
 
   jwtString: string | undefined;
@@ -52,4 +53,5 @@ export class AnnouncementService {
     let options = {headers: headers};
     return this.http.put(`${this.apiServerUrl}${classroomId}/announcements/${announcementId}`, options)
   }
+
 }

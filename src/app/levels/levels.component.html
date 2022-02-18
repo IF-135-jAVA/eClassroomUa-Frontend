@@ -1,0 +1,19 @@
+<h2>Levels:</h2><br>
+<div *ngIf="levels$ | async as levels">
+  <div *ngFor="let level of levels">
+    <p (click)="open(level.id)" >{{level.title}}</p>
+  </div>
+</div>
+<div *ngIf="this.userRole === 'TEACHER'">
+  <form [formGroup]="levelForm"  class="form-horizontal" role="form">
+    <div appearance="fill">
+      <mat-label>Add level</mat-label>
+      <textarea formControlName="title" class="form-control" matInput placeholder="Title"></textarea>
+      <textarea formControlName="description" class="form-control" matInput placeholder="Description"></textarea>
+      <textarea formControlName="description" class="form-control" matInput placeholder="Max mark"></textarea>
+
+
+      <button mat-button (click)="sendLevel()">Save</button>
+    </div>
+  </form>
+</div>

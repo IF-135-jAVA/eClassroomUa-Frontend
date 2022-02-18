@@ -37,9 +37,9 @@ export class CriterionsComponent implements OnInit {
   userRole! : string;
   criterionId! : number;
   criterion! : Criterion;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
-  materialId!: number
+  materialId!: number;
   criterions$!: Observable<Criterion[]>;
 
 
@@ -50,7 +50,7 @@ export class CriterionsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
     this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
@@ -58,7 +58,7 @@ export class CriterionsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId,  this.materialId);
+    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId, this.materialId);
 
     this.createForm = this.formBuilder.group({
       criterionId: '',
