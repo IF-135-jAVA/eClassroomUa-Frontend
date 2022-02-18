@@ -8,11 +8,11 @@ form button{
 
 
 
+.announcement-card{
+  margin-bottom: 5px;
 
+}
 
-/*.all-announcements {*/
-/*  text-align: center;*/
-/*}*/
 
 .all-announcements h2 {
   margin-top: 1em;
@@ -72,6 +72,8 @@ button {
 
 button:hover, .detail-options {
   cursor: pointer;
+
+
 }
 
 

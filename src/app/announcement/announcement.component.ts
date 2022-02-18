@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {FormControl, FormBuilder, FormGroup} from '@angular/forms';
+import {FormBuilder, FormGroup} from '@angular/forms';
 import {ActivatedRoute, Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable} from 'rxjs';
@@ -62,8 +62,9 @@ export class AnnouncementComponent implements OnInit {
   }
 
   deleteAnnouncement(announcementId: number) {
-    this.announcementService.deleteAnnouncement(this.classroomId, announcementId);
-    this.getAllAnnouncements();
+    this.announcementService.deleteAnnouncement(this.classroomId, announcementId).subscribe(() => {
+      this.getAllAnnouncements();
+    });
   }
 
   open(announcementId: number) {
