@@ -83,4 +83,12 @@ export class UserAssignmentDetailsComponent implements OnInit {
     this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe();
     window.location.reload();
   }
+
+  isSubmissionAllowed(): boolean {
+    let result = new Date(this.userAssignment.dueDate) > new Date();
+    if (!result) {
+      this.answerForm.disable();
+    }
+    return result;
+  }
 }

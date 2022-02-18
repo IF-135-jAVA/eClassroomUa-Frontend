@@ -18,6 +18,6 @@
   </tbody>
 </table>
 
-<button (click)="createUserAssignment()" *ngIf="userRole == 'STUDENT'" class="btn btn-success btn-google btn-with-margin">
+<button (click)="createUserAssignment()" *ngIf="userRole == 'STUDENT'" [disabled]="!isSubmissionAllowed()" class="btn btn-success btn-google btn-with-margin">
   Add submission
 </button>

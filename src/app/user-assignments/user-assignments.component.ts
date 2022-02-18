@@ -61,4 +61,13 @@ export class UserAssignmentsComponent implements OnInit {
       (response: UserAssignment) => this.router.navigateByUrl('/materials/' + this.materialId + '/assignments/' + response.id)
     );
   }
+
+  isSubmissionAllowed(): boolean {
+    if(this.userAssignments != null && this.userAssignments.length > 0) {
+      return new Date(this.userAssignments[0].dueDate) > new Date();
+    }
+    else {
+      return true;
+    }
+  }
 }

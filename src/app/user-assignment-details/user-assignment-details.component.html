@@ -39,7 +39,7 @@
     <div>
       <textarea id="text" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control" placeholder="New answer"></textarea>
     </div>
-    <button type="submit" class="btn btn-success btn-google btn-with-margin">Add answer</button>
+    <button type="submit" [disabled]="!isSubmissionAllowed()" class="btn btn-success btn-google btn-with-margin">Add answer</button>
   </form>
 </div>
 
@@ -48,7 +48,7 @@
   <tr *ngFor="let answer of answers">
     <td>{{ answer.text }}</td>
     <td>
-      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" class="btn btn-danger btn-google">
+      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" [disabled]="!isSubmissionAllowed()" class="btn btn-danger btn-google">
         Delete
       </button>
     </td>
