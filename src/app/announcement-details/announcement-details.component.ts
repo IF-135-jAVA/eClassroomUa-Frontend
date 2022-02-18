@@ -20,7 +20,6 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   classroomId! : string;
 
-
   announcementId!: number;
 
   announcement$!: Observable<Announcement>;

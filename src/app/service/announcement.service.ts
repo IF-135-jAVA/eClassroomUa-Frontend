@@ -19,35 +19,35 @@ export class AnnouncementService {
 
   }
 
-  public createAnnouncement(classroomId: number, announcement: Announcement): Observable<Announcement> {
+  public createAnnouncement(classroomId: string, announcement: Announcement): Observable<Announcement> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
     return this.http.post<Announcement>(`${this.apiServerUrl}${classroomId}/announcements`, announcement, options)
   }
 
-  public getAnnouncementsByClassroom(classroomId: number): Observable<Announcement[]> {
+  public getAnnouncementsByClassroom(classroomId: string): Observable<Announcement[]> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
     return this.http.get<Announcement[]>(`${this.apiServerUrl}${classroomId}/announcements`, options)
   }
 
-  public getAnnouncementById(classroomId: number, announcementId: number): Observable<Announcement> {
+  public getAnnouncementById(classroomId: string, announcementId: number): Observable<Announcement> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
     return this.http.get<Announcement>(`${this.apiServerUrl}${classroomId}/announcements/${announcementId}`, options)
   }
 
-  public deleteAnnouncement(classroomId: number, announcementId: number) {
+  public deleteAnnouncement(classroomId: string, announcementId: number) {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
     return this.http.delete(`${this.apiServerUrl}${classroomId}/announcements/${announcementId}`, options)
   }
 
-  public updateAnnouncement(classroomId: number, announcementId: number) {
+  public updateAnnouncement(classroomId: string, announcementId: number) {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};

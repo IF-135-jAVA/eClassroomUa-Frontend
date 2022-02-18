@@ -17,10 +17,7 @@ export class AnnouncementComponent implements OnInit {
 
   announcements$!: Observable<Announcement[]>;
 
-  classroomId!: number;
-
-
-  classroomId! : string;
+  classroomId!: string;
 
   userId! : number;
 

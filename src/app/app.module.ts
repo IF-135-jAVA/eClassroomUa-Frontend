@@ -31,12 +31,9 @@ import {AnnouncementDetailsComponent} from './announcement-details/announcement-
 import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
 
-import {CriterionDetailsComponent} from './criterion-details/criterion-details.component';
 import {MatIconModule} from '@angular/material/icon';
 import {MatToolbarModule} from '@angular/material/toolbar';
 import { MatButtonModule } from '@angular/material/button';
-import { MatInputModule } from '@angular/material/input';
-import { MatSelectModule } from '@angular/material/select';
 import { TopicsComponent } from './topics/topics.component';
 import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
 import { TopicDetailsComponent } from './topic-details/topic-details.component';
