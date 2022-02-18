@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
+import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
@@ -7,12 +7,17 @@ import { environment } from 'src/environments/environment';
 import { Material } from '../model/material';
 import { MaterialService } from '../service/material.service';
 
+
 @Component({
   selector: 'app-materials',
   templateUrl: './materials.component.html',
   styleUrls: ['./materials.component.css']
 })
 export class MaterialsComponent implements OnInit {
+
+  maxScore = 0;
+
+  links: string[] = [];
 
   classroomId! : number;
 
@@ -25,6 +30,11 @@ export class MaterialsComponent implements OnInit {
   materials$! : Observable<Material[]>;
 
   helper = new JwtHelperService();
+
+  range = new FormGroup({
+    start: new FormControl(),
+    end: new FormControl(),
+  });
 
   materialForm: FormGroup = this.formBuilder.group({
     title: '',
