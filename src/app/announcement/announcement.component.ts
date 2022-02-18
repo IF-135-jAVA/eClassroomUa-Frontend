@@ -35,11 +35,10 @@ export class AnnouncementComponent implements OnInit {
               private formBuilder: FormBuilder,
               private router: Router) {
 
-                this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
-                this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
-                this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
-              }
-
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
+    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+  }
 
   ngOnInit(): void {
     this.getAllAnnouncements();
@@ -76,3 +75,18 @@ export class AnnouncementComponent implements OnInit {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

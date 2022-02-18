@@ -50,7 +50,6 @@ import {MatChipsModule} from '@angular/material/chips';
 
 
 
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -111,8 +110,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-
-  ],
+     ],
   exports: [
     MatRippleModule,
     FormsModule,
