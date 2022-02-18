@@ -17,3 +17,6 @@ body{margin-top:20px;}
   background-color: lightskyblue;
   size: initial;
 }
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }

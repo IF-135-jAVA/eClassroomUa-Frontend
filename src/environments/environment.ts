@@ -2,6 +2,7 @@
 // `ng build` replaces `environment.ts` with `environment.prod.ts`.
 // The list of file replacements can be found in `angular.json`.
 
+
 export const environment = {
   production: false,
   //'http://dtapi.if.ua:8081/api/auth/'
@@ -11,7 +12,6 @@ export const environment = {
   tokenName: 'jwt-token',
   title: 'BeLeRo.Ua',
 };
-
 /*
  * For easier debugging in development mode, you can import the following file
  * to ignore zone related error stack frames such as `zone.run`, `zoneDelegate.invokeTask`.
@@ -20,3 +20,18 @@ export const environment = {
  * on performance if an error is thrown.
  */
 // import 'zone.js/plugins/zone-error';  // Included with Angular CLI.
+
+
+
+
+// export const environment = {
+//   production: false,
+//   //'http://dtapi.if.ua:8081/api/auth/'
+//   authApi: 'http://localhost:8080/api/auth/',
+//   api: 'http://localhost:8080/api/',
+//   tokenName: 'jwt-token',
+//   title: 'BeLeRo.Ua',
+//   user: 'user',
+//   role: 'role',
+//   classroom: 'class'
+// };

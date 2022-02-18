@@ -25,7 +25,7 @@ export class LevelsDetailsComponent implements OnInit {
   levelId! : number;
   level! : Level;
   criterionId! : number;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
   materialId!: number;
   level$! : Observable<Level>;
@@ -42,7 +42,7 @@ export class LevelsDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.criterionId = parseInt(this.route.snapshot.paramMap.get('criterionId') || '');
     this.levelId = parseInt(this.route.snapshot.paramMap.get('levelId') || '');

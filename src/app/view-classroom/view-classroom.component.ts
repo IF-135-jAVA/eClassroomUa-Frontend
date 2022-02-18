@@ -21,7 +21,7 @@ export class ViewClassroomComponent implements OnInit {
   teachers$!: Observable<User[]>;
 
   owner$!: Observable<User>;
-  
+
   classroom$!: Observable<Classroom>;
 
   constructor(private classroomService: ClassroomService,
@@ -34,7 +34,7 @@ export class ViewClassroomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    let id = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    let id = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.classroom$ = this.classroomService.getClassroomById(id);
     this. teachers$ = this.classroomService.getClassroomUsers(id, 'teachers');
     this.students$ = this.classroomService.getClassroomUsers(id, 'students');

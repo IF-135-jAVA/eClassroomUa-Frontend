@@ -1,0 +1,57 @@
+<h2>Submission for assignment</h2>
+<table class="table table-striped">
+  <tbody>
+  <tr>
+    <th scope="row">Student</th>
+    <td>{{ userName }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Assignment</th>
+    <td>{{ materialTitle }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Status of Assignment</th>
+    <td>{{ getAssignmentStatus(userAssignment.assignmentStatusId) }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Date of Submission</th>
+    <td>{{ getSubmissionDate(userAssignment) }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Grade</th>
+    <td>{{ userAssignment.grade }}</td>
+  </tr>
+  <tr>
+    <th scope="row">Feedback</th>
+    <td>{{ userAssignment.feedback }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<button (click)="deleteUserAssignment()" *ngIf="userRole == 'TEACHER'" class="btn btn-danger btn-google btn-with-margin">
+  Delete
+</button>
+
+<h4>Answers</h4>
+
+<div *ngIf="this.userRole === 'STUDENT'">
+  <form [formGroup]="answerForm" (submit)="createAnswer()">
+    <div>
+      <textarea id="text" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control" placeholder="New answer"></textarea>
+    </div>
+    <button type="submit" class="btn btn-success btn-google btn-with-margin">Add answer</button>
+  </form>
+</div>
+
+<table class="table table-sm">
+  <tbody>
+  <tr *ngFor="let answer of answers">
+    <td>{{ answer.text }}</td>
+    <td>
+      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" class="btn btn-danger btn-google">
+        Delete
+      </button>
+    </td>
+  </tr>
+  </tbody>
+</table>

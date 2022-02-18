@@ -1,8 +1,8 @@
 form button{
     margin-top: 5px;
 }
-.image-top { 
-	width:625px; 
+.image-top {
+	width:625px;
 	height:260px;
 	border-top-left-radius:15px;
 	border-top-right-radius:15px;
@@ -39,3 +39,77 @@ form button{
     margin: 10px;
     max-width: 600px;
 }
+
+
+
+
+
+
+.comment-card{
+  margin-bottom: 5px;
+
+}
+
+
+.all-comments h2 {
+  margin-top: 1em;
+}
+
+.all-comments mat-card {
+  width: 80%;
+  margin: 1em auto;
+  text-align: left;
+}
+
+.comment-icon {
+  vertical-align: middle;
+  padding-bottom: 3px;
+  font-weight: 600;
+}
+
+.detail-label {
+  font-weight: 500;
+}
+
+.detail-options {
+  position: absolute;
+  top: 14px;
+  right: 10px;
+}
+
+.detail-options mat-icon {
+  padding-right: 5px;
+}
+
+button:hover, .detail-options {
+  cursor: pointer;
+}
+
+
+
+
+
+mat-card-content {
+  margin-bottom: 0;
+}
+
+form {
+  padding-top: 1em;
+}
+
+mat-form-field {
+  width: 90%;
+}
+
+button {
+  width: 80%;
+  max-width: 300px;
+  margin-bottom: 1em;
+}
+
+button:hover, .detail-options {
+  cursor: pointer;
+
+
+}
+
