@@ -24,6 +24,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
 import { PickRoleComponent } from './pick-role/pick-role.component';
 import { AnnouncementComponent } from './announcement/announcement.component';
@@ -40,6 +41,11 @@ import { MaterialDetailsComponent } from './material-details/material-details.co
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EmailRequestComponent } from './email-request/email-request.component';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatChipsModule} from '@angular/material/chips';
+import {MatIconModule} from '@angular/material/icon';
 
 
 @NgModule({
@@ -82,13 +88,19 @@ import { EmailRequestComponent } from './email-request/email-request.component';
     HttpClientModule,
     MatButtonToggleModule,
     MatNativeDateModule,
+    MatSelectModule,
     MatCardModule,
+    MatInputModule,
+    MatSliderModule,
     BrowserAnimationsModule,
     NgbModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     MatRippleModule,
-    MatExpansionModule
+    MatChipsModule,
+    MatExpansionModule,
+    MatIconModule
   ],
   exports: [
     MatRippleModule,
