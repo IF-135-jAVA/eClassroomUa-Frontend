@@ -12,13 +12,12 @@ import { Comments } from '../model/comment';
     providedIn: 'root'
 })
 export class CommentService {
-    private apiServerUrl = environment.api;
+       private apiServerUrl = environment.api;
 
     jwtString: string | undefined;
 
     constructor(private http: HttpClient,
-        private formBuilder: FormBuilder)
-    {
+        private formBuilder: FormBuilder) {
 
     }
 
@@ -27,20 +26,24 @@ export class CommentService {
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.post<Comments>(`${this.apiServerUrl}comments/users/${userId}`, comment, options);
-    }
+   }
 
     public getCommentsByAnnouncement(announcementId: number): Observable<Comments[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
+
         return this.http.get<Comments[]>(`${this.apiServerUrl}comments/announcements/${announcementId}`, options);
+
     }
 
     public getCommentsByMaterial(materialId: number): Observable<Comments[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
+
         return this.http.get<Comments[]>(`${this.apiServerUrl}comments/materials/${materialId}`, options)
+
     }
 
     public getCommentsByUserAssignment(assignmentId: number): Observable<Comments[]>{
@@ -48,6 +51,7 @@ export class CommentService {
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
         return this.http.get<Comments[]>(`${this.apiServerUrl}comments/user-assignments/${assignmentId}`, options)
+
     }
 
     public getCommentById(commentId: number): Observable<Comments>{
@@ -61,7 +65,26 @@ export class CommentService {
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        console.log(`${this.apiServerUrl}comments/${commentId}`);
         return this.http.delete<Comments>(`${this.apiServerUrl}comments/${commentId}`, options)
     }
+
+    public updateComment(commentId: number) {
+    this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+    let headers = new HttpHeaders().set('Authorization', this.jwtString);
+    let options = {headers: headers};
+    return this.http.put(`${this.apiServerUrl}$comments/${commentId}`, options)
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+

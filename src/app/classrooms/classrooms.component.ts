@@ -45,7 +45,7 @@ export class ClassroomsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getClassrooms();
-    
+
     this.createForm = this.formBuilder.group({
       title: '',
       session: '',
@@ -69,7 +69,7 @@ export class ClassroomsComponent implements OnInit {
           this.classrooms = response;
         }
       )
-    } 
+    }
   }
 
   joinModal(content: any) {
@@ -85,20 +85,19 @@ export class ClassroomsComponent implements OnInit {
   }
 
   join() {
-    let user : User = JSON.parse(localStorage.getItem(environment.user) || '');
-    if(localStorage.getItem(environment.role) === 'student'){
-      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, user.id).subscribe(
+    if(localStorage.getItem(this.userRole) === 'STUDENT'){
+      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });
     }
-    else if(localStorage.getItem(environment.role) === 'teacher')
+    else if(localStorage.getItem(this.userRole) === 'TEACHER')
     {
-      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, user.id).subscribe(
+      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });
-    } 
+    }
  }
 
   create() {
@@ -108,7 +107,7 @@ export class ClassroomsComponent implements OnInit {
       });
   }
 
-  open(classroomId: number) {
+  open(classroomId: string) {
     this.router.navigate(['/classrooms', classroomId]);
   }
 }
