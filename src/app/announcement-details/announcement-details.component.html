@@ -1,25 +1,44 @@
-<div class="container-material" *ngIf="announcement$ | async as announcement">
-    <div class="row">
-      <div class="image-top"><span  class="name"></span></div>
+
+<div class="container-announcement" *ngIf="announcement$ | async as announcement">
+  <div class="row">
+    <div class="image-top"><span class="name"></span></div>
   </div>
   <h1>{{announcement.text}}</h1>
-    <div class="row">
-        <div class="box" *ngIf="comments$ | async as comments">
-            <h2>Comments:</h2><br>
-            <div *ngFor="let comment of comments">
-                <mat-card class="card">
-                    <mat-card-content>{{comment.text}}</mat-card-content>
-                    <mat-card-footer class="max-opacity"><p>{{"Date: " + comment.date}}</p></mat-card-footer>
-                    <mat-card-footer class="max-opacity"><a href="{{'http://localhost:4200/profile/' + comment.authorId}}">Author</a></mat-card-footer>
-                    <mat-card-actions *ngIf="userId == comment.authorId"><p (click)="delete(comment.id)">&#10006;</p></mat-card-actions>
-                </mat-card>
-             </div>
-            <form [formGroup]="commentForm"  class="form-horizontal" role="form">
-               <div appearance="fill">
-                   <textarea formControlName="text" class="form-control" matInput placeholder="Comment"></textarea>
-                   <button mat-button (click)="sendComment()">Publish</button>
-               </div>
-           </form>
-        </div> 
+  <div class="row">
+    <div class="box" *ngIf="comments$ | async as comments">
+      <h2>Comments</h2><br>
+      <div *ngFor="let comment of comments">
+      <mat-card class="card">
+          <mat-card-title>
+            {{comment.text}}
+          </mat-card-title>
+          <div class="detail-options">
+            <!--            <mat-icon-->
+            <!--              class="comment-icon"-->
+            <!--              color="secondary"-->
+            <!--              (click)="updateComment()"-->
+            <!--            >edit-->
+            <!--            </mat-icon>-->
+            <mat-icon
+              class="comment-icon"
+              color="warn"
+              (click)="deleteComment(comment.id)"
+            >delete
+            </mat-icon>
+          </div>
+
+          <mat-card-subtitle class="max-opacity">{{"Date: " + comment.date}}</mat-card-subtitle>
+
+          <mat-card-footer class="max-opacity"><a href="{{'http://localhost:4200/profile/' + comment.authorId}}">{{comment.firstName + ' ' + comment.lastName}}</a></mat-card-footer>
+        </mat-card>
+      </div>
+      <form [formGroup]="commentForm" class="form-horizontal" role="form">
+        <div appearance="fill">
+          <textarea formControlName="text" class="form-control" matInput placeholder="Comment"></textarea>
+          <button type="submit" class="btn btn-success" (click)="sendComment()">Publish</button>
+        </div>
+      </form>
     </div>
+  </div>
 </div>
+

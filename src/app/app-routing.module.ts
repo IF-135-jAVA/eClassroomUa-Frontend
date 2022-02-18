@@ -13,6 +13,7 @@ import { WelcomeComponent } from './welcome/welcome.component';
 import {CriterionsComponent} from "./criterions/criterions.component";
 import {CriterionDetailsComponent} from "./criterion-details/criterion-details.component";
 import {TopicsComponent} from "./topics/topics.component";
+
 import {LevelsComponent} from "./levels/levels.component";
 import {LevelsDetailsComponent} from "./levels-details/levels-details.component";
 import {TopicDetailsComponent} from "./topic-details/topic-details.component";
@@ -21,6 +22,7 @@ import { MaterialDetailsComponent } from './material-details/material-details.co
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EmailRequestComponent } from './email-request/email-request.component';
+
 
 const routes: Routes = [
   { path: 'home', component: HomeComponent },
@@ -44,6 +46,7 @@ const routes: Routes = [
   { path: 'confirm', component: ConfirmEmailComponent},
   { path: 'change-password', component: ChangePasswordComponent},
   { path: 'request', component: EmailRequestComponent}
+
 
 
 ];
