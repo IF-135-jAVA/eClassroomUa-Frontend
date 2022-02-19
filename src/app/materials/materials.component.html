@@ -5,6 +5,8 @@
    <div class="row" *ngFor="let material of materials">
        <h1>{{material.title}}</h1>
        <p>{{material.text}}</p>
+       <p>{{material.task}}</p>
+       <p>{{material.maxScore}}</p>
    </div>
 </div>
 <div class="row">
@@ -51,6 +53,7 @@
                 <mat-label>Add link</mat-label>
                 <input id="material_link" matInput >
               </mat-form-field><br>
+              <button class="btn btn-success" (click)="save()"></button>
               
         
         

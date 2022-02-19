@@ -59,6 +59,10 @@ export class MaterialsComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.getAll()
+  }
+
+  getAll(){
     this.materials$ = this.materialService.getMaterialsByTopic(this.classroomId, this.topicId)
   }
 
@@ -67,10 +71,12 @@ export class MaterialsComponent implements OnInit {
     material.startDate = this.range.get(['start'])?.value;
     material.startDate = this.range.get(['end'])?.value;
     material.maxScore = this.maxScore
-    material.task =
-    material.text =
-    material.type =
-    material.url = (document.getElementById('materiallink')?.value || '');
+    material.task = (<HTMLInputElement> document.getElementById('material_task')).value.trim();
+    material.text = (<HTMLInputElement> document.getElementById('material_text')).value.trim();
+    material.title = (<HTMLInputElement> document.getElementById('material_title')).value.trim();
+    material.materialType = "TASK";
+    material.url = (<HTMLInputElement> document.getElementById('material_link')).value.trim();
+    this.materialService.createMaterial(this.classroomId, this.topicId, material).subscribe(() => {this.getAll()})
   }
 
 }
