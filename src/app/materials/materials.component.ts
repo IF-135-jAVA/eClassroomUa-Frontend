@@ -19,7 +19,7 @@ export class MaterialsComponent implements OnInit {
 
   links: string[] = [];
 
-  classroomId! : number;
+  classroomId! : string;
 
   topicId! : number;
 
@@ -52,7 +52,7 @@ export class MaterialsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private materialService: MaterialService
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;

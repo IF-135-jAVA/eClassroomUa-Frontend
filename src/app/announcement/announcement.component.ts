@@ -75,18 +75,3 @@ export class AnnouncementComponent implements OnInit {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
