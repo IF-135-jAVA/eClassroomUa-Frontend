@@ -11,6 +11,7 @@ import {CommentService} from '../service/comment.service';
 import {UserService} from '../service/user.service';
 import {formatDate} from "@angular/common";
 
+
 @Component({
   selector: 'app-announcement-details',
   templateUrl: './announcement-details.component.html',
@@ -80,6 +81,15 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   getUserById(id: number) {
     return this.userService.getUserById(id);
+  }
+
+  exitForm() {
+    this.commentForm.reset();
+  }
+
+  getDate(comment: Comment): String {
+    // @ts-ignore
+    return formatDate(comment.date, "medium", "en-US");
   }
 }
 

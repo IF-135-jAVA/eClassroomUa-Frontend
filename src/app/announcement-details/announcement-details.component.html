@@ -13,12 +13,12 @@
               {{comment.text}}
             </mat-card-title>
             <div class="detail-options">
-                          <mat-icon
-                            class="comment-icon"
-                            color="secondary"
-                            (click)="updateComment()"
-                          >edit
-                          </mat-icon>
+              <mat-icon
+                class="comment-icon"
+                color="secondary"
+                (click)="updateComment()"
+              >edit
+              </mat-icon>
               <mat-icon
                 class="comment-icon"
                 color="warn"
@@ -26,18 +26,21 @@
               >delete
               </mat-icon>
             </div>
-            <mat-card-subtitle class="max-opacity">{{"Date: " + comment.date}}</mat-card-subtitle>
-<!--            <mat-card-subtitle class="max-opacity">{{"Date: " + comment.date.formatDate( "MMM dd, yyyy, HH:mm", "en-US")}}</mat-card-subtitle>-->
-            <mat-card-footer class="max-opacity"><a href="{{'http://localhost:4200/profile/' + comment.authorId}}">{{comment.firstName + ' ' + comment.lastName}}</a></mat-card-footer>
+                <mat-card-subtitle class="max-opacity">{{comment.date}}</mat-card-subtitle>
+<!--            <mat-card-subtitle class="max-opacity">{{getDate(comment)}}</mat-card-subtitle>-->
+            <mat-card-footer class="max-opacity"><a
+              href="{{'http://localhost:4200/profile/' + comment.authorId}}">{{comment.firstName + ' ' + comment.lastName}}</a>
+            </mat-card-footer>
           </mat-card>
         </div>
         <form [formGroup]="commentForm" class="form-horizontal" role="form">
           <div appearance="fill">
             <textarea formControlName="text" class="form-control" matInput placeholder="Comment"></textarea>
             <button type="submit" class="btn btn-success" (click)="sendComment()">Publish</button>
+            <button type="submit" class="btn btn-success" (click)="exitForm()">Cancel</button>
           </div>
         </form>
       </div>
     </div>
-    </div>
+  </div>
 </div>
