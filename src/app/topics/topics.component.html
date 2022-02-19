@@ -1,16 +1,16 @@
 <h2>Topics:</h2><br>
 <div *ngIf="topics$ | async as topics">
   <div *ngFor="let topic of topics">
-    <p (click)="open(topic.id)" >{{topic.text}}</p>
+    <p (click)="open(topic.id)" >{{topic.title}}</p>
   </div>
 </div>
 <div *ngIf="this.userRole === 'TEACHER'">
   <form [formGroup]="topicForm"  class="form-horizontal" role="form">
     <div appearance="fill">
       <mat-label>Message</mat-label>
-      <textarea formControlName="title" class="form-control" matInput placeholder="Title"></textarea>
-      <textarea formControlName="text" class="form-control" matInput placeholder="Description"></textarea>
-      <button mat-button (click)="sendTopic()">Publish</button>
+      <textarea formControlName="title" class="form-control" matInput placeholder="New topic"></textarea>
+
+      <button class="btn btn-primary" mat-button (click)="sendTopic()">Save</button>
     </div>
   </form>
 </div>

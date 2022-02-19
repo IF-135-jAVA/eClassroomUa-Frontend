@@ -17,21 +17,7 @@ export class WelcomeComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.queryParams
-      .subscribe(params => {
-        localStorage.setItem(environment.tokenName, params['token']);
-      }
-    );
-    if(localStorage.getItem(environment.tokenName)?.toString.length != 0){
-      if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-        Emitters.authEmitter.emit(false);
-        this.router.navigate(['/login']);
-      } else {
-        Emitters.authEmitter.emit(true);
-        //localStorage.setItem(environment.role, this.role);
-        this.router.navigate(['/home']);
-      }
+    
     }
     
   }
-}

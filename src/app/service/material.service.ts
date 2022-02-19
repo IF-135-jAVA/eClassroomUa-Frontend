@@ -20,31 +20,31 @@ export class MaterialService {
 
     }
 
-    public createMaterial(topic: Topic, material: Material): Observable<Material>{
+    public createMaterial(classroomId: number, topicId: number, material: Material): Observable<Material>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.post<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials`, material, options)
+        return this.http.post<Material>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials`, material, options)
     }
 
-    public getMaterialsByTopic(topic: Topic): Observable<Material[]>{
+    public getMaterialsByTopic(classroomId: number, topicId: number): Observable<Material[]>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Material[]>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials`, options)
+        return this.http.get<Material[]>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials`, options)
     }
 
-    public getMaterialById(topic: Topic, materialId: number): Observable<Material>{
+    public getMaterialById(classroomId: number, topicId: number, materialId: number): Observable<Material>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.get<Material>(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials/${materialId}`, options)
+        return this.http.get<Material>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}`, options)
     }
 
-    public deleteMaterial(topic: Topic, materialId: number){
+    public deleteMaterial(classroomId: number, topicId: number, materialId: number){
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        return this.http.delete(`${this.apiServerUrl}${topic.classroomId}/topics/${topic.id}/materials/${materialId}`, options)
+        return this.http.delete(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}`, options)
     }
 }

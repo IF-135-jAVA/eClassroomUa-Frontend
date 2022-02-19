@@ -1,6 +1,5 @@
-import { NgModule } from '@angular/core';
-import { BrowserModule } from '@angular/platform-browser';
-
+import {NgModule} from '@angular/core';
+import {BrowserModule} from '@angular/platform-browser';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { HttpClientModule } from '@angular/common/http';
@@ -24,16 +23,31 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap'
 import { MatTabsModule } from '@angular/material/tabs';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
 import {MatExpansionModule} from '@angular/material/expansion';
-import { PickRoleComponent } from './pick-role/pick-role.component';
-import { AnnouncementComponent } from './announcement/announcement.component';
-import { AnnouncementDetailsComponent } from './announcement-details/announcement-details.component';
+import {PickRoleComponent} from './pick-role/pick-role.component';
+import {AnnouncementComponent} from './announcement/announcement.component';
+import {AnnouncementDetailsComponent} from './announcement-details/announcement-details.component';
 import {CriterionsComponent} from './criterions/criterions.component';
 import {CommonModule} from "@angular/common";
+import {MatIconModule} from '@angular/material/icon';
+import {MatToolbarModule} from '@angular/material/toolbar';
+import { MatButtonModule } from '@angular/material/button';
 import { TopicsComponent } from './topics/topics.component';
 import { CriterionDetailsComponent } from './criterion-details/criterion-details.component';
-import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
-import { UserAssignmentDetailsComponent } from './user-assignment-details/user-assignment-details.component';
+import { TopicDetailsComponent } from './topic-details/topic-details.component';
+import { LevelsComponent } from './levels/levels.component';
+import { LevelsDetailsComponent } from './levels-details/levels-details.component';
+import { MaterialsComponent } from './materials/materials.component';
+import { MaterialDetailsComponent } from './material-details/material-details.component';
+import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
+import { ChangePasswordComponent } from './change-password/change-password.component';
+import { EmailRequestComponent } from './email-request/email-request.component';
+import {MatSliderModule} from '@angular/material/slider';
+import {MatSelectModule} from '@angular/material/select';
+import {MatDatepickerModule} from '@angular/material/datepicker';
+import {MatChipsModule} from '@angular/material/chips';
+
 
 
 @NgModule({
@@ -57,11 +71,20 @@ import { UserAssignmentDetailsComponent } from './user-assignment-details/user-a
     CriterionsComponent,
     TopicsComponent,
     CriterionDetailsComponent,
-    UserAssignmentsComponent,
-    UserAssignmentDetailsComponent,
+    TopicDetailsComponent,
+    LevelsComponent,
+    LevelsDetailsComponent,
+    MaterialsComponent,
+    MaterialDetailsComponent,
+    ConfirmEmailComponent,
+    ChangePasswordComponent,
+    EmailRequestComponent,
+
   ],
 
   imports: [
+    MatInputModule,
+    MatSelectModule,
     CommonModule,
     BrowserModule,
     AppRoutingModule,
@@ -70,14 +93,24 @@ import { UserAssignmentDetailsComponent } from './user-assignment-details/user-a
     HttpClientModule,
     MatButtonToggleModule,
     MatNativeDateModule,
+    MatSelectModule,
     MatCardModule,
+    MatInputModule,
+    MatSliderModule,
     BrowserAnimationsModule,
     NgbModule,
     MatTabsModule,
     MatFormFieldModule,
+    MatDatepickerModule,
     MatRippleModule,
-    MatExpansionModule
-  ],
+    MatChipsModule,
+    MatExpansionModule,
+    MatIconModule,
+    MatToolbarModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSelectModule,
+     ],
   exports: [
     MatRippleModule,
     FormsModule,
@@ -85,4 +118,5 @@ import { UserAssignmentDetailsComponent } from './user-assignment-details/user-a
   providers: [],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+}

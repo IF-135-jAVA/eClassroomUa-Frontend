@@ -23,11 +23,12 @@ export class CriterionDetailsComponent implements OnInit {
   userRole! : string;
   criterionId! : number;
   criterion! : Criterion;
-  classroomId! : number;
+  classroomId! : string;
   topicId! : number;
-  materialId!: number
+  materialId!: number;
   criterion$! : Observable<Criterion>;
- // helper = new JwtHelperService();
+  criterions$! : Observable<Criterion[]>;
+
 
   criterionForm: FormGroup = this.formBuilder.group({
     text: ''
@@ -40,7 +41,7 @@ export class CriterionDetailsComponent implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router
   ) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.criterionId = parseInt(this.route.snapshot.paramMap.get('criterionId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
@@ -54,7 +55,7 @@ export class CriterionDetailsComponent implements OnInit {
     this.getAllCriterions();
   }
   getAllCriterions(){
-    this.criterion$ = this.criterionService.getCriterionById(this.classroomId, this.topicId, this.materialId, this.criterionId);
+    this.criterions$ = this.criterionService.getAllCriterions(this.classroomId, this.topicId, this.materialId);
   }
 
   sendCriterion(){
@@ -63,6 +64,11 @@ export class CriterionDetailsComponent implements OnInit {
     criterion.description = this.criterionForm.get(['description'])?.value;
     this.materialId = 0  ;
     this.criterionService.createCriterion(criterion, this.classroomId, this.topicId, this.materialId).subscribe(() => this.getAllCriterions());
+  }
+  goToLevels(){
+    //console.log("yyep");
+    this.router.navigate(['/classrooms/' + this.classroomId + '/topics/' + this.topicId + '/materials/' + this.materialId + '/criterions/' + this.criterionId ]);
+
   }
 
 }
