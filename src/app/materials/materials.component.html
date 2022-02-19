@@ -11,11 +11,11 @@
     <div class="col-6">
             <mat-form-field floatLabel="always" appearance="fill">
                 <mat-label>Title</mat-label>
-                <input matInput>
+                <input id="material_title" matInput>
             </mat-form-field>
               <mat-form-field   appearance="fill">
                 <mat-label>Select material type</mat-label>
-                <mat-select>
+                <mat-select id="material_type">
                   <mat-option value="task">Task</mat-option>
                   <mat-option value="question">Question</mat-option>
                   <mat-option value="test">Test</mat-option>
@@ -23,8 +23,12 @@
                 </mat-select>
               </mat-form-field>
               <mat-form-field  appearance="fill">
+                <mat-label>Description</mat-label>
+                <textarea id="material_text" matInput></textarea>
+              </mat-form-field>
+              <mat-form-field  appearance="fill">
                 <mat-label>Task</mat-label>
-                <textarea matInput></textarea>
+                <textarea id="material_task" matInput></textarea>
               </mat-form-field>
               <div class="example-label-container">
                 <label id="example-name-label" class="example-name-label">Max score: </label>
@@ -43,7 +47,10 @@
                 <mat-error *ngIf="range.controls['start'].hasError('matStartDateInvalid')">Invalid start date</mat-error>
                 <mat-error *ngIf="range.controls['end'].hasError('matEndDateInvalid')">Invalid end date</mat-error>
               </mat-form-field>
-
+              <mat-form-field  appearance="fill">
+                <mat-label>Add link</mat-label>
+                <input id="material_link" matInput >
+              </mat-form-field><br>
               
         
         

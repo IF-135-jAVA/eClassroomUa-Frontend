@@ -62,4 +62,15 @@ export class MaterialsComponent implements OnInit {
     this.materials$ = this.materialService.getMaterialsByTopic(this.classroomId, this.topicId)
   }
 
+  save(){
+    let material = new Material();
+    material.startDate = this.range.get(['start'])?.value;
+    material.startDate = this.range.get(['end'])?.value;
+    material.maxScore = this.maxScore
+    material.task =
+    material.text =
+    material.type =
+    material.url = (document.getElementById('materiallink')?.value || '');
+  }
+
 }
