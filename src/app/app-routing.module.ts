@@ -22,6 +22,8 @@ import { MaterialDetailsComponent } from './material-details/material-details.co
 import { ConfirmEmailComponent } from './confirm-email/confirm-email.component';
 import { ChangePasswordComponent } from './change-password/change-password.component';
 import { EmailRequestComponent } from './email-request/email-request.component';
+import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
+import {UserAssignmentDetailsComponent} from "./user-assignment-details/user-assignment-details.component";
 
 
 const routes: Routes = [
@@ -45,10 +47,9 @@ const routes: Routes = [
   { path: 'classrooms/:classroomId/topics/:topicId/materials/:materialId', component: MaterialDetailsComponent},
   { path: 'confirm', component: ConfirmEmailComponent},
   { path: 'change-password', component: ChangePasswordComponent},
-  { path: 'request', component: EmailRequestComponent}
-
-
-
+  { path: 'request', component: EmailRequestComponent},
+  { path: 'materials/:materialId/assignments', component: UserAssignmentsComponent},
+  { path: 'materials/:materialId/assignments/:assignmentId', component: UserAssignmentDetailsComponent},
 ];
 
 @NgModule({

@@ -1,0 +1,22 @@
+.file-input {
+  display: none;
+}
+
+.upload-btn {
+  margin: 5px;
+}
+
+.with-padding {
+  padding-left: 15px;
+}
+
+td {
+  color: #007bff;
+  text-decoration: none;
+  background-color: transparent;
+}
+
+td:hover {
+  color: #0056b3;
+  text-decoration: underline;
+}
