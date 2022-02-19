@@ -7,12 +7,10 @@ export const environment = {
   production: false,
   //'http://dtapi.if.ua:8081/api/auth/'
   authApi: 'http://localhost:8080/api/auth/',
+  siteUrl: 'http://localhost:4200/',
   api: 'http://localhost:8080/api/',
   tokenName: 'jwt-token',
   title: 'BeLeRo.Ua',
-  user: 'user',
-  role: 'role',
-  classroom: 'class'
 };
 /*
  * For easier debugging in development mode, you can import the following file

@@ -15,13 +15,20 @@ import {AnnouncementService} from '../service/announcement.service';
 })
 export class AnnouncementComponent implements OnInit {
 
+  public adding = false;
+  public editing = false;
+  // @ts-ignore
+  public editingIndex: number;
+  toggle =true
+
   announcements$!: Observable<Announcement[]>;
 
-  classroomId!: number;
+  classroomId!: string;
 
-  userId!: number;
+  userId! : number;
 
-  userRole!: string;
+  userRole! : string;
+
 
   helper = new JwtHelperService();
 
@@ -33,9 +40,10 @@ export class AnnouncementComponent implements OnInit {
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
               private router: Router) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
-    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
+
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
+    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {
@@ -53,21 +61,64 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.createAnnouncement(this.classroomId, announcement).subscribe(() => this.getAllAnnouncements());
   }
 
-  updateAnnouncement() {
-    let announcement = new Announcement();
-    announcement.courseId = this.classroomId;
+  updateAnnouncement(announcement: Announcement, announcementId: number) {
     announcement.text = this.announcementForm.get(['text'])?.value;
     // @ts-ignore
-    this.announcementService.updateAnnouncement();
+    this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => {
+      this.getAllAnnouncements();
+    });
+    this.editing = true;
+    this.editingIndex = announcementId;
   }
+
 
   deleteAnnouncement(announcementId: number) {
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId).subscribe(() => {
       this.getAllAnnouncements();
     });
+
   }
 
   open(announcementId: number) {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
+
+  exitForm() {
+   this.announcementForm.reset();
+  }
+
+  public onSubmit() {
+    const announcement = this.announcementForm.value as Announcement;
+
+    if (this.editing) {
+      // @ts-ignore
+      this.announcements$!.splice(this.editingIndex, 1, announcement);
+    } else {
+      // @ts-ignore
+      this.announcements$!.push(announcement);
+    }
+
+    this.editing = false;
+    this.adding = false;
+    this.exitForm();
+  }
+
+  toggleAnnouncements(){
+    this.toggle=!this.toggle
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

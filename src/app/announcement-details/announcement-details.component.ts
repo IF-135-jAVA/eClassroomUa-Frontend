@@ -9,6 +9,7 @@ import {Comments} from '../model/comment';
 import {AnnouncementService} from '../service/announcement.service';
 import {CommentService} from '../service/comment.service';
 import {UserService} from '../service/user.service';
+import {formatDate} from "@angular/common";
 
 @Component({
   selector: 'app-announcement-details',
@@ -17,7 +18,7 @@ import {UserService} from '../service/user.service';
 })
 export class AnnouncementDetailsComponent implements OnInit {
 
-  classroomId!: number;
+  classroomId!: string;
 
   announcementId!: number;
 
@@ -40,10 +41,10 @@ export class AnnouncementDetailsComponent implements OnInit {
               private formBuilder: FormBuilder,
               private commentService: CommentService,
               private route: ActivatedRoute) {
-    this.classroomId = parseInt(this.route.snapshot.paramMap.get('classroomId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
-    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
+    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {
@@ -63,12 +64,13 @@ export class AnnouncementDetailsComponent implements OnInit {
     this.commentService.createComment(comment, comment.authorId).subscribe(() => this.getAllComments());
   }
 
-  // updateComment() {
-  //   let comment = new Comment();
-  //   comment.text = this.commentForm.get(['text'])?.value;
-  //   // @ts-ignore
-  //   this.commentService.updateComment();
-  // }
+  updateComment() {
+    let comment = new Comment();
+    // @ts-ignore
+    comment.text = this.commentForm.get(['text'])?.value;
+    // @ts-ignore
+    this.commentService.updateComment();
+  }
 
   deleteComment(commentId: number) {
     this.commentService.deleteComment(commentId).subscribe(() => {
@@ -79,4 +81,18 @@ export class AnnouncementDetailsComponent implements OnInit {
   getUserById(id: number) {
     return this.userService.getUserById(id);
   }
+
+  exitForm() {
+    this.commentForm.reset();
+  }
 }
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,23 @@
+<div class="background">
+    <div class="container bootstrap snippets bootdey">
+      <app-header></app-header>
+      <hr>
+      <div>
+        <div class="col-md-6 personal-info container action-form">
+          
+          <form [formGroup]="form"  class="form-horizontal" role="form">
+            <div class="form-group">
+              <label class=" control-label email-text">Enter your email:</label>
+                <div>
+                  <input formControlName="email" class="form-control" type="email" value="">
+                </div>
+              </div>
+            <button *ngIf="type == 'password'" class="btn btn-success" (click)="sendPasswordRequest()">Send</button>
+            <button *ngIf="type == 'confirm'" class="btn btn-success" (click)="confirmUserRequest()">Send</button>
+          </form>
+        </div>
+      </div>
+    </div>
+    <router-outlet></router-outlet>
+    </div>
+    
