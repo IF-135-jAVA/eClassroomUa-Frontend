@@ -7,7 +7,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {LevelService} from "../service/level.service";
 import {environment} from "../../environments/environment";
 import {Level} from "../model/level";
-import {Criterion} from "../model/criterion";
+import {User} from "../model/user";
+
 
 @Component({
   selector: 'app-levels',
@@ -96,9 +97,20 @@ export class LevelsComponent implements OnInit {
 
     title: '',
     description: '',
-    mark: ''
+    mark: 0,
 
   });
+  updateLevelForm: FormGroup = this.formBuilder.group({
+
+
+    title: '',
+    description: '',
+    mark: 0,
+
+
+  });
+
+
   sendLevel(){
   let level = new Level();
     level.criterionId = this.criterionId;
@@ -107,5 +119,19 @@ export class LevelsComponent implements OnInit {
     level.mark = this.levelForm.get(['mark'])?.value;
 
   this.levelService.createLevel(level, this.classroomId, this.topicId, this.materialId, this.criterionId).subscribe(() => this.getAllLevels());
+  }
+
+  deleteLevel(levelId: number) {
+    this.levelService.deleteLevel( this.classroomId, this.topicId, this.materialId, this.criterionId, levelId).subscribe(() => {
+      this.getAllLevels();
+    });
+
+  }
+  updateLevel(){
+      let  newLevel : Level = this.updateLevelForm.getRawValue() as Level;
+    this.levelService.updateLevel(this.classroomId, this.topicId, this.materialId, this.criterionId, newLevel);
+  }
+  joinModal(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
   }
 }

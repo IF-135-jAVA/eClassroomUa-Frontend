@@ -1,6 +1,3 @@
-.background{
-  background-image: url("src/assets/images/Background-Kelase-New.png");
-}
 form button{
   margin-top: 5px;
 }
@@ -29,7 +26,7 @@ form button{
   padding: 5px;
 }
 
-.container-criterion{
+.container-announcement{
   width:625px;
   height: auto;
   margin: 0 auto;
@@ -41,7 +38,4 @@ mat-card{
 
   margin: 10px;
   max-width: 600px;
-}
-p {
-  cursor: pointer;
 }

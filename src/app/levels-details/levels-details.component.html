@@ -6,13 +6,29 @@
   <div class="row">
     <div>
       <mat-card class="card">
-        <p>{{level.title}}</p>
+        {{level.title}}
+        <div class="detail-options">
+          <!--            <mat-icon-->
+          <!--              class="comment-icon"-->
+          <!--              color="secondary"-->
+          <!--              (click)="updateComment()"-->
+          <!--            >edit-->
+          <!--            </mat-icon>-->
+          <mat-icon
+            class="comment-icon"
+            color="warn"
+            (click)="deleteLevel(level.id)"
+          >delete
+          </mat-icon>
+        </div>
         <mat-card-subtitle class="max-opacity">{{"Title: " + level.title}}</mat-card-subtitle>
-
         <mat-card-subtitle  class="max-opacity">{{"Description: " + level.description}}</mat-card-subtitle>
         <mat-card-subtitle  class="max-opacity">{{"Mark: " + level.mark}}</mat-card-subtitle>
       </mat-card>
+
     </div>
+
+
 
 
   </div>
