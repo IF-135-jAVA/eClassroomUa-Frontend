@@ -18,13 +18,18 @@ export class NavigationComponent implements OnInit {
 
   userId!: string;
 
-  flag = Emitters.authEmitter.emit();
+  flag = false;
 
   constructor(public authService: AuthService,
     private router: Router) { 
   }
 
   ngOnInit(): void {
+    Emitters.authEmitter.subscribe(
+      (auth: boolean) => {
+        this.authenticated = !this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString());
+      }
+    )
     if(localStorage.getItem(environment.tokenName) == undefined){
       this.authenticated = false;
       return;

@@ -7,6 +7,8 @@ import { CommentService } from '../service/comment.service';
 import { AnnouncementService } from '../service/announcement.service';
 import { Observable } from 'rxjs';
 import { ActivatedRoute } from '@angular/router';
+import { JwtHelperService } from '@auth0/angular-jwt';
+import { environment } from 'src/environments/environment';
 
 
 @Component({
@@ -18,11 +20,15 @@ export class ViewClassroomComponent implements OnInit {
 
   students$!: Observable<User[]>;
 
+  helper = new JwtHelperService();
+
   teachers$!: Observable<User[]>;
 
   owner$!: Observable<User>;
 
   classroom$!: Observable<Classroom>;
+
+  userRole!: string;
 
   constructor(private classroomService: ClassroomService,
               private commentService: CommentService,
@@ -30,7 +36,7 @@ export class ViewClassroomComponent implements OnInit {
               private formBuilder: FormBuilder,
               private route: ActivatedRoute)
   {
-
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {
