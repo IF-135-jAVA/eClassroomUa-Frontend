@@ -79,7 +79,7 @@ export class LevelsComponent implements OnInit {
     this.levels$ = this.levelService.getAllLevels( this.classroomId, this.topicId,  this.materialId, this.criterionId);
   }
 
-  getById(classroomId: number, topicId: number, materialId: number, criterionId: number, levelId: number){
+  getById(classroomId: string, topicId: number, materialId: number, criterionId: number, levelId: number){
     return  this.levelService.getLevelById(this.classroomId, this.topicId, this.materialId, this.criterionId, levelId );
   }
   createModal(content: any) {
@@ -117,7 +117,7 @@ export class LevelsComponent implements OnInit {
     level.title = this.levelForm.get(['title'])?.value;
     level.description = this.levelForm.get(['description'])?.value;
     level.mark = this.levelForm.get(['mark'])?.value;
-
+    console.log(level.criterionId+level.title+level.description);
   this.levelService.createLevel(level, this.classroomId, this.topicId, this.materialId, this.criterionId).subscribe(() => this.getAllLevels());
   }
 
@@ -128,8 +128,24 @@ export class LevelsComponent implements OnInit {
 
   }
   updateLevel(){
-      let  newLevel : Level = this.updateLevelForm.getRawValue() as Level;
-    this.levelService.updateLevel(this.classroomId, this.topicId, this.materialId, this.criterionId, newLevel);
+      //let  newLevel : Level = this.updateLevelForm.getRawValue() as Level;
+    let level = new Level();
+    let levelId = this.route.snapshot.params['id'];
+    let title = this.updateLevelForm.get(['title'])?.value;
+    let description = this.updateLevelForm.get(['description'])?.value;
+    let mark = this.updateLevelForm.get(['mark'])?.value;
+    console.log(title, description, mark,this.levelId ,this.criterionId );
+
+    // level.title = this.updateLevelForm.get(['title'])?.value;
+    // level.description = this.updateLevelForm.get(['description'])?.value;
+    // level.mark = this.updateLevelForm.get(['mark'])?.value;
+    // console.log(level.title, level.description, level.criterionId );
+
+    this.levelService.updateLevel(this.classroomId, this.topicId, this.materialId, this.criterionId, this.levelId, title, description,mark, level).subscribe(() => {
+      this.getById(this.classroomId, this.topicId, this.materialId, this.criterionId, this.levelId);
+    });
+
+
   }
   joinModal(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});

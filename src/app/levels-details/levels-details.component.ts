@@ -72,10 +72,9 @@ export class LevelsDetailsComponent implements OnInit {
     this.levelService.deleteLevel( this.classroomId, this.topicId, this.materialId, this.criterionId, levelId).subscribe(() => {
       this.getAllLevels();
     });
-
-
-
-
+      }
+  joinModal(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
   }
 
 

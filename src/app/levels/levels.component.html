@@ -33,37 +33,54 @@
       <textarea formControlName="description" class="form-control" matInput placeholder="Description"></textarea>
       <textarea formControlName="mark" class="form-control" matInput placeholder="Max mark"></textarea>
 
-
-
       <button mat-button (click)="sendLevel()">Save</button>
     </div>
   </form>
 </div>
 <ng-template #content let-modal>
   <div class="modal-header">
-    <h4 class="modal-title" id="modal-basic-title">Update user</h4>
+    <h4 class="modal-title" id="modal-basic-title">Update answer</h4>
   </div>
-  <div class="modal-body" *ngIf="levels$ | async as levels">
-    <div *ngFor="let level of level">
-    <form [formGroup]="updateLevelForm" role="form" class="form-horizontal">
-      <div class="form-group">
-        <label for="title">Title:</label>
-        <div class="input-group">
-          <input  value="{{level.title}}" type="text" class="form-control"/>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="updateLevelForm">
+        <div>
+          <textarea [value]="updateLevelForm.get('title')?.value" id="textUpdate" type="text" formControlName="title" class="md-textarea md-textarea-auto form-control"></textarea>
+          <textarea [value]="updateLevelForm.get('description')?.value" id="descriptionUpdate" type="text" formControlName="description" class="md-textarea md-textarea-auto form-control"></textarea>
+          <textarea [value]="updateLevelForm.get('mark')?.value" id="markUpdate" type="text" formControlName="mark" class="md-textarea md-textarea-auto form-control"></textarea>
         </div>
-        <label for="description">Description:</label>
-        <div class="input-group">
-          <input value="{{level.description}}" type="text" class="form-control"/>
-        </div>
-        <label for="mark">Max mark::</label>
-        <div class="input-group">
-          <input value="{{level.mark}}" type="text" class="form-control"/>
-        </div>
-      </div>
+      </form>
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="button" (click)="[modal.close(), updateLevel()]">Update</button>
-  </div>
+    <button type="button" class="btn btn-success btn-google" (click)="updateLevel(); modal.close()">Update</button>
   </div>
 </ng-template>
+<!--<ng-template #content let-modal>-->
+<!--  <div class="modal-header">-->
+<!--    <h4 class="modal-title" id="modal-basic-title">Update user</h4>-->
+<!--  </div>-->
+<!--  <div class="modal-body" *ngIf="levels$ | async as levels">-->
+<!--    <div *ngFor="let level of levels">-->
+<!--    <form [formGroup]="updateLevelForm" role="form" class="form-horizontal">-->
+<!--      <div class="form-group">-->
+<!--        <label for="title">Title:</label>-->
+<!--        <div class="input-group">-->
+<!--          <input  value="{{level.title}}" type="text" class="form-control"/>-->
+<!--        </div>-->
+<!--        <label for="description">Description:</label>-->
+<!--        <div class="input-group">-->
+<!--          <input value="{{level.description}}" type="text" class="form-control"/>-->
+<!--        </div>-->
+<!--        <label for="mark">Max mark::</label>-->
+<!--        <div class="input-group">-->
+<!--          <input value="{{level.mark}}" type="text" class="form-control"/>-->
+<!--        </div>-->
+<!--      </div>-->
+<!--    </form>-->
+<!--  </div>-->
+<!--  <div class="modal-footer">-->
+<!--    <button type="button" class="button" (click)="[modal.close(), updateLevel()]">Update</button>-->
+<!--  </div>-->
+<!--  </div>-->
+<!--</ng-template>-->

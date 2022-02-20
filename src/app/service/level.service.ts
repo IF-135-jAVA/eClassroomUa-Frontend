@@ -52,10 +52,17 @@ export class LevelService {
     let options = { headers: headers };
     return this.http.delete(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level/${levelId}`, options)
   }
-  public updateLevel( classroomId: string, topicId: number, materialId: number, criterionId: number, level: Level){
+  public updateLevel( classroomId: string, topicId: number, materialId: number, criterionId: number, levelId: number, levelTitle: string, levelDesc: string, levelMark: number, level: Level){
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };
-    return this.http.put(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level/`, level, options)
+    return this.http.put(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level${levelId}`, level, options)
   }
+
+  // public updateLevel( classroomId: string, topicId: number, materialId: number, criterionId: number, level: Level){
+  //   this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+  //   let headers = new HttpHeaders().set('Authorization', this.jwtString);
+  //   let options = { headers: headers };
+  //   return this.http.put(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level/`, level, options)
+  // }
 }
