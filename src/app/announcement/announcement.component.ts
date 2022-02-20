@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Announcement} from '../model/announcement';
 import {AnnouncementService} from '../service/announcement.service';
+import {Answer} from "../model/answer";
 
 
 @Component({
@@ -104,12 +105,18 @@ export class AnnouncementComponent implements OnInit {
   // }
 
 
-  updateAnnouncement(announcement: Announcement, announcementId: number) {
-    announcement.courseId = this.classroomId;
-    announcement.text = this.announcementForm.get(['text'])?.value;
-    this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => this.getAllAnnouncements());
-  }
+  // updateAnnouncement(announcement: Announcement, announcementId: number) {
+  //   announcement.courseId = this.classroomId;
+  //   announcement.text = this.announcementForm.get(['text'])?.value;
+  //   this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => this.getAllAnnouncements());
+  // }
 
+  updateAnnouncement() {
+    let announcement = new Announcement();
+    let id = this.announcementForm.get('id')?.value;
+    announcement.text = this.announcementForm.get('text')?.value;
+    this.announcementService.updateAnnouncement(this.id, id, announcement).subscribe(() => this.getAllAnnouncements());
+  }
 }
 
 
