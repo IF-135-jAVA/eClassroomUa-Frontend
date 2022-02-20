@@ -54,7 +54,7 @@ export class FileUploadComponent implements OnInit {
     if (file) {
       const formData = new FormData();
       formData.append("file", file);
-      this.fileUploadService.createAnswerFile(this.userAssignmentId, formData).subscribe(() => window.location.reload());
+      this.fileUploadService.createAnswerFile(this.userAssignmentId, formData).subscribe(() => this.getAnswerFiles());
     }
   }
 

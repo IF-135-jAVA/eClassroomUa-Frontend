@@ -11,7 +11,7 @@
   <tbody>
   <tr [routerLink]="[userAssignment.id]" *ngFor="let userAssignment of userAssignments">
     <td>{{ userAssignment.userFirstName + " " + userAssignment.userLastName }}</td>
-    <td>{{ userAssignment.assignmentStatusTitle }}</td>
+    <td>{{ getAssignmentStatus(userAssignment.assignmentStatusId) }}</td>
     <td>{{ getSubmissionDate(userAssignment) }}</td>
     <td>{{ userAssignment.grade }}</td>
   </tr>
