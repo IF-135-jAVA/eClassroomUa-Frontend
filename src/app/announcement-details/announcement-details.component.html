@@ -13,12 +13,12 @@
               {{comment.text}}
             </mat-card-title>
             <div class="detail-options">
-<!--              <mat-icon-->
-<!--                class="comment-icon"-->
-<!--                color="secondary"-->
-<!--                (click)="updateComment(comment, commentId)"-->
-<!--              >edit-->
-<!--              </mat-icon>-->
+              <mat-icon
+                class="comment-icon"
+                color="secondary"
+                (click)="commentUpdateForm.setValue({id: comment.id, text: comment.text}); open(content)"
+              >edit
+              </mat-icon>
               <mat-icon
                 class="comment-icon"
                 color="warn"
@@ -43,3 +43,21 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update answer</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="commentUpdateForm">
+        <div>
+          <textarea [value]="commentUpdateForm.get('text')?.value" id="textUpdate" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateComment(); modal.close()">Update</button>
+  </div>
+</ng-template>

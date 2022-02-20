@@ -1,4 +1,5 @@
-<div class="all-announcements" *ngIf="!adding && !editing">
+<div class="all-announcements">
+  <!--     *ngIf="!adding && !editing">-->
   <h2>Announcements</h2><br>
   <button class="btn btn-primary" mat-button (click)="toggleAnnouncements()">Toggle Announcements</button>
 
@@ -14,8 +15,8 @@
             <mat-icon
               class="announcement-icon"
               color="secondary"
-              (click)=" updateAnnouncement(announcement, announcement.id)"
-            >edit
+              (click)="announcementUpdateForm.setValue({id: announcement.id, text: announcement.text}); open1(content)" *ngIf="userRole == 'TEACHER'"
+             >edit
             </mat-icon>
             <mat-icon
               class="announcement-icon"
@@ -35,7 +36,8 @@
   <!--     *ngIf="adding || editing">-->
   <div>
     <div *ngIf="this.userRole === 'TEACHER'">
-      <form [formGroup]="announcementForm" (ngSubmit)="onSubmit()" class="form-horizontal" role="form">
+      <form [formGroup]="announcementForm"  class="form-horizontal" role="form">
+<!--        (ngSubmit)="onSubmit()"-->
         <div appearance="fill">
           <mat-label>Message</mat-label>
           <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
@@ -49,4 +51,23 @@
 
 <ng-template #noAnnouncements>
   <p>Announcements are hidden!</p>
+</ng-template>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update announcement</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="announcementUpdateForm">
+        <div>
+          <textarea [value]="announcementUpdateForm.get('text')?.value" id="textUpdate" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateAnnouncement(); modal.close()">Update</button>
+  </div>
 </ng-template>

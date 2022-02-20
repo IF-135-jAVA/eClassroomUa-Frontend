@@ -6,7 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Announcement} from '../model/announcement';
 import {AnnouncementService} from '../service/announcement.service';
-import {Answer} from "../model/answer";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -16,11 +16,10 @@ import {Answer} from "../model/answer";
 })
 export class AnnouncementComponent implements OnInit {
 
-  public adding = false;
-  public editing = false;
-  // @ts-ignore
-  public editingIndex: number;
-  toggle = true
+  announcement!: Announcement;
+  id!: number;
+  announcements: Announcement[] | undefined;
+  toggle = true;
 
   announcements$!: Observable<Announcement[]>;
 
@@ -30,22 +29,30 @@ export class AnnouncementComponent implements OnInit {
 
   userRole!: string;
 
-
   helper = new JwtHelperService();
 
   announcementForm: FormGroup = this.formBuilder.group({
     text: ''
   });
 
+  announcementUpdateForm: FormGroup = this.formBuilder.group({
+    id: 0,
+    text: ''
+  });
+
   constructor(private announcementService: AnnouncementService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
+
+    this.id = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
 
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
+
 
   ngOnInit(): void {
     this.getAllAnnouncements();
@@ -72,50 +79,23 @@ export class AnnouncementComponent implements OnInit {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 
-  exitForm() {
-    this.announcementForm.reset();
+  open1(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
-  public onSubmit() {
-    const announcement = this.announcementForm.value as Announcement;
-
-    if (this.editing) {
-      // @ts-ignore
-      this.announcements$!.splice(this.editingIndex, 1, announcement);
-    } else {
-      // @ts-ignore
-      this.announcements$!.push(announcement);
-    }
-
-    this.editing = false;
-    this.adding = false;
-    this.exitForm();
+  exitForm() {
+    this.announcementForm.reset();
   }
 
   toggleAnnouncements() {
     this.toggle = !this.toggle
   }
 
-  // public updateAnnouncement(announcement: Announcement, announcementId: number) {
-  //   this.announcementForm.patchValue({
-  //        name: announcement.text,
-  //      });
-  //   this.editing = true;
-  //   this.editingIndex = announcementId;
-  // }
-
-
-  // updateAnnouncement(announcement: Announcement, announcementId: number) {
-  //   announcement.courseId = this.classroomId;
-  //   announcement.text = this.announcementForm.get(['text'])?.value;
-  //   this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => this.getAllAnnouncements());
-  // }
-
   updateAnnouncement() {
     let announcement = new Announcement();
-    let id = this.announcementForm.get('id')?.value;
-    announcement.text = this.announcementForm.get('text')?.value;
-    this.announcementService.updateAnnouncement(this.id, id, announcement).subscribe(() => this.getAllAnnouncements());
+    let id = this.announcementUpdateForm.get('id')?.value;
+    announcement.text = this.announcementUpdateForm.get('text')?.value;
+    this.announcementService.updateAnnouncement(this.classroomId, id, announcement).subscribe(() => this.getAllAnnouncements());
   }
 }
 

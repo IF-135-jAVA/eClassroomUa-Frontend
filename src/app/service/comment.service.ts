@@ -68,7 +68,7 @@ export class CommentService {
         return this.http.delete<Comments>(`${this.apiServerUrl}comments/${commentId}`, options)
     }
 
-    public updateComment(commentId: number) {
+    public updateComment(announcementId: number, commentId: number, comment: Comments) {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
