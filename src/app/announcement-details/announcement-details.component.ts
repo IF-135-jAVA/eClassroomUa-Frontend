@@ -88,6 +88,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   }
 
   getDate(comment: Comment): String {
+
     // @ts-ignore
     return formatDate(comment.date, "medium", "en-US");
   }
