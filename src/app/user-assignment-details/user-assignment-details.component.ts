@@ -21,6 +21,8 @@ export class UserAssignmentDetailsComponent implements OnInit {
   materialId!: number;
   id!: number;
   answers: Answer[] | undefined;
+  assignmentStatuses!: String[];
+  assignmentStatusesSelectable!: String[];
 
   userRole!: string;
   helper = new JwtHelperService();
@@ -51,6 +53,8 @@ export class UserAssignmentDetailsComponent implements OnInit {
   ngOnInit(): void {
     this.getUserAssignment();
     this.getAnswers();
+    this.assignmentStatuses = ['In progress', 'Reviewed', 'Done'];
+    this.assignmentStatusesSelectable = ['In progress', 'Done'];
   }
 
   getUserAssignment() {
@@ -109,6 +113,16 @@ export class UserAssignmentDetailsComponent implements OnInit {
     let userAssignment = new UserAssignment();
     userAssignment.grade = event.value;
     this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
+  }
+
+  getAssignmentStatus(): String {
+    return this.assignmentStatuses[this.userAssignment.assignmentStatusId - 1];
+  }
+
+  updateAssignmentStatus(event: any) {
+    let userAssignment = new UserAssignment();
+    userAssignment.assignmentStatusId = this.assignmentStatuses.indexOf(event.value) + 1;
+    this.userAssignmentService.updateUserAssignmentAsStudent(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
   }
 
   updateAnswer() {
