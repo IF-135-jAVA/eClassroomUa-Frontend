@@ -2,9 +2,11 @@
   margin: 15px;
 }
 
+.btn-with-small-margin {
+  margin: 5px;
+}
+
 .md-textarea {
   width: 97%;
   margin-left: 15px;
 }
-
-

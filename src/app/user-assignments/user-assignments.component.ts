@@ -15,6 +15,7 @@ export class UserAssignmentsComponent implements OnInit {
 
   userAssignments: UserAssignment[] | undefined;
   materialId!: number;
+  assignmentStatuses!: String[];
   userId!: number;
   userRole!: string;
   helper = new JwtHelperService();
@@ -31,6 +32,7 @@ export class UserAssignmentsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserAssignments();
+    this.assignmentStatuses = ['In progress', 'Reviewed', 'Done'];
   }
 
   getUserAssignments() {
@@ -48,6 +50,10 @@ export class UserAssignmentsComponent implements OnInit {
     else {
       return "";
     }
+  }
+
+  getAssignmentStatus(assignmentStatusId: number): String {
+    return this.assignmentStatuses[assignmentStatusId - 1];
   }
 
   getSubmissionDate(userAssignment: UserAssignment): String {
