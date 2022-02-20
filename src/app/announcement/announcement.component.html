@@ -1,38 +1,52 @@
-<div class="all-announcements">
+<div class="all-announcements" *ngIf="!adding && !editing">
+  <h2>Announcements</h2><br>
+  <button class="btn btn-primary" mat-button (click)="toggleAnnouncements()">Toggle Announcements</button>
 
-<h2>Announcements</h2><br>
-<div *ngIf="announcements$ | async as announcements">
-  <div *ngFor="let announcement of announcements">
-    <mat-card class = "announcement-card">
-      <mat-card-title>
-    <p (click)="open(announcement.id)">{{announcement.text}}</p>
-      </mat-card-title>
-      <div class="detail-options">
-        <mat-icon
-          class="announcement-icon"
-          color="secondary"
-          (click)="updateAnnouncement()"
-        >edit
-        </mat-icon>
-        <mat-icon
-          class="announcement-icon"
-          color="warn"
-          (click)="deleteAnnouncement(announcement.id)"
-        >delete
-        </mat-icon>
+  <div *ngIf="toggle; else noAnnouncements">
+
+    <div *ngIf="announcements$ | async as announcements">
+      <div *ngFor="let announcement of announcements">
+        <mat-card class="announcement-card">
+          <mat-card-title>
+            <p (click)="open(announcement.id)">{{announcement.text}}</p>
+          </mat-card-title>
+          <div class="detail-options">
+            <mat-icon
+              class="announcement-icon"
+              color="secondary"
+              (click)="updateAnnouncement(announcement, announcement.id)"
+            >edit
+            </mat-icon>
+            <mat-icon
+              class="announcement-icon"
+              color="warn"
+              (click)="deleteAnnouncement(announcement.id)"
+            >delete
+            </mat-icon>
+          </div>
+        </mat-card>
       </div>
-    </mat-card>
-  </div>
-  <div *ngIf="this.userRole === 'TEACHER'">
-    <form [formGroup]="announcementForm" class="form-horizontal" role="form">
-      <div appearance="fill">
-        <mat-label>Message</mat-label>
-        <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
-        <button type="submit" class="btn btn-success" (click)="sendAnnouncement()">Publish</button>
-      </div>
-    </form>
+    </div>
   </div>
 </div>
+
+
+<div class="add-form-container">
+  <!--     *ngIf="adding || editing">-->
+  <div>
+    <div *ngIf="this.userRole === 'TEACHER'">
+      <form [formGroup]="announcementForm" (ngSubmit)="onSubmit()" class="form-horizontal" role="form">
+        <div appearance="fill">
+          <mat-label>Message</mat-label>
+          <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
+          <button class="btn btn-primary" mat-button (click)="sendAnnouncement()">Publish</button>
+          <button class="btn btn-primary" mat-button (click)="exitForm()">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
 </div>
 
-
+<ng-template #noAnnouncements>
+  <p>Announcements are hidden!</p>
+</ng-template>

@@ -1,14 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {UserAssignment} from "../model/user-assignment";
 import {UserAssignmentService} from "../service/user-assignment.service";
-import {ActivatedRoute, Router, RouterLink} from "@angular/router";
-import {UserService} from "../service/user.service";
-import {User} from "../model/user";
+import {ActivatedRoute, Router} from "@angular/router";
 import {formatDate} from "@angular/common";
-import {MaterialService} from "../service/material.service";
-import {Material} from "../model/material";
-import {Topic} from "../model/topic";
-import {AssignmentStatus} from "../model/assignment-status";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment";
 
@@ -20,18 +14,13 @@ import {environment} from "../../environments/environment";
 export class UserAssignmentsComponent implements OnInit {
 
   userAssignments: UserAssignment[] | undefined;
-  users!: User[];
   materialId!: number;
-  materialTitle!: String;
-
   userId!: number;
   userRole!: string;
   helper = new JwtHelperService();
 
   constructor(
     private userAssignmentService: UserAssignmentService,
-    private userService: UserService,
-    private materialService: MaterialService,
     private activatedRoute: ActivatedRoute,
     private router: Router
   ) {
@@ -41,9 +30,7 @@ export class UserAssignmentsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.getUsers();
     this.getUserAssignments();
-    this.getMaterialTitle();
   }
 
   getUserAssignments() {
@@ -54,36 +41,17 @@ export class UserAssignmentsComponent implements OnInit {
     )
   }
 
-  getUsers() {
-    this.userService.getUsers().subscribe(
-      (response: User[]) => {
-        this.users = response;
-      }
-    )
-  }
-
-  getUser(id: number): String {
-    let user = this.users.find(user => user.id === id);
-    if(user) {
-      return user.firstName + " " + user.lastName;
+  getMaterialTitle(): String {
+    if(this.userAssignments != null && this.userAssignments.length > 0) {
+      return this.userAssignments[0].materialTitle;
     }
-    return "";
-  }
-
-  getMaterialTitle() {
-    this.materialService.getMaterialById(new Topic(), this.materialId).subscribe(
-      (response: Material) => {
-        this.materialTitle = response.title;
-      }
-    )
+    else {
+      return "";
+    }
   }
 
   getSubmissionDate(userAssignment: UserAssignment): String {
-    return userAssignment.submissionDate == null ? "Not submitted yet" : formatDate(userAssignment.submissionDate, "medium", "en-US");
-  }
-
-  getAssignmentStatus(value: number): String {
-    return AssignmentStatus[value];
+    return userAssignment.submissionDate == null ? "Not submitted yet" : formatDate(userAssignment.submissionDate, "MMM dd, yyyy, HH:mm", "en-US");
   }
 
   createUserAssignment() {
@@ -92,5 +60,14 @@ export class UserAssignmentsComponent implements OnInit {
     this.userAssignmentService.createUserAssignment(this.materialId, userAssignment).subscribe(
       (response: UserAssignment) => this.router.navigateByUrl('/materials/' + this.materialId + '/assignments/' + response.id)
     );
+  }
+
+  isSubmissionAllowed(): boolean {
+    if(this.userAssignments != null && this.userAssignments.length > 0) {
+      return new Date(this.userAssignments[0].dueDate) > new Date();
+    }
+    else {
+      return true;
+    }
   }
 }
