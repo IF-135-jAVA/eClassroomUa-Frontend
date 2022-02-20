@@ -30,6 +30,13 @@ export class UserAssignmentService {
     return this.http.get<UserAssignment>(`${this.apiServerUrl}${materialId}/assignments/${userAssignmentId}`, options);
   }
 
+  public updateUserAssignmentAsTeacher(materialId: number, userAssignmentId: number, userAssignment: UserAssignment): Observable<UserAssignment> {
+    this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+    let headers = new HttpHeaders().set('Authorization', this.jwtString);
+    let options = { headers: headers };
+    return this.http.put<UserAssignment>(`${this.apiServerUrl}${materialId}/assignments/${userAssignmentId}/evaluate`, userAssignment, options)
+  }
+
   public deleteUserAssignment(materialId: number, userAssignmentId: number): Observable<void> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);

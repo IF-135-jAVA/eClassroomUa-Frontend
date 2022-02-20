@@ -23,7 +23,14 @@
   </tr>
   <tr>
     <th scope="row">Feedback</th>
-    <td>{{ userAssignment.feedback }}</td>
+    <td>
+      {{ userAssignment.feedback }}
+      <button *ngIf="userRole == 'TEACHER'"
+              (click)="feedbackForm.setValue({feedback: userAssignment.feedback}); open(content2)"
+              mat-mini-fab color="secondary" class="btn-success btn-with-small-margin">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
@@ -78,5 +85,23 @@
   </div>
   <div class="modal-footer">
     <button type="button" class="btn btn-success btn-google" (click)="updateAnswer(); modal.close()">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-feedback">Update feedback</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="feedbackForm">
+        <div>
+          <textarea [value]="feedbackForm.get('feedback')?.value" id="feedbackUpdate" type="text" formControlName="feedback" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateFeedback(); modal.close()">Update</button>
   </div>
 </ng-template>

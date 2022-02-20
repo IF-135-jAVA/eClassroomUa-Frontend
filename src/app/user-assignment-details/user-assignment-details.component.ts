@@ -31,6 +31,9 @@ export class UserAssignmentDetailsComponent implements OnInit {
     id: 0,
     text: ''
   });
+  feedbackForm: FormGroup = this.formBuilder.group({
+    feedback: ''
+  });
 
   constructor(
     private userAssignmentService: UserAssignmentService,
@@ -90,6 +93,12 @@ export class UserAssignmentDetailsComponent implements OnInit {
 
   open(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  updateFeedback() {
+    let userAssignment = new UserAssignment();
+    userAssignment.feedback = this.feedbackForm.get('feedback')?.value;
+    this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
   }
 
   updateAnswer() {
