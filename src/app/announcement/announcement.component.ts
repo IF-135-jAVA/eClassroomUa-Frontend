@@ -19,15 +19,15 @@ export class AnnouncementComponent implements OnInit {
   public editing = false;
   // @ts-ignore
   public editingIndex: number;
-  toggle =true
+  toggle = true
 
   announcements$!: Observable<Announcement[]>;
 
   classroomId!: string;
 
-  userId! : number;
+  userId!: number;
 
-  userRole! : string;
+  userRole!: string;
 
 
   helper = new JwtHelperService();
@@ -42,8 +42,8 @@ export class AnnouncementComponent implements OnInit {
               private router: Router) {
 
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
-    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
 
   ngOnInit(): void {
@@ -61,22 +61,10 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.createAnnouncement(this.classroomId, announcement).subscribe(() => this.getAllAnnouncements());
   }
 
-  updateAnnouncement(announcement: Announcement, announcementId: number) {
-    announcement.text = this.announcementForm.get(['text'])?.value;
-    // @ts-ignore
-    this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => {
-      this.getAllAnnouncements();
-    });
-    this.editing = true;
-    this.editingIndex = announcementId;
-  }
-
-
   deleteAnnouncement(announcementId: number) {
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId).subscribe(() => {
       this.getAllAnnouncements();
     });
-
   }
 
   open(announcementId: number) {
@@ -84,7 +72,7 @@ export class AnnouncementComponent implements OnInit {
   }
 
   exitForm() {
-   this.announcementForm.reset();
+    this.announcementForm.reset();
   }
 
   public onSubmit() {
@@ -103,12 +91,26 @@ export class AnnouncementComponent implements OnInit {
     this.exitForm();
   }
 
-  toggleAnnouncements(){
-    this.toggle=!this.toggle
+  toggleAnnouncements() {
+    this.toggle = !this.toggle
   }
+
+  // public updateAnnouncement(announcement: Announcement, announcementId: number) {
+  //   this.announcementForm.patchValue({
+  //        name: announcement.text,
+  //      });
+  //   this.editing = true;
+  //   this.editingIndex = announcementId;
+  // }
+
+
+  updateAnnouncement(announcement: Announcement, announcementId: number) {
+    announcement.courseId = this.classroomId;
+    announcement.text = this.announcementForm.get(['text'])?.value;
+    this.announcementService.updateAnnouncement(this.classroomId, announcementId).subscribe(() => this.getAllAnnouncements());
+  }
+
 }
-
-
 
 
 

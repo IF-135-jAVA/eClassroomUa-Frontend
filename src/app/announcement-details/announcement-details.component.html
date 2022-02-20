@@ -13,12 +13,12 @@
               {{comment.text}}
             </mat-card-title>
             <div class="detail-options">
-              <mat-icon
-                class="comment-icon"
-                color="secondary"
-                (click)="updateComment()"
-              >edit
-              </mat-icon>
+<!--              <mat-icon-->
+<!--                class="comment-icon"-->
+<!--                color="secondary"-->
+<!--                (click)="updateComment(comment, commentId)"-->
+<!--              >edit-->
+<!--              </mat-icon>-->
               <mat-icon
                 class="comment-icon"
                 color="warn"
@@ -26,8 +26,7 @@
               >delete
               </mat-icon>
             </div>
-                <mat-card-subtitle class="max-opacity">{{comment.date}}</mat-card-subtitle>
-<!--            <mat-card-subtitle class="max-opacity">{{getDate(comment)}}</mat-card-subtitle>-->
+            <mat-card-subtitle class="max-opacity">{{getDate(comment)}}</mat-card-subtitle>
             <mat-card-footer class="max-opacity"><a
               href="{{'http://localhost:4200/profile/' + comment.authorId}}">{{comment.firstName + ' ' + comment.lastName}}</a>
             </mat-card-footer>
