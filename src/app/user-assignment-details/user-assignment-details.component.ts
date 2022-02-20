@@ -8,6 +8,7 @@ import {AnswerService} from "../service/answer.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-user-assignment-details',
@@ -26,13 +27,18 @@ export class UserAssignmentDetailsComponent implements OnInit {
   answerForm: FormGroup = this.formBuilder.group({
     text: ''
   });
+  answerUpdateForm: FormGroup = this.formBuilder.group({
+    id: 0,
+    text: ''
+  });
 
   constructor(
     private userAssignmentService: UserAssignmentService,
     private answerService: AnswerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) {
     this.materialId = parseInt(this.activatedRoute.snapshot.paramMap.get('materialId') || '');
     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('assignmentId') || '');
@@ -76,12 +82,25 @@ export class UserAssignmentDetailsComponent implements OnInit {
     let answer = new Answer();
     answer.userAssignmentId = this.id;
     answer.text = this.answerForm.get('text')?.value;
-    this.answerService.createAnswer(this.id, answer).subscribe(() => window.location.reload());
+    this.answerService.createAnswer(this.id, answer).subscribe(() => {
+      this.getAnswers();
+      this.answerForm.reset();
+    });
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  updateAnswer() {
+    let answer = new Answer();
+    let id = this.answerUpdateForm.get('id')?.value;
+    answer.text = this.answerUpdateForm.get('text')?.value;
+    this.answerService.updateAnswer(this.id, id, answer).subscribe(() => this.getAnswers());
   }
 
   deleteAnswer(answerId: number) {
-    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe();
-    window.location.reload();
+    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe(() => this.getAnswers());
   }
 
   isSubmissionAllowed(): boolean {

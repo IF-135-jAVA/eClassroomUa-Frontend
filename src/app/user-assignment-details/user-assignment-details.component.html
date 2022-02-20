@@ -48,8 +48,13 @@
   <tr *ngFor="let answer of answers">
     <td>{{ answer.text }}</td>
     <td>
-      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" [disabled]="!isSubmissionAllowed()" class="btn btn-danger btn-google">
-        Delete
+      <button (click)="answerUpdateForm.setValue({id: answer.id, text: answer.text}); open(content)" *ngIf="userRole == 'STUDENT'"
+              [disabled]="!isSubmissionAllowed()" mat-mini-fab color="secondary" class="btn-success btn-with-small-margin">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" [disabled]="!isSubmissionAllowed()"
+              mat-mini-fab color="warn" class="btn-danger btn-with-small-margin">
+        <mat-icon>delete</mat-icon>
       </button>
     </td>
   </tr>
@@ -57,3 +62,21 @@
 </table>
 
 <app-file-upload [isSubmissionAllowed]="isSubmissionAllowed()"></app-file-upload>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update answer</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="answerUpdateForm">
+        <div>
+          <textarea [value]="answerUpdateForm.get('text')?.value" id="textUpdate" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateAnswer(); modal.close()">Update</button>
+  </div>
+</ng-template>
