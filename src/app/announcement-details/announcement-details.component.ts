@@ -87,7 +87,8 @@ export class AnnouncementDetailsComponent implements OnInit {
   }
 
   getDate(comment: Comments): String {
-    return formatDate(comment.date, "MMM dd, yyyy, HH:mm", "en-US");
+    // return formatDate(comment.date, "MMM dd. yyyy. HH:mm", "en-US");
+    return formatDate(comment.date, " dd. MM. yyyy HH:mm", "en-US");
   }
 }
 
