@@ -16,7 +16,7 @@
               <mat-icon
                 class="comment-icon"
                 color="secondary"
-                (click)="updateComment()"
+                (click)="commentUpdateForm.setValue({id: comment.id, text: comment.text}); open(content)"
               >edit
               </mat-icon>
               <mat-icon
@@ -26,8 +26,7 @@
               >delete
               </mat-icon>
             </div>
-                <mat-card-subtitle class="max-opacity">{{comment.date}}</mat-card-subtitle>
-<!--            <mat-card-subtitle class="max-opacity">{{getDate(comment)}}</mat-card-subtitle>-->
+            <mat-card-subtitle class="max-opacity">{{getDate(comment)}}</mat-card-subtitle>
             <mat-card-footer class="max-opacity"><a
               href="{{'http://localhost:4200/profile/' + comment.authorId}}">{{comment.firstName + ' ' + comment.lastName}}</a>
             </mat-card-footer>
@@ -44,3 +43,21 @@
     </div>
   </div>
 </div>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update answer</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="commentUpdateForm">
+        <div>
+          <textarea [value]="commentUpdateForm.get('text')?.value" id="textUpdate" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateComment(); modal.close()">Update</button>
+  </div>
+</ng-template>

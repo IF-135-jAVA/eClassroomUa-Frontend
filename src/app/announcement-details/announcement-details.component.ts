@@ -10,7 +10,7 @@ import {AnnouncementService} from '../service/announcement.service';
 import {CommentService} from '../service/comment.service';
 import {UserService} from '../service/user.service';
 import {formatDate} from "@angular/common";
-
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-announcement-details',
@@ -18,6 +18,7 @@ import {formatDate} from "@angular/common";
   styleUrls: ['./announcement-details.component.css']
 })
 export class AnnouncementDetailsComponent implements OnInit {
+  id!: number;
 
   classroomId!: string;
 
@@ -37,15 +38,22 @@ export class AnnouncementDetailsComponent implements OnInit {
     text: ''
   });
 
+  commentUpdateForm: FormGroup = this.formBuilder.group({
+    id: 0,
+    text: ''
+  });
   constructor(private announcementService: AnnouncementService,
               private userService: UserService,
               private formBuilder: FormBuilder,
+              private modalService: NgbModal,
               private commentService: CommentService,
               private route: ActivatedRoute) {
+    this.id = parseInt(this.route.snapshot.paramMap.get('commentId') || '');
+
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
-    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
 
   ngOnInit(): void {
@@ -65,15 +73,7 @@ export class AnnouncementDetailsComponent implements OnInit {
     this.commentService.createComment(comment, comment.authorId).subscribe(() => this.getAllComments());
   }
 
-  updateComment() {
-    let comment = new Comment();
-    // @ts-ignore
-    comment.text = this.commentForm.get(['text'])?.value;
-    // @ts-ignore
-    this.commentService.updateComment();
-  }
-
-  deleteComment(commentId: number) {
+   deleteComment(commentId: number) {
     this.commentService.deleteComment(commentId).subscribe(() => {
       this.getAllComments();
     });
@@ -87,9 +87,19 @@ export class AnnouncementDetailsComponent implements OnInit {
     this.commentForm.reset();
   }
 
-  getDate(comment: Comment): String {
-    // @ts-ignore
-    return formatDate(comment.date, "medium", "en-US");
+  getDate(comment: Comments): String {
+     return formatDate(comment.date, " dd.MM.yyyy HH:mm", "en-US");
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  updateComment() {
+    let comment = new Comments();
+    let id = this.commentUpdateForm.get('id')?.value;
+    comment.text = this.commentUpdateForm.get('text')?.value;
+    this.commentService.updateComment(this.id, id, comment).subscribe(() => this.getAllComments());
   }
 }
 
