@@ -47,7 +47,9 @@ import {MatSliderModule} from '@angular/material/slider';
 import {MatSelectModule} from '@angular/material/select';
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatChipsModule} from '@angular/material/chips';
-
+import {UserAssignmentsComponent} from "./user-assignments/user-assignments.component";
+import { UserAssignmentDetailsComponent } from './user-assignment-details/user-assignment-details.component';
+import { FileUploadComponent } from './file-upload/file-upload.component';
 
 
 @NgModule({
@@ -79,7 +81,9 @@ import {MatChipsModule} from '@angular/material/chips';
     ConfirmEmailComponent,
     ChangePasswordComponent,
     EmailRequestComponent,
-
+    UserAssignmentsComponent,
+    UserAssignmentDetailsComponent,
+    FileUploadComponent,
   ],
 
   imports: [
@@ -110,7 +114,7 @@ import {MatChipsModule} from '@angular/material/chips';
     MatButtonModule,
     MatInputModule,
     MatSelectModule,
-     ],
+  ],
   exports: [
     MatRippleModule,
     FormsModule,

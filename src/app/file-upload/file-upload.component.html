@@ -1,0 +1,19 @@
+<h4>Uploaded files</h4>
+
+<table class="table table-sm">
+  <tbody>
+  <tr (click)="getAnswerFileById(answerFile)" *ngFor="let answerFile of answerFiles">
+    <td>{{ answerFile.fileName }}</td>
+  </tr>
+  </tbody>
+</table>
+
+<input type="file" class="file-input"
+       (change)="onFileSelected($event)" #fileUpload>
+
+<div *ngIf="userRole == 'STUDENT'" class="file-upload with-padding">
+  <button [disabled]="!isSubmissionAllowed" mat-mini-fab color="secondary" class="upload-btn btn-success"
+          (click)="fileUpload.click()">
+    <mat-icon>attach_file</mat-icon>
+  </button>
+</div>
