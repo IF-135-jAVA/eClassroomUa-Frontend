@@ -19,7 +19,18 @@
   </tr>
   <tr>
     <th scope="row">Grade</th>
-    <td>{{ userAssignment.grade }}</td>
+    <td *ngIf="userRole == 'STUDENT'">
+      {{ userAssignment.grade }}
+    </td>
+    <td *ngIf="userRole == 'TEACHER'">
+      <mat-form-field appearance="fill">
+        <mat-select [(value)]="userAssignment.grade" (selectionChange)="updateGrade($event)">
+          <mat-option [value]=grade *ngFor="let grade of getGrades()">
+            {{ grade }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
   </tr>
   <tr>
     <th scope="row">Feedback</th>

@@ -61,6 +61,10 @@ export class UserAssignmentDetailsComponent implements OnInit {
     )
   }
 
+  getGrades(): number[] {
+    return Array.from(Array(this.userAssignment.maxScore + 1).keys());
+  }
+
   getSubmissionDate(userAssignment: UserAssignment): String {
     return userAssignment.submissionDate == null ? "Not submitted yet" : formatDate(userAssignment.submissionDate, "MMM dd, yyyy, HH:mm", "en-US");
   }
@@ -98,6 +102,12 @@ export class UserAssignmentDetailsComponent implements OnInit {
   updateFeedback() {
     let userAssignment = new UserAssignment();
     userAssignment.feedback = this.feedbackForm.get('feedback')?.value;
+    this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
+  }
+
+  updateGrade(event: any) {
+    let userAssignment = new UserAssignment();
+    userAssignment.grade = event.value;
     this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
   }
 
