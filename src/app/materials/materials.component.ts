@@ -6,6 +6,8 @@ import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { Material } from '../model/material';
 import { MaterialService } from '../service/material.service';
+import {formatDate} from "@angular/common";
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 
 @Component({
@@ -17,6 +19,12 @@ export class MaterialsComponent implements OnInit {
 
   maxScore = 0;
 
+  materialId!: number;
+
+  selectedType = '';
+
+  materialType = ["TASK", "QUESTIONS", "TEST", "MATERIAL"];
+
   links: string[] = [];
 
   classroomId! : string;
@@ -27,14 +35,13 @@ export class MaterialsComponent implements OnInit {
 
   userRole! : string;
 
+  adding = false;
+
+  editing = false;
+
   materials$! : Observable<Material[]>;
 
   helper = new JwtHelperService();
-
-  range = new FormGroup({
-    start: new FormControl(),
-    end: new FormControl(),
-  });
 
   materialForm: FormGroup = this.formBuilder.group({
     title: '',
@@ -43,13 +50,14 @@ export class MaterialsComponent implements OnInit {
     type: '',
     maxScore: 0,
     start: new Date(),
-    end: new Date()
-
+    end: new Date(),
+    url: ''
   });
 
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
+    private modalService: NgbModal,
     private materialService: MaterialService
   ) {
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
@@ -66,17 +74,63 @@ export class MaterialsComponent implements OnInit {
     this.materials$ = this.materialService.getMaterialsByTopic(this.classroomId, this.topicId)
   }
 
-  save(){
-    let material = new Material();
-    material.startDate = this.range.get(['start'])?.value;
-    material.startDate = this.range.get(['end'])?.value;
-    material.maxScore = this.maxScore
-    material.task = (<HTMLInputElement> document.getElementById('material_task')).value.trim();
-    material.text = (<HTMLInputElement> document.getElementById('material_text')).value.trim();
-    material.title = (<HTMLInputElement> document.getElementById('material_title')).value.trim();
-    material.materialType = "TASK";
-    material.url = (<HTMLInputElement> document.getElementById('material_link')).value.trim();
-    this.materialService.createMaterial(this.classroomId, this.topicId, material).subscribe(() => {this.getAll()})
+
+  public submit(){
+    let material = this.materialForm.value as Material;
+    material.id = this.materialId
+    material.materialType = this.selectedType;
+    material.dueDate = new Date( Date.parse((<HTMLInputElement> document.getElementById('end')).value));
+    material.startDate = new Date( Date.parse((<HTMLInputElement> document.getElementById('start')).value));
+    if(this.editing){
+      this.materialService.update(this.classroomId, this.topicId, material).subscribe(() => {this.getAll()});
+    }
+    else{
+      this.materialService.createMaterial(this.classroomId, this.topicId, material).subscribe(() => {this.getAll()});
+    }
+    this.close();
+  }
+
+  getDate(date: Date){
+    return formatDate(date, "MMM dd, yyyy, HH:mm", "en-US");
+  }
+
+  edit(material: Material){
+    this.materialId = material.id;
+    this.materialForm.patchValue({
+      title: material.title,
+      text: material.text,
+      task: material.task,
+      type: material.materialType,
+      maxScore: material.maxScore,
+      start:  material.startDate,
+      end: material.dueDate,
+      url: material.url
+    });
+    this.editing = true;
+  }
+
+  delete(materialId: number){
+    this.materialService.deleteMaterial(this.classroomId, this.topicId, materialId)
+    .subscribe(() => this.getAll())
+  }
+
+  close() {
+    this.adding = false;
+    this.editing = false;
+  }
+
+  add(){
+    this.materialForm.patchValue({
+      title: '',
+      text: '',
+      task: '',
+      type: '',
+      maxScore: 1,
+      start:  new Date(),
+      end: new Date(),
+      url: ''
+    });
+    this.adding = true;
   }
 
 }

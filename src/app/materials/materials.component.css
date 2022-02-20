@@ -44,3 +44,57 @@ mat-slider {
   .example-chip-list {
     width: 100%;
   }
+
+  .side{
+    background-color: rgb(197, 197, 197);
+  }
+  .container{
+    background-color: white;
+    min-height: 800px;
+  }
+
+  mat-card{
+    margin-bottom: 10px;
+    margin-top: 10px;
+  }
+
+  .text-footer{
+    font-weight: bold;
+    color: crimson;
+    margin: 5px;
+  }
+
+  mat-form-field{
+    display: block;
+  }
+
+  .detail-options {
+    position: absolute;
+    top: 14px;
+    right: 10px;
+  }
+  
+  .detail-options mat-icon {
+    padding-right: 5px;
+  }
+  
+  button:hover, .detail-options {
+    cursor: pointer;
+  }
+
+  .form-material{
+    position: fixed;
+    position: fixed;
+   top: 50%;
+   left: 50%;
+   width: 400px;
+   height: 800px;
+   margin-left: -200px;
+   margin-top: -400px;
+   background: white;
+   padding: 10px;
+  }
+
+  button{
+    margin-right: 10px;
+  }
