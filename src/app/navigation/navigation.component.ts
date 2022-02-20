@@ -18,6 +18,8 @@ export class NavigationComponent implements OnInit {
 
   userId!: string;
 
+  flag = Emitters.authEmitter.emit();
+
   constructor(public authService: AuthService,
     private router: Router) { 
   }

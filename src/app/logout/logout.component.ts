@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { Emitters } from '../emitters/emitters';
 
 @Component({
   selector: 'app-logout',
@@ -12,6 +13,7 @@ export class LogoutComponent implements OnInit {
 
   ngOnInit(): void {
     localStorage.clear();
+    Emitters.authEmitter.emit(false);
     this.router.navigate(['/']);
   }
 

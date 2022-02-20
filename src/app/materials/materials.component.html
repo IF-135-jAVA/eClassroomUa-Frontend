@@ -31,7 +31,7 @@
     </mat-card>
    </div>
   </div>
-  <button class="btn btn-success" (click)="add()">Add material</button>
+  <button *ngIf="userRole == 'TEACHER'" class="btn btn-success" (click)="add()">Add material</button>
     </div>
     <div class="col-2 side"></div>
 </div>
