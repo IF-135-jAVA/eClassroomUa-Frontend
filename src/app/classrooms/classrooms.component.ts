@@ -8,6 +8,8 @@ import { environment } from 'src/environments/environment';
 import { Classroom } from '../model/classroom';
 import { User } from '../model/user';
 import { ClassroomService } from '../service/classroom.service';
+import {Level} from "../model/level";
+import {Observable} from "rxjs";
 
 @Component({
   selector: 'app-classrooms',
@@ -22,7 +24,7 @@ export class ClassroomsComponent implements OnInit {
   });
 
   joinForm: FormGroup = this.formBuilder.group({
-    code: ''
+    classroomId: ''
   });
 
   errorMessage = '';
@@ -30,8 +32,10 @@ export class ClassroomsComponent implements OnInit {
   helper = new JwtHelperService();
   userId! : number;
   userRole! : string;
-
+  classroomId!: string;
   classrooms: Classroom[] | undefined;
+  classrooms$!: Observable<Classroom[]>;
+
 
   constructor(
     private classroomService: ClassroomService,
@@ -56,19 +60,11 @@ export class ClassroomsComponent implements OnInit {
 
   getClassrooms(){
     if(this.userRole === 'STUDENT'){
-      this.classroomService.getClassroomsByStudent(this.userId).subscribe(
-        (response: Classroom[]) => {
-          this.classrooms = response;
-        }
-      )
+      this.classrooms$ = this.classroomService.getClassroomsByStudent(this.userId)
     }
     else if(this.userRole === 'TEACHER')
     {
-      this.classroomService.getClassroomsByTeacher(this.userId).pipe(take(1)).subscribe(
-        (response: Classroom[]) => {
-          this.classrooms = response;
-        }
-      )
+      this.classrooms$ = this.classroomService.getClassroomsByTeacher(this.userId)
     }
   }
 
@@ -86,14 +82,14 @@ export class ClassroomsComponent implements OnInit {
 
   join() {
     if(localStorage.getItem(this.userRole) === 'STUDENT'){
-      this.classroomService.joinClassroomAsStudent(this.joinForm.value.code, this.userId).subscribe(
+      this.classroomService.joinClassroomAsStudent(this.joinForm.value.classroomId, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });
     }
     else if(localStorage.getItem(this.userRole) === 'TEACHER')
     {
-      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.code, this.userId).subscribe(
+      this.classroomService.joinClassroomAsTeacher(this.joinForm.value.classroomId, this.userId).subscribe(
         (response: Classroom) => {
           this.open(response.classroomId);
         });

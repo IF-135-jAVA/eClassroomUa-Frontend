@@ -98,3 +98,7 @@ mat-slider {
   button{
     margin-right: 10px;
   }
+
+  mat-card-title{
+    cursor: pointer;
+  }

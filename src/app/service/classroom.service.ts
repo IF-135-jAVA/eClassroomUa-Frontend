@@ -55,20 +55,20 @@ export class ClassroomService {
         return this.http.post<Classroom>(`${this.apiServerUrl}`, classroom, options);
     }
 
-    public joinClassroomAsStudent(code: String, userId: number): Observable<Classroom>{
+    public joinClassroomAsStudent(classroomId: string, userId: number): Observable<Classroom>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        let joinString = '?code=' + code + '&userId=' + userId;
-        return this.http.get<Classroom>(`${this.apiServerUrl}join/student${joinString}`, options);
+        let joinString = '?classroomId=' + classroomId + '&userId=' + userId;
+        return this.http.get<Classroom>(`${this.apiServerUrl}join/student`, options);
     }
 
-    public joinClassroomAsTeacher(code: String, userId: number): Observable<Classroom>{
+    public joinClassroomAsTeacher(classroomId: string, userId: number): Observable<Classroom>{
         this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
         let headers = new HttpHeaders().set('Authorization', this.jwtString);
         let options = { headers: headers };
-        let joinString = '?code=' + code + '&userId=' + userId;
-        return this.http.get<Classroom>(`${this.apiServerUrl}join/teacher/${joinString}`, options);
+        let joinString = '?classroomId=' + classroomId + '&userId=' + userId;
+        return this.http.get<Classroom>(`${this.apiServerUrl}join/teacher`, options);
     }
 
     public deleteClassroom(classroomId: string): Observable<void>{

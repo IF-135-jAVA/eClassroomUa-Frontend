@@ -7,7 +7,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 import {LevelService} from "../service/level.service";
 import {environment} from "../../environments/environment";
 import {Level} from "../model/level";
-import {Criterion} from "../model/criterion";
+import {User} from "../model/user";
+
 
 @Component({
   selector: 'app-levels',
@@ -39,6 +40,8 @@ export class LevelsComponent implements OnInit {
   materialId!: number;
   levelId! : number;
   levels$!: Observable<Level[]>;
+  tempLevelId!: number;
+
   constructor(
     private route: ActivatedRoute,
     private levelService: LevelService,
@@ -55,7 +58,8 @@ export class LevelsComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.levels$ = this.levelService.getAllLevels(this.classroomId, this.topicId, this.materialId, this.criterionId);
+this.findAll();
+console.log(this.criterionId)
 
     this.createForm = this.formBuilder.group({
       levelId: '',
@@ -64,6 +68,10 @@ export class LevelsComponent implements OnInit {
       mark: ''
 
     });
+  }
+  findAll(){
+    this.levels$ = this.levelService.getAllLevels(this.classroomId, this.topicId, this.materialId, this.criterionId);
+
   }
 
   create() {
@@ -78,7 +86,7 @@ export class LevelsComponent implements OnInit {
     this.levels$ = this.levelService.getAllLevels( this.classroomId, this.topicId,  this.materialId, this.criterionId);
   }
 
-  getById(classroomId: number, topicId: number, materialId: number, criterionId: number, levelId: number){
+  getById(classroomId: string, topicId: number, materialId: number, criterionId: number, levelId: number){
     return  this.levelService.getLevelById(this.classroomId, this.topicId, this.materialId, this.criterionId, levelId );
   }
   createModal(content: any) {
@@ -96,16 +104,60 @@ export class LevelsComponent implements OnInit {
 
     title: '',
     description: '',
-    mark: ''
+    mark: 0,
 
   });
+  updateLevelForm: FormGroup = this.formBuilder.group({
+
+
+    title: '',
+    description: '',
+    mark: 0,
+
+
+  });
+
+
   sendLevel(){
   let level = new Level();
     level.criterionId = this.criterionId;
     level.title = this.levelForm.get(['title'])?.value;
     level.description = this.levelForm.get(['description'])?.value;
     level.mark = this.levelForm.get(['mark'])?.value;
-
+    console.log(level.criterionId+level.title+level.description);
   this.levelService.createLevel(level, this.classroomId, this.topicId, this.materialId, this.criterionId).subscribe(() => this.getAllLevels());
+  }
+
+  deleteLevel(levelId: number) {
+    this.levelService.deleteLevel( this.classroomId, this.topicId, this.materialId, this.criterionId, levelId).subscribe(() => {
+      this.getAllLevels();
+    });
+
+  }
+  updateLevel( ){
+      //let  newLevel : Level = this.updateLevelForm.getRawValue() as Level;
+    let level = new Level();
+    level.criterionId = this.criterionId;
+
+    let levelId = this.tempLevelId;
+    level.title = this.updateLevelForm.get(['title'])?.value;
+    level.description = this.updateLevelForm.get(['description'])?.value;
+     level.mark = this.updateLevelForm.get(['mark'])?.value;
+    //console.log(title, description, mark,levelId ,this.criterionId );
+
+    // level.title = this.updateLevelForm.get(['title'])?.value;
+    // level.description = this.updateLevelForm.get(['description'])?.value;
+    // level.mark = this.updateLevelForm.get(['mark'])?.value;
+     //console.log(level.title, level.description, level.criterionId );
+
+    this.levelService.updateLevel(this.classroomId, this.topicId, this.materialId, this.criterionId, levelId, level).subscribe(() => {
+      this.getAllLevels();
+    });
+
+
+  }
+  joinModal(content: any, levelId: number) {
+    this.tempLevelId = levelId;
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
   }
 }

@@ -6,13 +6,15 @@
   <div>
     <h1 class="h1">Your classrooms:</h1>
   </div>
+  <div *ngIf="classrooms$ | async as classrooms">
   <div *ngFor="let classroom of classrooms">
     <mat-card class="card">
-      <h2 class="title" (click)="open(classroom.classroomId)">{{classroom.title}}</h2>
+      <mat-card-title (click)="open(classroom.classroomId)">{{classroom.title}}</mat-card-title>
       <mat-card-subtitle class="max-opacity">{{"Description: " + classroom.description}}</mat-card-subtitle>
     </mat-card>
   </div>
   <router-outlet></router-outlet>
+</div>
 </div>
 <ng-template #content let-modal>
   <div class="modal-header">
@@ -21,9 +23,9 @@
   <div class="modal-body">
     <form [formGroup]="joinForm" role="form" class="form-horizontal">
       <div class="form-group">
-        <label for="dateOfBirth">Enter classroom code:</label>
+        <label for="dateOfBirth">Enter classroom id:</label>
         <div class="input-group">
-          <input formControlName="code" type="text" class="form-control"/>
+          <input formControlName="classroomId" type="text" class="form-control"/>
         </div>
       </div>
     </form>
