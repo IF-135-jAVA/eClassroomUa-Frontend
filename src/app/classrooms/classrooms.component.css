@@ -37,6 +37,6 @@ mat-card{
     max-width: 600px;
 }
 
-.title{
+mat-card-title{
     cursor: pointer;
 }

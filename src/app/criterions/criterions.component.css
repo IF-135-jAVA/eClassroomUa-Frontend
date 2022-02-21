@@ -45,3 +45,9 @@ mat-card{
 p {
   cursor: pointer;
 }
+
+textarea{
+  width: 500px;
+  margin: 20px;
+  margin-top: 0px;
+}

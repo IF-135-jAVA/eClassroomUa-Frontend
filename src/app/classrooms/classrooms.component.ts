@@ -34,7 +34,7 @@ export class ClassroomsComponent implements OnInit {
   userRole! : string;
   classroomId!: string;
   classrooms: Classroom[] | undefined;
-  classrooms$!: Observable<Level[]>;
+  classrooms$!: Observable<Classroom[]>;
 
 
   constructor(
@@ -60,19 +60,11 @@ export class ClassroomsComponent implements OnInit {
 
   getClassrooms(){
     if(this.userRole === 'STUDENT'){
-      this.classroomService.getClassroomsByStudent(this.userId).subscribe(
-        (response: Classroom[]) => {
-          this.classrooms = response;
-        }
-      )
+      this.classrooms$ = this.classroomService.getClassroomsByStudent(this.userId)
     }
     else if(this.userRole === 'TEACHER')
     {
-      this.classroomService.getClassroomsByTeacher(this.userId).pipe(take(1)).subscribe(
-        (response: Classroom[]) => {
-          this.classrooms = response;
-        }
-      )
+      this.classrooms$ = this.classroomService.getClassroomsByTeacher(this.userId)
     }
   }
 

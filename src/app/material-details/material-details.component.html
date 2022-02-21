@@ -10,7 +10,11 @@
               <mat-card-content>
                 {{material.text}}
               </mat-card-content>
-              </mat-card>            
+              </mat-card>
+              <mat-tab-group>
+                  <mat-tab label="Criterions"><app-criterion></app-criterion></mat-tab>
+                  <mat-tab label="Assignments"><app-user-assignments></app-user-assignments></mat-tab>
+              </mat-tab-group>           
         </div>
         <div class="col-2 side"></div>  
     </div>
