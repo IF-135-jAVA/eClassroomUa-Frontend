@@ -5,6 +5,8 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {formatDate} from "@angular/common";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment";
+import {MaterialService} from "../service/material.service";
+import {Material} from "../model/material";
 
 @Component({
   selector: 'app-user-assignments',
@@ -19,8 +21,10 @@ export class UserAssignmentsComponent implements OnInit {
   userId!: number;
   userRole!: string;
   helper = new JwtHelperService();
+  isSubmissionAllowed!: boolean;
 
   constructor(
+    private materialService: MaterialService,
     private userAssignmentService: UserAssignmentService,
     private activatedRoute: ActivatedRoute,
     private router: Router
@@ -33,6 +37,7 @@ export class UserAssignmentsComponent implements OnInit {
   ngOnInit(): void {
     this.getUserAssignments();
     this.assignmentStatuses = ['In progress', 'Reviewed', 'Done'];
+    this.getSubmissionAllowed();
   }
 
   getUserAssignments() {
@@ -68,12 +73,11 @@ export class UserAssignmentsComponent implements OnInit {
     );
   }
 
-  isSubmissionAllowed(): boolean {
-    if(this.userAssignments != null && this.userAssignments.length > 0) {
-      return new Date(this.userAssignments[0].dueDate) > new Date();
-    }
-    else {
-      return true;
-    }
+  getSubmissionAllowed() {
+    this.materialService.getMaterialById('e', 0, this.materialId).subscribe(
+      (response: Material) => {
+        this.isSubmissionAllowed = new Date(response.dueDate) > new Date();
+      }
+    )
   }
 }
