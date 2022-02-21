@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormControl, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
@@ -57,7 +57,7 @@ export class MaterialsComponent implements OnInit {
   constructor(
     private route: ActivatedRoute,
     private formBuilder: FormBuilder,
-    private modalService: NgbModal,
+    private router: Router,
     private materialService: MaterialService
   ) {
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
@@ -131,6 +131,10 @@ export class MaterialsComponent implements OnInit {
       url: ''
     });
     this.adding = true;
+  }
+
+  open(materialId: number){
+    this.router.navigate([this.router.url + '/materials/', materialId])
   }
 
 }

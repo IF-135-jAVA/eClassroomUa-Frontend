@@ -1,7 +1,14 @@
-<h2>Criterions:</h2><br>
+<h2>Criterions:</h2>
 <div *ngIf="criterions$ | async as criterions">
   <div *ngFor="let criterion of criterions">
-    <p (click)="open(criterion.id)" >{{criterion.title}}</p>
+    <mat-card>
+      <mat-card-header>
+        <mat-card-title (click)="open(criterion.id)">{{criterion.title}}</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        {{criterion.description}}
+      </mat-card-content>
+    </mat-card>
   </div>
 </div>
 <div *ngIf="this.userRole === 'TEACHER'">

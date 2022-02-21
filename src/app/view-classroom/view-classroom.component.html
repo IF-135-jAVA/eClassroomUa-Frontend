@@ -5,9 +5,8 @@
             <div class="image-top"><span  class="class-name">{{classroom.title}}</span></div>
             <h1>{{classroom.description}}</h1>
             <mat-tab-group>
-                <mat-tab label="First"><app-announcement></app-announcement></mat-tab>
-                <mat-tab label="Second"><app-materials></app-materials></mat-tab>
-                <mat-tab label="Third"><app-topics></app-topics>></mat-tab>
+                <mat-tab label="Announcements"><app-announcement></app-announcement></mat-tab>
+                <mat-tab label="Topics"><app-topics></app-topics></mat-tab>
                 <mat-tab label="Users">
                     <h2>User list:</h2>
                             <div *ngIf="owner$ | async as classroomOwner">
@@ -24,12 +23,12 @@
                                 <div *ngFor="let teacher of teachers">
                                     <mat-card class="example-card">
                                         <mat-card-header>
-                                            <mat-card-title>Students:</mat-card-title>  
+                                            <mat-card-title>Teachers:</mat-card-title>  
                                         </mat-card-header>
                                         <mat-card-content>
                                             {{teacher.firstName + " " + teacher.lastName}}
                                         </mat-card-content>
-                                        <mat-card-actions> <button mat-button class="btn btn-danger" *ngIf="userRole === 'TEACHER'">Kick</button></mat-card-actions>
+                                    
                                     </mat-card>
                                   </div>
                             </div>
@@ -42,7 +41,7 @@
                                         <mat-card-content>
                                             {{student.firstName + " " + student.lastName}}
                                         </mat-card-content>
-                                        <mat-card-actions> <button mat-button class="btn btn-danger" *ngIf="userRole === 'TEACHER'">Kick</button></mat-card-actions>
+                                        
                                     </mat-card>
                                   </div>
                             </div>

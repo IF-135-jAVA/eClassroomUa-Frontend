@@ -44,7 +44,7 @@ export class TopicsComponent implements OnInit {
     private router: Router
   ) {
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
-   // this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
+    this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
@@ -62,8 +62,8 @@ export class TopicsComponent implements OnInit {
 
   create() {
     this.topicService.createTopic(this.topic, this.classroomId).subscribe(
-      (response: Topic) =>{
-        this.open(response.id);
+      () =>{
+        this.getAllTopics();
       }
     )
   }
@@ -88,6 +88,7 @@ export class TopicsComponent implements OnInit {
   });
    sendTopic(){
     let topic = new Topic();
+    topic.classroomId = this.classroomId;
     topic.title = this.topicForm.get(['title'])?.value;
     topic.classroomId = this.classroomId;
     console.log(this.classroomId)
