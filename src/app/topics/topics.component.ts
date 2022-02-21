@@ -90,6 +90,8 @@ export class TopicsComponent implements OnInit {
     let topic = new Topic();
     topic.classroomId = this.classroomId;
     topic.title = this.topicForm.get(['title'])?.value;
+    topic.classroomId = this.classroomId;
+    console.log(this.classroomId)
     this.topicService.createTopic(topic, this.classroomId ).subscribe(() => this.getAllTopics());
   }
 }
