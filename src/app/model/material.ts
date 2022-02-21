@@ -1,6 +1,6 @@
 export class Material{
     id: number = 0;
-    type: string = "";
+    materialType: string = "";
     title: string = "";
     text: string = "";
     maxScore: number = 0;

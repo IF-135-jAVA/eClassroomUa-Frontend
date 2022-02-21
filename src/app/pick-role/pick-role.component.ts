@@ -43,7 +43,7 @@ export class PickRoleComponent implements OnInit {
         (data: AuthResponse) =>{         
           localStorage.setItem(environment.tokenName, data.token);
           Emitters.authEmitter.emit(true);
-          this.router.navigate(['/profile', this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id]);
+          this.router.navigate(['/classrooms']);
       });     
       
   }
