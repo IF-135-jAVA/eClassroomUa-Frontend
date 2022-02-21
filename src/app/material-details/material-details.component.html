@@ -1,1 +1,17 @@
-<p>material-details works!</p>
+<div class="container-fluid" >
+    <div class="row">
+        <div class="col-2 side"></div>
+        <div class="col-8 container" *ngIf="material$ | async as material">
+            <div class="image-top"><span  class="class-name"></span></div>
+            <mat-card clas="card">
+              <mat-card-header>
+                <mat-card-title>{{material.title}}</mat-card-title>
+              </mat-card-header>
+              <mat-card-content>
+                {{material.text}}
+              </mat-card-content>
+              </mat-card>            
+        </div>
+        <div class="col-2 side"></div>  
+    </div>
+  </div>

@@ -1,0 +1,21 @@
+.side{
+    background-color: rgb(197, 197, 197);
+  }
+  .container{
+    background-color: white;
+    min-height: 800px;
+  }
+  .image-top {
+    width:625px; 
+      height:260px;
+      position: relative;
+      left: 18%;
+      border-top-left-radius:15px;
+      border-top-right-radius:15px;
+      border-bottom-left-radius:15px;
+      border-bottom-right-radius:15px;
+      background-image:url(/assets/images/rectangle_1.png);
+      background-repeat:no-repeat;
+      margin-left: 15px;
+      background-size:cover;
+  }
