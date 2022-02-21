@@ -2,7 +2,7 @@ export class Topic{
     id: number = 0;
     title: string = "";
    // text: string = "";
-    classroomId: number = 0;
+    classroomId: string = "";
 
     constructor(values: object = {}) {
         Object.assign(this, values);
