@@ -17,6 +17,7 @@
                   {{"Email: " + user.email}}
                 </mat-card-content>
               <button mat-button class="btn btn-info" (click)="joinModal(content)">Update profile</button>
+              <button *ngIf="!user.confirmed" class="btn btn-warning" (click)="confirmUserRequest(user.email)">Confirm email</button>
             </mat-card>
           
       </div>

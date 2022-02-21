@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { Observable } from 'rxjs';
@@ -37,6 +37,7 @@ export class ProfileComponent implements OnInit {
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
               private authService: AuthService,
+              private router: Router,
               private route: ActivatedRoute) { 
                 this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
@@ -52,6 +53,13 @@ export class ProfileComponent implements OnInit {
   update(){
     let newUser: User = this.updateForm.getRawValue();
     this.authService.updateUser(newUser);
+  }
+
+  confirmUserRequest(email: string):void{
+    this.authService.confirmRequest(email).subscribe(() =>{
+      alert("We sent link to your email to confirm your account.");
+      this.router.navigate(['/']);
+    });
   }
 
 }
