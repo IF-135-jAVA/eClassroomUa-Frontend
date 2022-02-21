@@ -20,6 +20,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 export class AnnouncementDetailsComponent implements OnInit {
   id!: number;
 
+  announcement!: Announcement;
+
   classroomId!: string;
 
   announcementId!: number;
@@ -27,6 +29,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   announcement$!: Observable<Announcement>;
 
   comments$!: Observable<Comments[]>;
+  comments: Comments[] | undefined;
 
   userId!: number;
 
@@ -99,7 +102,7 @@ export class AnnouncementDetailsComponent implements OnInit {
     let comment = new Comments();
     let id = this.commentUpdateForm.get('id')?.value;
     comment.text = this.commentUpdateForm.get('text')?.value;
-    this.commentService.updateComment(this.id, id, comment).subscribe(() => this.getAllComments());
+    this.commentService.updateComment(this.announcementId, id, comment).subscribe(() => this.getAllComments());
   }
 }
 
