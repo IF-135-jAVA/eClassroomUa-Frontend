@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
@@ -18,15 +18,19 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./announcement-details.component.css']
 })
 export class AnnouncementDetailsComponent implements OnInit {
+  comment!: Comments;
   id!: number;
 
-  classroomId!: string;
-
   announcementId!: number;
+
+  announcement!: Announcement;
+
+  classroomId!: string;
 
   announcement$!: Observable<Announcement>;
 
   comments$!: Observable<Comments[]>;
+  comments: Comments[] | undefined;
 
   userId!: number;
 
@@ -46,12 +50,14 @@ export class AnnouncementDetailsComponent implements OnInit {
               private userService: UserService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
+              private router: Router,
               private commentService: CommentService,
-              private route: ActivatedRoute) {
-    this.id = parseInt(this.route.snapshot.paramMap.get('commentId') || '');
+              private route: ActivatedRoute
+  ) {
+    //this.id = parseInt(this.route.snapshot.paramMap.get('commentId') || '');
 
-    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
@@ -91,16 +97,20 @@ export class AnnouncementDetailsComponent implements OnInit {
      return formatDate(comment.date, " dd.MM.yyyy HH:mm", "en-US");
   }
 
-  open(content: any) {
+  open1(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
   updateComment() {
     let comment = new Comments();
-    let id = this.commentUpdateForm.get('id')?.value;
+    let announcementId = this.commentUpdateForm.get('id')?.value;
     comment.text = this.commentUpdateForm.get('text')?.value;
-    this.commentService.updateComment(this.id, id, comment).subscribe(() => this.getAllComments());
+    console.log(this.announcementId, announcementId, comment)
+    this.commentService.updateComment(this.announcementId, announcementId, comment).subscribe(() => this.getAllComments());
+
   }
+
+
 }
 
 

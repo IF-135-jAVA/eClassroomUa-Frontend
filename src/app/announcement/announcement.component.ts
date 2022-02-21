@@ -85,6 +85,8 @@ export class AnnouncementComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
+
+
   exitForm() {
     this.announcementForm.reset();
   }
@@ -97,7 +99,8 @@ export class AnnouncementComponent implements OnInit {
     let announcement = new Announcement();
     let id = this.announcementUpdateForm.get('id')?.value;
     announcement.text = this.announcementUpdateForm.get('text')?.value;
-    this.announcementService.updateAnnouncement(this.classroomId, id, announcement).subscribe(() => this.getAllAnnouncements());
+    // @ts-ignore
+    this.announcementService.updateAnnouncement(this.id, id, announcement).subscribe(() => this.getAllAnnouncements());
   }
 }
 

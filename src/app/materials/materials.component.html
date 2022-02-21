@@ -1,14 +1,11 @@
-<div class="container-fluid">
-<div class="row">
-  <div class="col-2 side"></div>
-    <div class="col-8 container">
-      <div class="image-top"><span  class="name"></span></div>
+
+      
 
 <div class="container-announcement" *ngIf="materials$ | async as materials">
    <div *ngFor="let material of materials">
     <mat-card>  
       <mat-card-header>
-        <mat-card-title>{{material.title}}</mat-card-title>
+        <mat-card-title (click)="open(material.id)" >{{material.title}}</mat-card-title>
         <mat-card-subtitle>{{material.text}}</mat-card-subtitle>
         <div class="detail-options" *ngIf="userRole == 'TEACHER'">
           <mat-icon
@@ -32,10 +29,7 @@
    </div>
   </div>
   <button *ngIf="userRole == 'TEACHER'" class="btn btn-success" (click)="add()">Add material</button>
-    </div>
-    <div class="col-2 side"></div>
-</div>
-</div>
+    
     <mat-card *ngIf="editing || adding" class="form-material" >
       <mat-card-title *ngIf="editing">Update material</mat-card-title>
       <mat-card-title *ngIf="adding">Add material</mat-card-title>

@@ -9,7 +9,7 @@
   <div *ngIf="classrooms$ | async as classrooms">
   <div *ngFor="let classroom of classrooms">
     <mat-card class="card">
-      <h2 class="title" (click)="open(classroom.title)">{{classroom.title}}</h2>
+      <mat-card-title (click)="open(classroom.classroomId)">{{classroom.title}}</mat-card-title>
       <mat-card-subtitle class="max-opacity">{{"Description: " + classroom.description}}</mat-card-subtitle>
     </mat-card>
   </div>

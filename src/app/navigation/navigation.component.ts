@@ -25,6 +25,7 @@ export class NavigationComponent implements OnInit {
   }
 
   ngOnInit(): void {
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName)?.toString()).id;
     Emitters.authEmitter.subscribe(
       (auth: boolean) => {
         this.authenticated = !this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString());
@@ -34,7 +35,7 @@ export class NavigationComponent implements OnInit {
       this.authenticated = false;
       return;
     }
-    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName)?.toString()).id;
+    
     this.authenticated = !this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString());
   }
   

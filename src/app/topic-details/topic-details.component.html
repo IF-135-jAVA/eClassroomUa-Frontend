@@ -1,19 +1,18 @@
-<div class="container-topic" *ngIf="topic$ | async as topic">
+<div class="container-fluid" >
   <div class="row">
-    <div class="image-top"><span  class="name"></span></div>
-  </div>
-  <h1>{{topic.title}}</h1>
-  <div class="row">
-    <div>
-      <mat-card class="card">
-
-        <mat-card-subtitle class="max-opacity">{{"Topic: " + topic.title}}</mat-card-subtitle>
-      </mat-card>
-    </div>
-    <div class="box box-large">
-      <app-material-details></app-material-details>
-    </div>
-
-
+      <div class="col-2 side"></div>
+      <div class="col-8 container" *ngIf="topic$ | async as topic">
+          <div class="image-top"></div>
+          <h1>{{topic.title}}</h1>
+          <mat-card clas="card">
+            <mat-card-header>
+              <mat-card-title>Materials</mat-card-title>
+            </mat-card-header>
+            <mat-card-content>
+              <app-materials></app-materials>
+            </mat-card-content>
+            </mat-card>            
+      </div>
+      <div class="col-2 side"></div>  
   </div>
 </div>

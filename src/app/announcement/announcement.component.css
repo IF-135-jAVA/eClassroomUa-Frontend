@@ -68,14 +68,15 @@ mat-form-field {
 
 button {
   width: 80%;
-  max-width: 300px;
+  max-width: 200px;
   margin-bottom: 1em;
+  margin-right: 10px;
 }
 
 button:hover, .detail-options {
   cursor: pointer;
-
-
 }
 
-
+textarea{
+  max-width: 1000px;
+}

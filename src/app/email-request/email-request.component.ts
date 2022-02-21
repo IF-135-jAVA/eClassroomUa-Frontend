@@ -24,9 +24,7 @@ export class EmailRequestComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    this.route.queryParams.subscribe((params) => {
-      this.type = params['type'];
-      })
+    
   }
 
   sendPasswordRequest():void{
@@ -36,11 +34,6 @@ export class EmailRequestComponent implements OnInit {
     });
   }
 
-  confirmUserRequest():void{
-    this.authService.confirmRequest(this.form.get(['email'])?.value).subscribe(() =>{
-      alert("We sent link to your email to confirm your account.");
-      this.router.navigate(['/']);
-    });
-  }
+  
 
 }

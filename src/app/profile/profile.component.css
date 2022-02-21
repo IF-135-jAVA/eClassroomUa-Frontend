@@ -40,3 +40,7 @@
 mat-card{
 	width: 625px;
 }
+
+button{
+	margin-right: 10px;
+}
