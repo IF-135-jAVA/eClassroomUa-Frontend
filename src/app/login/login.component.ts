@@ -43,7 +43,6 @@ export class LoginComponent implements OnInit {
     this.authService.login(this.form.getRawValue()).subscribe(
       (data: AuthResponse) => {
         localStorage.setItem(environment.tokenName, data.token);
-        console.log("login " + data.token);
         if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
           this.errorMessage = ": Invalid email or password"
         } else {

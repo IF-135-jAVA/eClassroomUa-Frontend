@@ -4,7 +4,8 @@ export class User{
     lastName: string = "";
     email: string = "";
     enabled: boolean = true;
-    
+    confirmed: boolean = true;
+
     constructor(values: object = {}) {
         Object.assign(this, values);
     }
