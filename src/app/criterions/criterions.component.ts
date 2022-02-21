@@ -7,6 +7,7 @@ import { Criterion } from '../model/criterion';
 import {CriterionService} from "../service/criterion.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import { Observable } from 'rxjs';
+import {Level} from "../model/level";
 
 
 
@@ -33,14 +34,15 @@ export class CriterionsComponent implements OnInit {
   errorMessage = '';
   closeResult = '';
   helper = new JwtHelperService();
-  userId! : number;
-  userRole! : string;
-  criterionId! : number;
-  criterion! : Criterion;
-  classroomId! : string;
-  topicId! : number;
+  userId!: number;
+  userRole!: string;
+  criterionId!: number;
+  criterion!: Criterion;
+  classroomId!: string;
+  topicId!: number;
   materialId!: number;
   criterions$!: Observable<Criterion[]>;
+  tempCriterionId!: number;
 
 
   constructor(
@@ -53,12 +55,12 @@ export class CriterionsComponent implements OnInit {
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
-    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
 
   ngOnInit(): void {
-    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId, this.materialId);
+    this.criterions$ = this.criterionService.getAllCriterions(this.classroomId, this.topicId, this.materialId);
 
     this.createForm = this.formBuilder.group({
       criterionId: '',
@@ -68,20 +70,25 @@ export class CriterionsComponent implements OnInit {
     });
   }
 
+  updateCriterionForm: FormGroup = this.formBuilder.group({
+    title: '',
+    description: '',
+  });
+
   create() {
-  this.criterionService.createCriterion(this.criterion, this.classroomId, this.topicId,  this.materialId).subscribe(
-    (response: Criterion) =>{
-      this.open(response.id);
-    }
-  )
+    this.criterionService.createCriterion(this.criterion, this.classroomId, this.topicId, this.materialId).subscribe(
+      (response: Criterion) => {
+        this.open(response.id);
+      }
+    )
   }
 
-  getAllCriterions(){
-    this.criterions$ = this.criterionService.getAllCriterions( this.classroomId, this.topicId,  this.materialId)
+  getAllCriterions() {
+    this.criterions$ = this.criterionService.getAllCriterions(this.classroomId, this.topicId, this.materialId)
   }
 
-  getById(classroomId: number, topicId: number, materialId: number, criterionId: number){
-    return  this.criterionService.getCriterionById(this.classroomId, this.topicId, this.materialId, criterionId );
+  getById(classroomId: number, topicId: number, materialId: number, criterionId: number) {
+    return this.criterionService.getCriterionById(this.classroomId, this.topicId, this.materialId, criterionId);
   }
 
 
@@ -92,15 +99,17 @@ export class CriterionsComponent implements OnInit {
   }
 
   open(criterionId: number) {
-  console.log(criterionId)
+    console.log(criterionId)
     this.router.navigate(['/classrooms/' + this.classroomId + '/topics/' + this.topicId + '/materials/' + this.materialId + '/criterions/', criterionId]);
   }
+
   criterionForm: FormGroup = this.formBuilder.group({
 
     title: '',
     description: ''
   });
-  sendCriterion(){
+
+  sendCriterion() {
     let criterion = new Criterion();
     criterion.materialId = this.materialId;
     criterion.title = this.criterionForm.get(['title'])?.value;
@@ -108,4 +117,32 @@ export class CriterionsComponent implements OnInit {
 
     this.criterionService.createCriterion(criterion, this.classroomId, this.topicId, this.materialId).subscribe(() => this.getAllCriterions());
   }
+
+  deleteCriterion(criterionId: number) {
+    this.criterionService.deleteCriterion(this.classroomId, this.topicId, this.materialId, criterionId).subscribe(() => {
+      this.getAllCriterions();
+    });
+  }
+
+  updateCriterion( ) {
+    let criterion = new Criterion();
+    criterion.materialId = this.materialId;
+
+    let criterionId = this.tempCriterionId;
+    criterion.title = this.updateCriterionForm.get(['title'])?.value;
+    criterion.description = this.updateCriterionForm.get(['description'])?.value;
+    console.log(criterion.title, criterion.description, criterion.materialId, criterionId  );
+
+    this.criterionService.updateCriterion(this.classroomId, this.topicId, this.materialId, criterionId, criterion).subscribe(() => {
+      this.getAllCriterions();
+    });
+  }
+  joinModal(content: any, criterionId: number) {
+    this.tempCriterionId = criterionId;
+    console.log(criterionId);
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {});
+  }
+
 }
+
+
