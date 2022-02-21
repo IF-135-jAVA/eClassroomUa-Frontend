@@ -1,6 +1,7 @@
 <h2>Levels:</h2><br>
 <div *ngIf="levels$ | async as levels">
   <div *ngFor="let level of levels">
+    <p (click)="open(level.id)" >{{level.title}}</p>
     <mat-card class="card">
       <mat-card-title>
         {{level.title}}
@@ -8,10 +9,13 @@
     <mat-card-subtitle>
       {{level.description}}
     </mat-card-subtitle>
+      <mat-card-subtitle>
+        {{level.mark}}
+      </mat-card-subtitle>
                   <mat-icon
                     class="comment-icon"
                     color="secondary"
-                    (click)="joinModal(content)"
+                    (click)="joinModal(content, level.id)"
                   >edit
                   </mat-icon>
       <mat-icon
@@ -33,7 +37,7 @@
       <textarea formControlName="description" class="form-control" matInput placeholder="Description"></textarea>
       <textarea formControlName="mark" class="form-control" matInput placeholder="Max mark"></textarea>
 
-      <button mat-button (click)="sendLevel()">Save</button>
+      <button type="button" class="btn btn-success btn-google " (click)="sendLevel()">Save</button>
     </div>
   </form>
 </div>
@@ -53,7 +57,7 @@
     </form>
   </div>
   <div class="modal-footer">
-    <button type="button" class="btn btn-success btn-google" (click)="updateLevel(); modal.close()">Update</button>
+    <button type="button" class="btn btn-success btn-google " (click)="updateLevel(); modal.close()">Update</button>
   </div>
 </ng-template>
 <!--<ng-template #content let-modal>-->
