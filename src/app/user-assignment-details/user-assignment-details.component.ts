@@ -95,6 +95,7 @@ export class UserAssignmentDetailsComponent implements OnInit {
     answer.text = this.answerForm.get('text')?.value;
     this.answerService.createAnswer(this.id, answer).subscribe(() => {
       this.getAnswers();
+      this.getUserAssignment();
       this.answerForm.reset();
     });
   }
@@ -106,12 +107,14 @@ export class UserAssignmentDetailsComponent implements OnInit {
   updateFeedback() {
     let userAssignment = new UserAssignment();
     userAssignment.feedback = this.feedbackForm.get('feedback')?.value;
+    userAssignment.grade = this.userAssignment.grade;
     this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
   }
 
   updateGrade(event: any) {
     let userAssignment = new UserAssignment();
     userAssignment.grade = event.value;
+    userAssignment.feedback = this.userAssignment.feedback;
     this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
   }
 
@@ -129,11 +132,17 @@ export class UserAssignmentDetailsComponent implements OnInit {
     let answer = new Answer();
     let id = this.answerUpdateForm.get('id')?.value;
     answer.text = this.answerUpdateForm.get('text')?.value;
-    this.answerService.updateAnswer(this.id, id, answer).subscribe(() => this.getAnswers());
+    this.answerService.updateAnswer(this.id, id, answer).subscribe(() => {
+      this.getAnswers();
+      this.getUserAssignment();
+    });
   }
 
   deleteAnswer(answerId: number) {
-    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe(() => this.getAnswers());
+    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe(() => {
+      this.getAnswers();
+      this.getUserAssignment();
+    });
   }
 
   isSubmissionAllowed(): boolean {
