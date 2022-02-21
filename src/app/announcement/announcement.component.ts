@@ -97,7 +97,8 @@ export class AnnouncementComponent implements OnInit {
     let announcement = new Announcement();
     let id = this.announcementUpdateForm.get('id')?.value;
     announcement.text = this.announcementUpdateForm.get('text')?.value;
-    this.announcementService.updateAnnouncement(this.classroomId, id, announcement).subscribe(() => this.getAllAnnouncements());
+    // @ts-ignore
+    this.announcementService.updateAnnouncement(this.id, id, announcement).subscribe(() => this.getAllAnnouncements());
   }
 }
 

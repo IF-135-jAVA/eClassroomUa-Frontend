@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {FormBuilder, FormGroup} from '@angular/forms';
-import {ActivatedRoute} from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import {JwtHelperService} from '@auth0/angular-jwt';
 import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
@@ -19,6 +19,8 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 })
 export class AnnouncementDetailsComponent implements OnInit {
   id!: number;
+  comment!: Comments;
+  announcement!: Announcement;
 
   classroomId!: string;
 
@@ -27,6 +29,7 @@ export class AnnouncementDetailsComponent implements OnInit {
   announcement$!: Observable<Announcement>;
 
   comments$!: Observable<Comments[]>;
+  comments: Comments[] | undefined;
 
   userId!: number;
 
@@ -46,9 +49,10 @@ export class AnnouncementDetailsComponent implements OnInit {
               private userService: UserService,
               private formBuilder: FormBuilder,
               private modalService: NgbModal,
+              private router: Router,
               private commentService: CommentService,
               private route: ActivatedRoute) {
-    this.id = parseInt(this.route.snapshot.paramMap.get('commentId') || '');
+    // this.id = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
 
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
@@ -91,7 +95,7 @@ export class AnnouncementDetailsComponent implements OnInit {
      return formatDate(comment.date, " dd.MM.yyyy HH:mm", "en-US");
   }
 
-  open(content: any) {
+  open1(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
@@ -99,7 +103,7 @@ export class AnnouncementDetailsComponent implements OnInit {
     let comment = new Comments();
     let id = this.commentUpdateForm.get('id')?.value;
     comment.text = this.commentUpdateForm.get('text')?.value;
-    this.commentService.updateComment(this.id, id, comment).subscribe(() => this.getAllComments());
+    this.commentService.updateComment(this.announcementId, id, comment).subscribe(() => this.getAllComments());
   }
 }
 

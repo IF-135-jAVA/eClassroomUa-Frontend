@@ -68,11 +68,11 @@ export class CommentService {
         return this.http.delete<Comments>(`${this.apiServerUrl}comments/${commentId}`, options)
     }
 
-    public updateComment(announcementId: number, commentId: number, comment: Comments) {
+    public updateComment(announcementId: number, commentId: number, comment: Comments): Observable<Comments> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = {headers: headers};
-    return this.http.put(`${this.apiServerUrl}$comments/${commentId}`, options)
+    return this.http.put<Comments>(`${this.apiServerUrl}$comments/${commentId}`, comment, options)
   }
 }
 
