@@ -23,6 +23,13 @@ export class AnswerService {
     return this.http.post<Answer>(`${this.apiServerUrl}${userAssignmentId}/answers`, answer, options);
   }
 
+  public updateAnswer(userAssignmentId: number, answerId: number, answer: Answer): Observable<Answer> {
+    this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
+    let headers = new HttpHeaders().set('Authorization', this.jwtString);
+    let options = { headers: headers };
+    return this.http.put<Answer>(`${this.apiServerUrl}${userAssignmentId}/answers/${answerId}`, answer, options)
+  }
+
   public deleteAnswer(userAssignmentId: number, answerId: number): Observable<void> {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);

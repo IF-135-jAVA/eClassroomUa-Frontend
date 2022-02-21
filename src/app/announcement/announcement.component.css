@@ -6,7 +6,9 @@ form button{
 }
 
 
-
+.all-announcements {
+  text-align: center;
+}
 
 .announcement-card{
   margin-bottom: 5px;

@@ -6,6 +6,7 @@ import {Observable} from 'rxjs';
 import {environment} from 'src/environments/environment';
 import {Announcement} from '../model/announcement';
 import {AnnouncementService} from '../service/announcement.service';
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 
 @Component({
@@ -15,14 +16,18 @@ import {AnnouncementService} from '../service/announcement.service';
 })
 export class AnnouncementComponent implements OnInit {
 
+  announcement!: Announcement;
+  id!: number;
+  announcements: Announcement[] | undefined;
+  toggle = true;
+
   announcements$!: Observable<Announcement[]>;
 
   classroomId!: string;
 
-  userId! : number;
+  userId!: number;
 
-  userRole! : string;
-
+  userRole!: string;
 
   helper = new JwtHelperService();
 
@@ -30,15 +35,24 @@ export class AnnouncementComponent implements OnInit {
     text: ''
   });
 
+  announcementUpdateForm: FormGroup = this.formBuilder.group({
+    id: 0,
+    text: ''
+  });
+
   constructor(private announcementService: AnnouncementService,
               private route: ActivatedRoute,
               private formBuilder: FormBuilder,
-              private router: Router) {
+              private router: Router,
+              private modalService: NgbModal) {
+
+    this.id = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
 
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
-    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
-    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
+    this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
+    this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
+
 
   ngOnInit(): void {
     this.getAllAnnouncements();
@@ -55,23 +69,48 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.createAnnouncement(this.classroomId, announcement).subscribe(() => this.getAllAnnouncements());
   }
 
-  updateAnnouncement() {
-    let announcement = new Announcement();
-    announcement.courseId = this.classroomId;
-    announcement.text = this.announcementForm.get(['text'])?.value;
-    // @ts-ignore
-    this.announcementService.updateAnnouncement();
-  }
-
-
   deleteAnnouncement(announcementId: number) {
     this.announcementService.deleteAnnouncement(this.classroomId, announcementId).subscribe(() => {
       this.getAllAnnouncements();
     });
-
   }
 
   open(announcementId: number) {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
+
+
+
+  open1(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  exitForm() {
+    this.announcementForm.reset();
+  }
+
+  toggleAnnouncements() {
+    this.toggle = !this.toggle
+  }
+
+  updateAnnouncement() {
+    let announcement = new Announcement();
+    let id = this.announcementUpdateForm.get('id')?.value;
+    announcement.text = this.announcementUpdateForm.get('text')?.value;
+    this.announcementService.updateAnnouncement(this.classroomId, id, announcement).subscribe(() => this.getAllAnnouncements());
+  }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+

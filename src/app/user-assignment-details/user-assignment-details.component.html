@@ -3,15 +3,26 @@
   <tbody>
   <tr>
     <th scope="row">Student</th>
-    <td>{{ userName }}</td>
+    <td>{{ userAssignment.userFirstName + " " + userAssignment.userLastName }}</td>
   </tr>
   <tr>
     <th scope="row">Assignment</th>
-    <td>{{ materialTitle }}</td>
+    <td>{{ userAssignment.materialTitle }}</td>
   </tr>
   <tr>
     <th scope="row">Status of Assignment</th>
-    <td>{{ getAssignmentStatus(userAssignment.assignmentStatusId) }}</td>
+    <td *ngIf="userRole == 'TEACHER' || userAssignment.assignmentStatusId == 2">
+      {{ getAssignmentStatus() }}
+    </td>
+    <td *ngIf="userRole == 'STUDENT' && userAssignment.assignmentStatusId != 2">
+      <mat-form-field appearance="fill">
+        <mat-select [value]="getAssignmentStatus()" (selectionChange)="updateAssignmentStatus($event)">
+          <mat-option [value]=assignmentStatus *ngFor="let assignmentStatus of assignmentStatusesSelectable">
+            {{ assignmentStatus }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
   </tr>
   <tr>
     <th scope="row">Date of Submission</th>
@@ -19,11 +30,29 @@
   </tr>
   <tr>
     <th scope="row">Grade</th>
-    <td>{{ userAssignment.grade }}</td>
+    <td *ngIf="userRole == 'STUDENT'">
+      {{ userAssignment.grade }}
+    </td>
+    <td *ngIf="userRole == 'TEACHER'">
+      <mat-form-field appearance="fill">
+        <mat-select [(value)]="userAssignment.grade" (selectionChange)="updateGrade($event)">
+          <mat-option [value]=grade *ngFor="let grade of getGrades()">
+            {{ grade }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+    </td>
   </tr>
   <tr>
     <th scope="row">Feedback</th>
-    <td>{{ userAssignment.feedback }}</td>
+    <td>
+      {{ userAssignment.feedback }}
+      <button *ngIf="userRole == 'TEACHER'"
+              (click)="feedbackForm.setValue({feedback: userAssignment.feedback}); open(content2)"
+              mat-mini-fab color="secondary" class="btn-success btn-with-small-margin">
+        <mat-icon>edit</mat-icon>
+      </button>
+    </td>
   </tr>
   </tbody>
 </table>
@@ -39,7 +68,7 @@
     <div>
       <textarea id="text" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control" placeholder="New answer"></textarea>
     </div>
-    <button type="submit" class="btn btn-success btn-google btn-with-margin">Add answer</button>
+    <button type="submit" [disabled]="!isSubmissionAllowed()" class="btn btn-success btn-google btn-with-margin">Add answer</button>
   </form>
 </div>
 
@@ -48,10 +77,53 @@
   <tr *ngFor="let answer of answers">
     <td>{{ answer.text }}</td>
     <td>
-      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" class="btn btn-danger btn-google">
-        Delete
+      <button (click)="answerUpdateForm.setValue({id: answer.id, text: answer.text}); open(content)" *ngIf="userRole == 'STUDENT'"
+              [disabled]="!isSubmissionAllowed()" mat-mini-fab color="secondary" class="btn-success btn-with-small-margin">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button (click)="deleteAnswer(answer.id)" *ngIf="userRole == 'STUDENT'" [disabled]="!isSubmissionAllowed()"
+              mat-mini-fab color="warn" class="btn-danger btn-with-small-margin">
+        <mat-icon>delete</mat-icon>
       </button>
     </td>
   </tr>
   </tbody>
 </table>
+
+<app-file-upload [isSubmissionAllowed]="isSubmissionAllowed()"></app-file-upload>
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update answer</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="answerUpdateForm">
+        <div>
+          <textarea [value]="answerUpdateForm.get('text')?.value" id="textUpdate" type="text" formControlName="text" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateAnswer(); modal.close()">Update</button>
+  </div>
+</ng-template>
+
+<ng-template #content2 let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-feedback">Update feedback</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="feedbackForm">
+        <div>
+          <textarea [value]="feedbackForm.get('feedback')?.value" id="feedbackUpdate" type="text" formControlName="feedback" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google" (click)="updateFeedback(); modal.close()">Update</button>
+  </div>
+</ng-template>

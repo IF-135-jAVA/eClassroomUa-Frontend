@@ -2,18 +2,13 @@ import { Component, OnInit } from '@angular/core';
 import {UserAssignment} from "../model/user-assignment";
 import {UserAssignmentService} from "../service/user-assignment.service";
 import {ActivatedRoute, Router} from "@angular/router";
-import {Topic} from "../model/topic";
-import {Material} from "../model/material";
 import {formatDate} from "@angular/common";
-import {AssignmentStatus} from "../model/assignment-status";
-import {User} from "../model/user";
-import {UserService} from "../service/user.service";
-import {MaterialService} from "../service/material.service";
 import {Answer} from "../model/answer";
 import {AnswerService} from "../service/answer.service";
 import {JwtHelperService} from "@auth0/angular-jwt";
 import {environment} from "../../environments/environment";
 import {FormBuilder, FormGroup} from "@angular/forms";
+import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
 
 @Component({
   selector: 'app-user-assignment-details',
@@ -25,24 +20,30 @@ export class UserAssignmentDetailsComponent implements OnInit {
   userAssignment!: UserAssignment;
   materialId!: number;
   id!: number;
-  materialTitle!: String;
-  userName!: String;
   answers: Answer[] | undefined;
+  assignmentStatuses!: String[];
+  assignmentStatusesSelectable!: String[];
 
   userRole!: string;
   helper = new JwtHelperService();
   answerForm: FormGroup = this.formBuilder.group({
     text: ''
   });
+  answerUpdateForm: FormGroup = this.formBuilder.group({
+    id: 0,
+    text: ''
+  });
+  feedbackForm: FormGroup = this.formBuilder.group({
+    feedback: ''
+  });
 
   constructor(
     private userAssignmentService: UserAssignmentService,
-    private userService: UserService,
-    private materialService: MaterialService,
     private answerService: AnswerService,
     private activatedRoute: ActivatedRoute,
     private router: Router,
-    private formBuilder: FormBuilder
+    private formBuilder: FormBuilder,
+    private modalService: NgbModal
   ) {
     this.materialId = parseInt(this.activatedRoute.snapshot.paramMap.get('materialId') || '');
     this.id = parseInt(this.activatedRoute.snapshot.paramMap.get('assignmentId') || '');
@@ -51,41 +52,25 @@ export class UserAssignmentDetailsComponent implements OnInit {
 
   ngOnInit(): void {
     this.getUserAssignment();
-    this.getMaterialTitle();
     this.getAnswers();
+    this.assignmentStatuses = ['In progress', 'Reviewed', 'Done'];
+    this.assignmentStatusesSelectable = ['In progress', 'Done'];
   }
 
   getUserAssignment() {
     this.userAssignmentService.getUserAssignmentById(this.materialId, this.id).subscribe(
       (response: UserAssignment) => {
         this.userAssignment = response;
-        this.getUserName();
       }
     )
   }
 
-  getUserName() {
-    this.userService.getUserById(this.userAssignment.userId).subscribe(
-      (response: User) => {
-        this.userName = response.firstName + " " + response.lastName;
-      }
-    )
-  }
-
-  getMaterialTitle() {
-    this.materialService.getMaterialById(new Topic(), this.materialId).subscribe(
-      (response: Material) => {
-        this.materialTitle = response.title;
-      }
-    )
+  getGrades(): number[] {
+    return Array.from(Array(this.userAssignment.maxScore + 1).keys());
   }
 
   getSubmissionDate(userAssignment: UserAssignment): String {
-    return userAssignment.submissionDate == null ? "Not submitted yet" : formatDate(userAssignment.submissionDate, "medium", "en-US");
-  }
-
-  getAssignmentStatus(value: number): String {
-    return AssignmentStatus[value];
+    return userAssignment.submissionDate == null ? "Not submitted yet" : formatDate(userAssignment.submissionDate, "MMM dd, yyyy, HH:mm", "en-US");
   }
 
   getAnswers() {
@@ -108,11 +93,54 @@ export class UserAssignmentDetailsComponent implements OnInit {
     let answer = new Answer();
     answer.userAssignmentId = this.id;
     answer.text = this.answerForm.get('text')?.value;
-    this.answerService.createAnswer(this.id, answer).subscribe(() => window.location.reload());
+    this.answerService.createAnswer(this.id, answer).subscribe(() => {
+      this.getAnswers();
+      this.answerForm.reset();
+    });
+  }
+
+  open(content: any) {
+    this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
+  }
+
+  updateFeedback() {
+    let userAssignment = new UserAssignment();
+    userAssignment.feedback = this.feedbackForm.get('feedback')?.value;
+    this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
+  }
+
+  updateGrade(event: any) {
+    let userAssignment = new UserAssignment();
+    userAssignment.grade = event.value;
+    this.userAssignmentService.updateUserAssignmentAsTeacher(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
+  }
+
+  getAssignmentStatus(): String {
+    return this.assignmentStatuses[this.userAssignment.assignmentStatusId - 1];
+  }
+
+  updateAssignmentStatus(event: any) {
+    let userAssignment = new UserAssignment();
+    userAssignment.assignmentStatusId = this.assignmentStatuses.indexOf(event.value) + 1;
+    this.userAssignmentService.updateUserAssignmentAsStudent(this.materialId, this.id, userAssignment).subscribe(() => this.getUserAssignment());
+  }
+
+  updateAnswer() {
+    let answer = new Answer();
+    let id = this.answerUpdateForm.get('id')?.value;
+    answer.text = this.answerUpdateForm.get('text')?.value;
+    this.answerService.updateAnswer(this.id, id, answer).subscribe(() => this.getAnswers());
   }
 
   deleteAnswer(answerId: number) {
-    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe();
-    window.location.reload();
+    this.answerService.deleteAnswer(this.userAssignment.id, answerId).subscribe(() => this.getAnswers());
+  }
+
+  isSubmissionAllowed(): boolean {
+    let result = new Date(this.userAssignment.dueDate) > new Date();
+    if (!result) {
+      this.answerForm.disable();
+    }
+    return result;
   }
 }
