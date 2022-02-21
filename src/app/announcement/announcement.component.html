@@ -1,6 +1,5 @@
 <div class="all-announcements">
-  <!--     *ngIf="!adding && !editing">-->
-  <h2>Announcements</h2><br>
+    <h2>Announcements</h2><br>
   <button class="btn btn-primary" mat-button (click)="toggleAnnouncements()">Toggle Announcements</button>
 
   <div *ngIf="toggle; else noAnnouncements">
@@ -21,7 +20,7 @@
             <mat-icon
               class="announcement-icon"
               color="warn"
-              (click)="deleteAnnouncement(announcement.id)"
+              (click)="deleteAnnouncement(announcement.id)" *ngIf="userRole == 'TEACHER'"
             >delete
             </mat-icon>
           </div>
@@ -33,13 +32,11 @@
 
 
 <div class="add-form-container">
-  <!--     *ngIf="adding || editing">-->
-  <div>
+   <div>
     <div *ngIf="this.userRole === 'TEACHER'">
       <form [formGroup]="announcementForm"  class="form-horizontal" role="form">
-<!--        (ngSubmit)="onSubmit()"-->
         <div appearance="fill">
-          <mat-label>Message</mat-label>
+          <mat-label>Add Announcement</mat-label>
           <textarea formControlName="text" class="form-control" matInput placeholder="Announcement"></textarea>
           <button class="btn btn-primary" mat-button (click)="sendAnnouncement()">Publish</button>
           <button class="btn btn-primary" mat-button (click)="exitForm()">Cancel</button>
