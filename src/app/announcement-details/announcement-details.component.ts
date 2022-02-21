@@ -18,13 +18,14 @@ import {NgbModal} from "@ng-bootstrap/ng-bootstrap";
   styleUrls: ['./announcement-details.component.css']
 })
 export class AnnouncementDetailsComponent implements OnInit {
-  id!: number;
   comment!: Comments;
+  id!: number;
+
+  announcementId!: number;
+
   announcement!: Announcement;
 
   classroomId!: string;
-
-  announcementId!: number;
 
   announcement$!: Observable<Announcement>;
 
@@ -51,11 +52,12 @@ export class AnnouncementDetailsComponent implements OnInit {
               private modalService: NgbModal,
               private router: Router,
               private commentService: CommentService,
-              private route: ActivatedRoute) {
-    // this.id = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
+              private route: ActivatedRoute
+  ) {
+    //this.id = parseInt(this.route.snapshot.paramMap.get('commentId') || '');
 
-    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.announcementId = parseInt(this.route.snapshot.paramMap.get('announcementId') || '');
+    this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.userId = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName) || '').role;
   }
@@ -101,10 +103,14 @@ export class AnnouncementDetailsComponent implements OnInit {
 
   updateComment() {
     let comment = new Comments();
-    let id = this.commentUpdateForm.get('id')?.value;
+    let announcementId = this.commentUpdateForm.get('id')?.value;
     comment.text = this.commentUpdateForm.get('text')?.value;
-    this.commentService.updateComment(this.announcementId, id, comment).subscribe(() => this.getAllComments());
+    console.log(this.announcementId, announcementId, comment)
+    this.commentService.updateComment(this.announcementId, announcementId, comment).subscribe(() => this.getAllComments());
+
   }
+
+
 }
 
 
