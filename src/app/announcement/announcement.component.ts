@@ -85,6 +85,8 @@ export class AnnouncementComponent implements OnInit {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
 
+
+
   exitForm() {
     this.announcementForm.reset();
   }
