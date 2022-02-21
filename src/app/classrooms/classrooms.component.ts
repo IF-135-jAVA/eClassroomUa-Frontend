@@ -34,7 +34,7 @@ export class ClassroomsComponent implements OnInit {
   userRole! : string;
   classroomId!: string;
   classrooms: Classroom[] | undefined;
-  classrooms$!: Observable<Level[]>;
+  classrooms$!: Observable<Classroom[]>;
 
 
   constructor(
