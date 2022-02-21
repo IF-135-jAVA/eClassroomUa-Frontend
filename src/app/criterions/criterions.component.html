@@ -7,6 +7,18 @@
       </mat-card-header>
       <mat-card-content>
         {{criterion.description}}
+        <mat-icon
+          class="comment-icon"
+          color="secondary"
+          (click)="joinModal(content, criterion.id)"
+        >edit
+        </mat-icon>
+        <mat-icon
+          class="comment-icon"
+          color="warn"
+          (click)="deleteCriterion(criterion.id)"
+        >delete
+        </mat-icon>
       </mat-card-content>
     </mat-card>
   </div>
@@ -21,3 +33,23 @@
     </div>
   </form>
 </div>
+
+
+<ng-template #content let-modal>
+  <div class="modal-header">
+    <h4 class="modal-title" id="modal-basic-title">Update criterion</h4>
+  </div>
+  <div class="modal-body">
+    <form>
+      <form [formGroup]="updateCriterionForm">
+        <div>
+          <textarea [value]="updateCriterionForm.get('title')?.value" id="textUpdate" type="text" formControlName="title" class="md-textarea md-textarea-auto form-control"></textarea>
+          <textarea [value]="updateCriterionForm.get('description')?.value" id="descriptionUpdate" type="text" formControlName="description" class="md-textarea md-textarea-auto form-control"></textarea>
+        </div>
+      </form>
+    </form>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-success btn-google " (click)="updateCriterion(); modal.close()">Update</button>
+  </div>
+</ng-template>

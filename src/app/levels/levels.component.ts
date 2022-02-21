@@ -145,11 +145,6 @@ console.log(this.criterionId)
      level.mark = this.updateLevelForm.get(['mark'])?.value;
     //console.log(title, description, mark,levelId ,this.criterionId );
 
-    // level.title = this.updateLevelForm.get(['title'])?.value;
-    // level.description = this.updateLevelForm.get(['description'])?.value;
-    // level.mark = this.updateLevelForm.get(['mark'])?.value;
-     //console.log(level.title, level.description, level.criterionId );
-
     this.levelService.updateLevel(this.classroomId, this.topicId, this.materialId, this.criterionId, levelId, level).subscribe(() => {
       this.getAllLevels();
     });

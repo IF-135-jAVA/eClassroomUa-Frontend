@@ -56,14 +56,9 @@ export class LevelService {
     this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
     let headers = new HttpHeaders().set('Authorization', this.jwtString);
     let options = { headers: headers };
-    console.log(criterionId)
+
     return this.http.put<Level>(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level/${levelId}`, level, options)
   }
 
-  // public updateLevel( classroomId: string, topicId: number, materialId: number, criterionId: number, level: Level){
-  //   this.jwtString = 'Bearer ' + localStorage.getItem(environment.tokenName);
-  //   let headers = new HttpHeaders().set('Authorization', this.jwtString);
-  //   let options = { headers: headers };
-  //   return this.http.put(`${this.apiServerUrl}${classroomId}/topics/${topicId}/materials/${materialId}/criterions/${criterionId}/level/`, level, options)
-  // }
+
 }
