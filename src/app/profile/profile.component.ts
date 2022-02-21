@@ -19,6 +19,8 @@ export class ProfileComponent implements OnInit {
 
   user!: User;
 
+  userRole!: string;
+
   user$!: Observable<User>;
 
   helper = new JwtHelperService();
@@ -36,6 +38,7 @@ export class ProfileComponent implements OnInit {
               private modalService: NgbModal,
               private authService: AuthService,
               private route: ActivatedRoute) { 
+                this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {

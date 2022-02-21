@@ -3,16 +3,22 @@
     <div class="image-top"><span  class="name">User profile</span></div>
 </div>
   <div class="row">
-          <div class="box">
+          
             <mat-card>
               <mat-card-header>
+                  <mat-card-title>You entered as:
+                    <span *ngIf="userRole =='TEACHER'"> Teacher</span>
+                    <span *ngIf="userRole =='STUDENT'"> Student</span>
+                  </mat-card-title>
+              </mat-card-header>
+                <mat-card-content>
                   {{"First name: " + user.firstName}}<br>
                   {{"Last name: " + user.lastName}}<br>
-                  {{"Email: " + user.email}}<br>
-              </mat-card-header>
-              <button mat-button class="button, profile-button" (click)="joinModal(content)">Update profile</button>
+                  {{"Email: " + user.email}}
+                </mat-card-content>
+              <button mat-button class="btn btn-info" (click)="joinModal(content)">Update profile</button>
             </mat-card>
-          </div>
+          
       </div>
   </div>
 

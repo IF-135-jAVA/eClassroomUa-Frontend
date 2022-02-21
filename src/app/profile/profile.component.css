@@ -36,14 +36,7 @@
   font-weight: bold;
 	letter-spacing:0;
 }
-.box{
-	background-color:rgba(255, 255, 255, 1);
-	width:625px;
-	height:auto;
-	  border-top-left-radius:15px;
-	  border-top-right-radius:15px;
-	  border-bottom-left-radius:15px;
-	  border-bottom-right-radius:15px;
-	border:2px solid rgba(0, 0, 0, 1);
-	margin-top: 10px;
-  }
+
+mat-card{
+	width: 625px;
+}

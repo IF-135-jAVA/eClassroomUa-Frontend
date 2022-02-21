@@ -79,6 +79,8 @@ export class AnnouncementComponent implements OnInit {
     this.router.navigate(['/classrooms/' + this.classroomId + '/announcements', announcementId]);
   }
 
+
+
   open1(content: any) {
     this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'});
   }
@@ -98,6 +100,7 @@ export class AnnouncementComponent implements OnInit {
     this.announcementService.updateAnnouncement(this.classroomId, id, announcement).subscribe(() => this.getAllAnnouncements());
   }
 }
+
 
 
 
