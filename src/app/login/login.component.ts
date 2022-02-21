@@ -33,12 +33,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    Emitters.oauthEmitter.emit(false);
   }
 
   loginWithGoogle(){
     window.location.href = "https://belero-app.herokuapp.com/oauth2/authorize/google?redirect_uri=https%3A%2F%2Fllocalhost/pick-role%2F"
-    Emitters.oauthEmitter.emit(true);
   }
 
   login(): void {
@@ -47,10 +45,8 @@ export class LoginComponent implements OnInit {
         localStorage.setItem(environment.tokenName, data.token);
         console.log("login " + data.token);
         if (this.helper.isTokenExpired(localStorage.getItem(environment.tokenName)?.toString())) {
-          Emitters.authEmitter.emit(false);
           this.errorMessage = ": Invalid email or password"
         } else {
-          Emitters.authEmitter.emit(true);
           this.router.navigate(['/pick-role']);
         }
       });

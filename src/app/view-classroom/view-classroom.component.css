@@ -25,22 +25,14 @@
 	letter-spacing:0;
 }
 
-.box{
-  background-color:rgba(255, 255, 255, 1);
-  height:auto;
-	border-radius:5px;
-  border:2px solid rgba(0, 0, 0, 1);
-  margin-top: 10px;
-  padding: 5px;
-}
+.side{
+    background-color: rgb(197, 197, 197);
+  }
+  .container{
+    background-color: white;
+    min-height: 800px;
+  }
 
-.container-classroom{
-  background-color: rgba(235, 235, 235, 0.8);;
-  width:960px;
-  height: auto;
-  margin: 0 auto;
-  padding: 5px;
-}
-.code{
-  font-size: small;
+.example-card{
+	margin-top: 10px;
 }
