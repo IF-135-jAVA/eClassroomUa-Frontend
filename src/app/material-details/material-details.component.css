@@ -6,7 +6,7 @@
     min-height: 800px;
   }
   .image-top {
-    width:625px; 
+    width:625px;
       height:260px;
       position: relative;
       left: 18%;
@@ -19,3 +19,7 @@
       margin-left: 15px;
       background-size:cover;
   }
+
+.btn-with-margin {
+  margin-top: 15px;
+}
