@@ -37,12 +37,16 @@ export class MaterialDetailsComponent implements OnInit {
     this.classroomId = (this.route.snapshot.paramMap.get('classroomId') || '');
     this.topicId = parseInt(this.route.snapshot.paramMap.get('topicId') || '');
     this.materialId = parseInt(this.route.snapshot.paramMap.get('materialId') || '');
-    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id; 
+    this.userId  = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').id;
     this.userRole = this.helper.decodeToken(localStorage.getItem(environment.tokenName)|| '').role;
   }
 
   ngOnInit(): void {
     this.material$ = this.materialService.getMaterialById(this.classroomId, this.topicId, this.materialId)
+  }
+
+  toUserAssignments() {
+    this.router.navigate(['materials/' + this.materialId + '/assignments']);
   }
 
 }
